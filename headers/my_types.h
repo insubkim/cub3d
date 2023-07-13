@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/12 19:40:12 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/13 22:57:08 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ enum e_direction {
 };
 
 typedef struct s_vector {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_player {
 	t_vector	dir;
 	t_vector	loc;
+	t_vector	plane;
 }	t_player;
 
 typedef struct s_map {
@@ -67,6 +68,7 @@ typedef struct s_map {
 typedef struct s_game {
 	void		*mlx;
 	void		*win;
+	void		*img;
 	t_map		map;
 	t_player	player;
 }	t_game;
