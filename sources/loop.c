@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/15 23:47:11 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/16 00:09:11 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	move_dir(enum e_direction dir, t_player *player){
 	double	rot_rate;
 	
 	if (dir == LEFT)
-		rot_rate = ROTATE_DEGREE * PI / 180;
-	else
 		rot_rate = -ROTATE_DEGREE * PI / 180;
+	else
+		rot_rate = ROTATE_DEGREE * PI / 180;
 	oldDirX = player->dir.x;
 	player->dir.x = player->dir.x * cos(rot_rate) - player->dir.y * sin(rot_rate);
     player->dir.y = oldDirX * sin(rot_rate) + player->dir.y * cos(rot_rate);
