@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/14 17:41:47 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/15 22:19:05 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 # define MY_TYPES_H
 
 # include <stdbool.h>
+# include <stdlib.h>
+#include <math.h>
 
 # define ERROR_BOOL 0
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
+
+# define PI 3.1415926535
+# define ROTATE_DEGREE 10
+
+# define WIN_WIDTH 200
+# define WIN_HEIGHT 300
 
 # define TILESIZE 4
 
