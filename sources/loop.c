@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/16 00:09:11 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/16 11:34:32 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ void	move_dir(enum e_direction dir, t_player *player){
 	double	rot_rate;
 	
 	if (dir == LEFT)
-		rot_rate = -ROTATE_DEGREE * PI / 180;
-	else
 		rot_rate = ROTATE_DEGREE * PI / 180;
+	else
+		rot_rate = -ROTATE_DEGREE * PI / 180;
 	oldDirX = player->dir.x;
 	player->dir.x = player->dir.x * cos(rot_rate) - player->dir.y * sin(rot_rate);
     player->dir.y = oldDirX * sin(rot_rate) + player->dir.y * cos(rot_rate);
-    oldPlaneX = player->plane.x;
+	oldPlaneX = player->plane.x;
 	player->plane.x = player->plane.x * cos(rot_rate) - player->plane.y * sin(rot_rate);
-    player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
+	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
 /*
-	atan(기울기) -> 라디안임.
+	atans(기울기) -> 라디안임.
 	라디안을 알면 sin cos를 이용하여 x,y 구할 수 있음.
 	up down 은 방향 벡터로, left right은 카메라 벡터로(방향벡터와 수직이므로)
 	down, left의 경우 반대로 가야하니 음수처리.
@@ -56,9 +56,9 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	double	y;
 
 	if (dir == UP || dir == DOWN)//dir 방향으로 
-		radian = atan(game_info->player.dir.y / game_info->player.dir.x);
+		radian = atan2(game_info->player.dir.y, game_info->player.dir.x);
 	else //if (dir == LEFT || dir == RIGHT)//plane 방향으로 
-		radian = atan(game_info->player.plane.y / game_info->player.plane.x);
+		radian = atan2(game_info->player.plane.y, game_info->player.plane.x);
 	x = cos(radian) * ((double)1 / TILESIZE);
 	y = sin(radian) * ((double)1 / TILESIZE);
 	if (dir == DOWN || dir == LEFT)
