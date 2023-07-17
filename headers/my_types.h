@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/15 22:19:05 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/17 21:26:08 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define PI 3.1415926535
 # define ROTATE_DEGREE 10
 
-# define WIN_WIDTH 200
-# define WIN_HEIGHT 300
+# define WIN_WIDTH 600
+# define WIN_HEIGHT 400
 
 # define TILESIZE 4
 

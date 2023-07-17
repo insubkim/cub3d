@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"my_types.h": "c",
+		"stdlib.h": "c",
+		"raycasting.h": "c"
+	}
+}
