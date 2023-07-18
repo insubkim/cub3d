@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/17 21:52:01 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/18 15:39:21 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	__test_init(t_game *game_info){
  */
 void	__test_raycasting(t_game *game_info){
 	double arr[WIN_WIDTH] = {0,};
+	for (int i = 0; i < WIN_WIDTH; i++)
+		arr[i] = 0;
 	double *dist_of_rays = arr;
 	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
 	printf("\n\n\n\n");
