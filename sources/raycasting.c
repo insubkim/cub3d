@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/18 16:25:15 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/18 20:11:29 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
  *            - player_loc: 플레이어의 위치, 광선이 뻗어나오는 시작점
  * return: none
  */
-static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double ray_dir, double player_loc)
+static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double ray_dir, double player_loc, double rayDirAnother)
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
-		ray->delta_dist = fabs(1 / ray_dir);
+		ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
+		// ray->delta_dist = fabs(1 / ray_dir);
 
 	if (ray_dir < 0)
 	{
@@ -54,7 +55,7 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 	t_vector	ray_dir_vec;
 
 	ray_dir_vec.x = player.dir.x + (player.plane.x * camera_x);
-	ray_dir_vec.y = player.dir.y + (player.plane.y * camera_x);
+	ray_dir_vec.y = -(player.dir.y + (player.plane.y * camera_x));
 
 	ray->loc.x = (int)(player.loc.x);
 	ray->loc.y = (int)(player.loc.y);
@@ -62,8 +63,8 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 	//init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.dir.x);
 	//init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.dir.y);
 
-	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.loc.x);
-	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.loc.y);
+	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.loc.x, ray_dir_vec.y);
+	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.loc.y, ray_dir_vec.x);
 
 	ray->is_hit = 0;
 }
@@ -114,6 +115,7 @@ void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, cha
 
 			//Check if ray has hit a wall
 			if(map_board[ray.loc.x][ray.loc.y] > 0) ray.is_hit = 1;
+			
 		}
 
 		// calculate dist of ray
