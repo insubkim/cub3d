@@ -44,7 +44,6 @@ $(NAME): $(OBJS)
 
 clean:
 	make clean -C $(LIBFT_DIR)
-	make clean -C $(PRINTF_DIR)
 	$(RM) $(OBJS_DIR)
 
 fclean:
