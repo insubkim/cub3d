@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/12 19:40:12 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/18 16:23:14 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 # define MY_TYPES_H
 
 # include <stdbool.h>
+# include <stdlib.h>
+#include <math.h>
 
 # define ERROR_BOOL 0
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
 
-# define TILESIZE 64
+# define PI 3.1415926535
+# define ROTATE_DEGREE 10
+
+# define WIN_WIDTH 100
+# define WIN_HEIGHT 400
+
+# define TILESIZE 4
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
@@ -49,13 +57,14 @@ enum e_direction {
 };
 
 typedef struct s_vector {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_vector;
 
 typedef struct s_player {
 	t_vector	dir;
 	t_vector	loc;
+	t_vector	plane;
 }	t_player;
 
 typedef struct s_map {
@@ -64,9 +73,19 @@ typedef struct s_map {
 	int		height;
 }		t_map;
 
+typedef struct	s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_img;
+
 typedef struct s_game {
 	void		*mlx;
 	void		*win;
+	t_img		img;
+	t_img		*img_copy;
 	t_map		map;
 	t_player	player;
 }	t_game;
