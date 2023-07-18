@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/18 15:39:21 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/18 16:41:56 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	__test_init(t_game *game_info){
 	game_info->map.height = 15;
 	game_info->map.width = 15;
 	//init player
-	game_info->player.loc.x = 2;
-	game_info->player.loc.y = 6;
+	game_info->player.loc.x = 13;
+	game_info->player.loc.y = 13;
 	game_info->player.dir.x = -1;
 	game_info->player.dir.y = 0;
 	game_info->player.plane.x = 0;
@@ -83,7 +83,7 @@ void	__test_raycasting(t_game *game_info){
 	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
 	printf("\n\n\n\n");
 	for (int i = 0; i < WIN_WIDTH; i++){
-		printf("%f\n", dist_of_rays[i]);
+		printf("%lf\n", dist_of_rays[i]);
 		if (i == WIN_WIDTH / 2)
 			printf("-------------------------------------\n");
 	}
@@ -154,9 +154,9 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	double	y;
 
 	if (dir == UP || dir == DOWN)//dir 방향일때,
-		radian = atan2(game_info->player.dir.y, game_info->player.dir.x);
+		radian = atan2(-game_info->player.dir.y, game_info->player.dir.x);
 	else //plane 방향일때,
-		radian = atan2(game_info->player.plane.y, game_info->player.plane.x);
+		radian = atan2(-game_info->player.plane.y, game_info->player.plane.x);
 	x = cos(radian) * ((double)1 / TILESIZE);
 	y = sin(radian) * ((double)1 / TILESIZE);
 	if (dir == DOWN || dir == LEFT)// down 이나 left면  방향 반대이므로 -1 곱함.
@@ -200,8 +200,8 @@ int	handle_key(int keycode, t_game *game_info){
 	else
 		return (0);
 	//천장, 바닥 표시 + raycasting + 변경 된 화면에 표시, 이전 이미지 파괴.
-	//__test_print(game_info);
 	__test_raycasting(game_info);
+	__test_player_print(game_info);
 	return (0);
 }
 
@@ -217,6 +217,8 @@ int	main(void){
 
 	//천장 바닥 표시 + raycasting + 첫 화면 표시
 	__test_raycasting(&game_info);
+	__test_player_print(&game_info);
+
 	//hook
 	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);

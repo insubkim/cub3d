@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/17 20:38:44 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/18 16:25:15 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 	ray->loc.x = (int)(player.loc.x);
 	ray->loc.y = (int)(player.loc.y);
 
-	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.dir.x);
-	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.dir.y);
+	//init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.dir.x);
+	//init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.dir.y);
+
+	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.loc.x);
+	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.loc.y);
 
 	ray->is_hit = 0;
 }
