@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/18 21:38:46 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/19 20:35:46 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, cha
 			(*dist_of_rays)[x] = (ray.x.side_dist - ray.x.delta_dist);
 		else
 			(*dist_of_rays)[x] = (ray.y.side_dist - ray.y.delta_dist);
-		//printf("%d\t%d\t%lf\n", ray.loc.x, ray.loc.y, (*dist_of_rays)[x]);
 	}
 }
 

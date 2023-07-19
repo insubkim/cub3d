@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/19 10:59:13 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/19 21:49:00 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	__test_init(t_game *game_info){
 	game_info->map.height = height;
 	game_info->map.width = width;
 	//init player
-	game_info->player.loc.x = 1;
-	game_info->player.loc.y = 1;
+	game_info->player.loc.x = 3;
+	game_info->player.loc.y = 3;
 	game_info->player.dir.x = -1;
 	game_info->player.dir.y = 0;
 	game_info->player.plane.x = 0;
@@ -185,6 +185,12 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	}
 }
 
+//테스트용
+void    make_img(t_game *game_info);
+void    draw_map(t_player player, t_img img, t_map map);
+void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color);
+
+
 /* handle_key
  * : mlx에 등록되어 mlx_loop 도중 키보드 입력시 대응되는 키보드 값을 처리함.
  *   플레이어 이동 혹은 시선 이동임. 변경이 되면 새로운 화면 출력
@@ -213,10 +219,12 @@ int	handle_key(int keycode, t_game *game_info){
 	//천장, 바닥 표시 + raycasting + map 화면에 표시, 이전 이미지 파괴.
 	//__test_raycasting(game_info);
 	//__test_player_print(game_info);
+	make_img(game_info);
+	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
+	draw_map(game_info->player, game_info->img, game_info->map);
+	mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->img.img, 0, 0);
 	return (0);
 }
-
-void    draw_map(t_game *game_info);
 
 int	main(void){
 	t_game	game_info;
@@ -227,10 +235,13 @@ int	main(void){
 	//parse + set t_game
 
 	//천장 바닥 표시 + raycasting + map표시 첫 화면 표시 
+	make_img(&game_info);
+	draw_floor_ceil(&game_info, 0x00000000, 0x00FF0000);
+	draw_map(game_info.player, game_info.img, game_info.map);
+	mlx_put_image_to_window(game_info.mlx, game_info.win, game_info.img.img, 0, 0);
 	//__test_raycasting(&game_info);
 	//__test_player_print(&game_info);
-	draw_map(&game_info);
-
+	
 	//hook
 	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
@@ -238,5 +249,4 @@ int	main(void){
 	//리소스 해제
 	destroy_game(&game_info);
 	return (0);
-	
 }
