@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/18 20:05:03 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/18 21:38:46 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double r
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
-		//ray->delta_dist = fabs(1 / ray_dir);
-		//sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX)
 		ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
-
 	if (ray_dir < 0)
 	{
 		ray->step_size = -1;
@@ -56,8 +53,7 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 	t_vector	ray_dir_vec;
 
 	ray_dir_vec.x = player.dir.x + (player.plane.x * camera_x);
-	//ray_dir_vec.y = player.dir.y + (player.plane.y * camera_x);
-	ray_dir_vec.y = -player.dir.y + (-player.plane.y * camera_x);
+	ray_dir_vec.y = -(player.dir.y + (player.plane.y * camera_x));
 
 	ray->loc.x = (int)(player.loc.x);
 	ray->loc.y = (int)(player.loc.y);
@@ -93,8 +89,9 @@ static void	jump_to_next_side(int side, t_side_data_of_ray *side_data, int *ray_
  *            - map_board: 맵 보드(2차원)
  * return: none
  */
+#include <stdio.h>
 void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board)
-{
+{	
 	int		x;
 	t_ray_data	ray;
 
@@ -116,14 +113,15 @@ void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, cha
 				jump_to_next_side(WE, &(ray.y), &(ray.loc.y), &(ray.side)); 
 
 			//Check if ray has hit a wall
-			//if(map_board[ray.loc.x][ray.loc.y] > 0) ray.is_hit = 1;
+			if(map_board[ray.loc.x][ray.loc.y] > 0) ray.is_hit = 1;
 		}
 
-		// calculate dist of ray
+		// calculate dist of ray 
 		if(ray.side == NS) 
 			(*dist_of_rays)[x] = (ray.x.side_dist - ray.x.delta_dist);
 		else
 			(*dist_of_rays)[x] = (ray.y.side_dist - ray.y.delta_dist);
+		//printf("%d\t%d\t%lf\n", ray.loc.x, ray.loc.y, (*dist_of_rays)[x]);
 	}
 }
 

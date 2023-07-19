@@ -28,7 +28,7 @@ MD		= mkdir -p
 
 # --------------------------------- RULES ------------------------------------ #
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c 
 	$(MD) $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 
