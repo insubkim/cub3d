@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/19 20:35:46 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/21 15:59:59 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void	jump_to_next_side(int side, t_side_data_of_ray *side_data, int *ray_
  *            - map_board: 맵 보드(2차원)
  * return: none
  */
-#include <stdio.h>
 void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board)
 {	
 	int		x;
