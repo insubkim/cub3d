@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/21 15:28:07 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/21 17:57:59 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void    draw_map(t_player player, t_img img, t_map map)
         {
             if (p.x + j - 100 < 0 || p.x + j - 100 >= map.width * 20)//맵 범위 넘어갔을시
                 continue ;
-            if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == 1 \
+            if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL \
 			&& (p.y + i - 100) % 20 > 5 && (p.y + i - 100) % 20 < 15 \
 			&& (p.x + j - 100) % 20 > 5 && (p.x + j - 100) % 20 < 15)//벽 길이가 10일때만 표시
                 my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00808080);
