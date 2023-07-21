@@ -9,6 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/hio/Desktop/cub3d/cub3d",
+			// "program": "/Users/inskim/inskim/4circle/cub3d-1/cub3d",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
