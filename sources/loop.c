@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/18 16:41:56 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/20 20:42:35 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,80 +14,12 @@
 #include "../headers/my_types.h"
 #include "../headers/raycasting.h"
 
-//test용 loop 값 확인
-#include <stdio.h>
-/* __test_player_print
- * : player 위치, 방향 벡터, 카메라 벡터 출력
- *
- * parameter - game_info: 게임 정보
- * return: none
- */
-void	__test_player_print(t_game *game_info){
-	printf("loc\t%lf    %lf\n", game_info->player.loc.x, game_info->player.loc.y);
-	printf("dir\t%lf    %lf\n", game_info->player.dir.x, game_info->player.dir.y);
-	printf("plane\t%lf    %lf\n\n", game_info->player.plane.x, game_info->player.plane.y);	
-}
-
-/* __test_init
- * : game_info 초기화
- *
- * parameter - game_info: 게임 정보 
- * return: none
- */
-void	__test_init(t_game *game_info){
-	//init map
-	static char arrs[15][15] ={
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	};
-	char **board = malloc(sizeof(char *) * 15);
-	for (int i = 0; i < 15; i++){
-		board[i] = arrs[i];
-	}
-	game_info->map.board = board;
-	game_info->map.height = 15;
-	game_info->map.width = 15;
-	//init player
-	game_info->player.loc.x = 13;
-	game_info->player.loc.y = 13;
-	game_info->player.dir.x = -1;
-	game_info->player.dir.y = 0;
-	game_info->player.plane.x = 0;
-	game_info->player.plane.y = 0.66;
-}
-
-/* __test_raycasting
- * : do_raycasting 결과 값 출력
- *
- * parameter - game_info: 게임 정보 
- * return: none
- */
-void	__test_raycasting(t_game *game_info){
-	double arr[WIN_WIDTH] = {0,};
-	for (int i = 0; i < WIN_WIDTH; i++)
-		arr[i] = 0;
-	double *dist_of_rays = arr;
-	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
-	printf("\n\n\n\n");
-	for (int i = 0; i < WIN_WIDTH; i++){
-		printf("%lf\n", dist_of_rays[i]);
-		if (i == WIN_WIDTH / 2)
-			printf("-------------------------------------\n");
-	}
-}
+//test 용
+void    make_img(t_game *game_info);
+void    draw_map(t_player player, t_img img, t_map map);
+void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color);
+void    print_img(t_game *game_info);
+void	__test_init(t_game *game_info);
 
 /* destroy_game
  * : 리소스 해제
@@ -166,8 +98,8 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	}
 	x += game_info->player.loc.x;
 	y += game_info->player.loc.y;
-	if (x > 1 && x < game_info->map.width - 1 &&\
-		 y > 1 && y < game_info->map.height - 1)//범위 체크
+
+	if (game_info->map.board[(int)y][(int)x] != 1)
 	{
 		game_info->player.loc.x = x;
 		game_info->player.loc.y = y;
@@ -199,26 +131,21 @@ int	handle_key(int keycode, t_game *game_info){
 		handle_close(game_info);
 	else
 		return (0);
-	//천장, 바닥 표시 + raycasting + 변경 된 화면에 표시, 이전 이미지 파괴.
-	__test_raycasting(game_info);
-	__test_player_print(game_info);
+	print_img(game_info);
 	return (0);
 }
-
-
 
 int	main(void){
 	t_game	game_info;
 	game_info.mlx = mlx_init();
 	game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
+	game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
 	
-	__test_init(&game_info);
+	__test_init(&game_info);//test용 초기화
 	//parse + set t_game
 
-	//천장 바닥 표시 + raycasting + 첫 화면 표시
-	__test_raycasting(&game_info);
-	__test_player_print(&game_info);
-
+	//화면 표시
+	print_img(&game_info);
 	//hook
 	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
