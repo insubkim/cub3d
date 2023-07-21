@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/20 20:42:35 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/21 19:31:23 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	x += game_info->player.loc.x;
 	y += game_info->player.loc.y;
 
-	if (game_info->map.board[(int)y][(int)x] != 1)
+	if (game_info->map.board[(int)y][(int)x] != WALL)
 	{
 		game_info->player.loc.x = x;
 		game_info->player.loc.y = y;

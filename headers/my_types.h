@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/21 14:24:45 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/21 19:31:40 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 800
 
-# define TILESIZE 20
+# define TILESIZE 5
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
