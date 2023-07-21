@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/21 15:20:55 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/21 15:28:07 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);//test
 
+/* draw_square
+ * : point 부터 size 크기의 정사각형을 color 값으로 img에 넣음 
+ * 
+ * paramter - img: 이미지 정보
+ *          - point: 시작 x,y 좌표
+ *          - color: 픽셀 값
+ *return: none
+ */       
 void	draw_square(t_img img, t_point point, int size, int color)
 {
 	int	i;
@@ -34,6 +42,20 @@ void	draw_square(t_img img, t_point point, int size, int color)
 	}
 }
 
+/* set_map_white
+ * : 맵을 전부 흰색으로 세팅
+ * parameter - img : 이미지 정보
+ * return: none
+ */
+void	set_map_white(t_img img)
+{
+	t_point p;
+	
+	p.x = 0;
+	p.y = WIN_HEIGHT - 220;
+	draw_square(img, p, 220, 0x00FFFFFF);
+}
+
 /* draw_map
  * : 플레이어 위치에 따른 맵 생성. 맵 정중앙은 플레이어 위치이고 각 방향 5칸 까지의 구조물을 표현함. 
  *   한 칸당 20 * 20 픽셀로 나타냄. 맵은 220 * 220 펙셀임. 화면 왼쪽 하단에 표시
@@ -48,9 +70,7 @@ void    draw_map(t_player player, t_img img, t_map map)
     int j;
 	t_point p;
 
-	p.x = 0;
-	p.y = WIN_HEIGHT - 220;
-    draw_square(img, p, 220, 0x00FFFFFF);// 처음 전부 흰색으로 칠함.
+	set_map_white(img);
     p.x = (int)(player.loc.x * 20);
     p.y = (int)(player.loc.y * 20);
     i = -1;
