@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/21 18:21:04 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:27:26 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	get_real_pixel_to_draw(int *start, int *end, int screen_height, double dist
     *end = draw_end;
 }
 
-#include <stdio.h>
 void    draw_wall(t_game *game_info)
 {
 	double arr[WIN_WIDTH] = {0,};

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:37:39 by insub             #+#    #+#             */
-/*   Updated: 2023/07/21 18:15:37 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:17:50 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	__test_init(t_game *game_info){
 	game_info->map.height = height;
 	game_info->map.width = width;
 	//init player
-	game_info->player.loc.x = 26;
-	game_info->player.loc.y = 11;
+	game_info->player.loc.x = 26.2;
+	game_info->player.loc.y = 11.2;
 	game_info->player.dir.x = -1;
 	game_info->player.dir.y = 0;
 	game_info->player.plane.x = 0;

@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/21 19:31:23 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/25 16:26:14 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,21 @@ void	move_dir(enum e_direction dir, t_player *player){
 	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
+bool	is_wall(char **board, double x, double y)
+{
+	if (board[(int)y][(int)x] == WALL || \
+		board[(int)y][(int)(x + 0.2)] == WALL || \
+		board[(int)y][(int)(x - 0.2)] == WALL || \
+		board[(int)(y + 0.2)][(int)x] == WALL || \
+		board[(int)(y + 0.2)][(int)(x + 0.2)] == WALL || \
+		board[(int)(y + 0.2)][(int)(x - 0.2)] == WALL || \
+		board[(int)(y - 0.2)][(int)x] == WALL || \
+		board[(int)(y - 0.2)][(int)(x + 0.2)] == WALL || \
+		board[(int)(y - 0.2)][(int)(x - 0.2)] == WALL)
+			return true;
+	return false;
+}
+
 /* move_player
  * : WASD를 눌렸을시 플레이어 위치를 방향벡터에 따라 이동시킴.
  *	atan2(기울기) -> 라디안임.
@@ -99,7 +114,7 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	x += game_info->player.loc.x;
 	y += game_info->player.loc.y;
 
-	if (game_info->map.board[(int)y][(int)x] != WALL)
+	if (!is_wall(game_info->map.board, x, y))
 	{
 		game_info->player.loc.x = x;
 		game_info->player.loc.y = y;

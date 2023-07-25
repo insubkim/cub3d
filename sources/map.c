@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/21 19:31:34 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/25 16:27:49 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void    draw_map(t_player player, t_img img, t_map map)
         {
             if (p.x + j - 100 < 0 || p.x + j - 100 >= map.width * 20)//맵 범위 넘어갔을시
                 continue ;
-            if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL \
-			&& (p.y + i - 100) % 20 > 5 && (p.y + i - 100) % 20 < 15 \
-			&& (p.x + j - 100) % 20 > 5 && (p.x + j - 100) % 20 < 15)//벽 길이가 10일때만 표시
+            if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL)
                 my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00808080);
             else if ((i - 100) * (i - 100) + (j - 100) * (j - 100) < 30)// 가운데는 플레이어 위치 표시
                 my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00FF0000);
