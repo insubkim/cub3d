@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/18 16:23:14 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/21 19:31:40 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # define PI 3.1415926535
 # define ROTATE_DEGREE 10
 
-# define WIN_WIDTH 100
-# define WIN_HEIGHT 400
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 800
 
-# define TILESIZE 4
+# define TILESIZE 5
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
