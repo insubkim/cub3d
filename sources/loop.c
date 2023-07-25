@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/25 16:26:14 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/25 19:03:11 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,22 +150,24 @@ int	handle_key(int keycode, t_game *game_info){
 	return (0);
 }
 
-int	main(void){
+int	main(int argc, char **argv){
 	t_game	game_info;
-	game_info.mlx = mlx_init();
-	game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
-	game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
-	
-	__test_init(&game_info);//test용 초기화
-	//parse + set t_game
 
-	//화면 표시
-	print_img(&game_info);
-	//hook
-	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
-	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
-	mlx_loop(game_info.mlx);
-	//리소스 해제
-	destroy_game(&game_info);
+	init(argv[1], &game_info);
+	// game_info.mlx = mlx_init();
+	// game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
+	// game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
+	
+	// __test_init(&game_info);//test용 초기화
+	// //parse + set t_game
+
+	// //화면 표시
+	// print_img(&game_info);
+	// //hook
+	// mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
+	// mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
+	// mlx_loop(game_info.mlx);
+	// //리소스 해제
+	// destroy_game(&game_info);
 	return (0);
 }

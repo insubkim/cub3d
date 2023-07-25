@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/21 19:31:40 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/25 18:43:56 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
-#include <math.h>
+# include <math.h>
+# include <fcntl.h> 
 
 # define ERROR_BOOL 0
 # define ERROR_INT -1
@@ -67,12 +68,6 @@ typedef struct s_player {
 	t_vector	plane;
 }	t_player;
 
-typedef struct s_map {
-	char	**board;
-	int		width;
-	int		height;
-}		t_map;
-
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -80,6 +75,18 @@ typedef struct	s_img {
 	int		line_length;
 	int		endian;
 }				t_img;
+
+typedef struct s_map {
+	char	**board;
+	int		width;
+	int		height;
+	int		ceil_color;
+	int		floor_color;
+	t_img	north_texture;
+	t_img	south_texture;
+	t_img	west_texture;
+	t_img	east_texture;
+}		t_map;
 
 typedef struct s_game {
 	void		*mlx;

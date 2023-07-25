@@ -2,6 +2,7 @@
 	"files.associations": {
 		"my_types.h": "c",
 		"stdlib.h": "c",
-		"raycasting.h": "c"
+		"raycasting.h": "c",
+		"get_next_line_bonus.h": "c"
 	}
 }
