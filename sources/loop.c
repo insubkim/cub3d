@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/26 12:58:47 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 19:00:03 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,11 @@ int	handle_key(int keycode, t_game *game_info){
 
 int	init(char *file_name, t_game *game_info);
 
+#include <stdio.h>
 int	main(int argc, char **argv){
 	t_game	game_info;
 
-	init(argv[1], &game_info);
+	printf("%d\n",init(argv[1], &game_info));
 	// game_info.mlx = mlx_init();
 	// game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	// game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
