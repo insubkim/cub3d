@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/25 19:03:11 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 12:58:47 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ int	handle_key(int keycode, t_game *game_info){
 	print_img(game_info);
 	return (0);
 }
+
+int	init(char *file_name, t_game *game_info);
 
 int	main(int argc, char **argv){
 	t_game	game_info;

@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/25 16:27:26 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 13:31:33 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include "../headers/my_types.h"
 #include "../library/libft/libft.h"
 
-
 void    draw_map(t_player player, t_img img, t_map map);//test
-void	__test_player_print(t_game *game_info);//test
+void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);
 
 /* make_img
  * : mlx 이미지 초기화, 플레이어 이동시 변경 전, 변경 후 img 둘 을 가지게 됨. 
@@ -80,8 +79,6 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
     }
 }
 
-void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);
-
 /* get_real_pixel_to_draw
  * : 어안효과(같은 거리에 있는 일직선의 벽이 광선의 방향으로 인해 둥글게 그려지는 현상, 볼록렌즈)를 
  *   없애기 위해 실제로 화면에 그려지는 벽의 높이를 구함
@@ -114,14 +111,13 @@ void	get_real_pixel_to_draw(int *start, int *end, int screen_height, double dist
 void    draw_wall(t_game *game_info)
 {
 	double arr[WIN_WIDTH] = {0,};
+	int	draw_start;
+	int	draw_end;
+	
 	for (int i = 0; i < WIN_WIDTH; i++)
 		arr[i] = 0;
 	double *dist_of_rays = arr;
 	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
-
-	int	draw_start;
-	int	draw_end;
-    
 	// Calculate height of line to draw on screenW=
 	for (int i = 0; i < WIN_WIDTH; i++)
 	{

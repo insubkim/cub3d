@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/25 19:14:56 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 12:57:27 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct s_list
+typedef struct s_gnl_list
 {
 	int				fd;
 	char			*str;
-	struct s_list	*next;
-}	t_list;
+	struct s_gnl_list	*next;
+}	t_gnl_list;
 
-char	*get_next_line(int fd);
-char	*error_handle(t_list **lst, int fd, char *read_buf);
-int		has_newline(t_list *lst, int fd);
-int		ft_strlen(const char *s);
+char	*get_next_line(int fd, int *is_eof);
+char	*error_handle(t_gnl_list **lst, int fd, char *read_buf);
+int		has_newline(t_gnl_list *lst, int fd);
+int		gnl_strlen(const char *s);
 char	*gnl_strjoin(char *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, int len);
-t_list	*get_node(t_list *lst, int fd);
+char	*gnl_substr(char const *s, unsigned int start, int len);
+t_gnl_list	*get_node(t_gnl_list *lst, int fd);
 
 #endif

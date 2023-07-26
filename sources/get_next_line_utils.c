@@ -6,16 +6,16 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/25 19:08:16 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 13:17:52 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/get_next_line.h"
 
-char	*error_handle(t_list **lst, int fd, char *read_buf)
+char	*error_handle(t_gnl_list **lst, int fd, char *read_buf)
 {
-	t_list	*node;
-	t_list	*pre;
+	t_gnl_list	*node;
+	t_gnl_list	*pre;
 
 	if (read_buf)
 		free(read_buf);
@@ -41,7 +41,7 @@ char	*error_handle(t_list **lst, int fd, char *read_buf)
 	return (0);
 }
 
-int	has_newline(t_list *lst, int fd)
+int	has_newline(t_gnl_list *lst, int fd)
 {
 	int	i;
 

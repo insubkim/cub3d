@@ -6,13 +6,13 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/25 18:26:34 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/26 12:58:20 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/get_next_line.h"
 
-t_list	*get_node(t_list *lst, int fd)
+t_gnl_list	*get_node(t_gnl_list *lst, int fd)
 {
 	if (!lst)
 		return (0);
@@ -25,14 +25,14 @@ t_list	*get_node(t_list *lst, int fd)
 	return (0);
 }
 
-int	add_buf(t_list **lst, int fd, char *read_buf)
+int	add_buf(t_gnl_list **lst, int fd, char *read_buf)
 {
-	t_list	*node;
+	t_gnl_list	*node;
 
 	node = get_node(*lst, fd);
 	if (!node)
 	{
-		node = (t_list *)malloc(sizeof(t_list));
+		node = (t_gnl_list *)malloc(sizeof(t_gnl_list));
 		if (!node)
 			return (0);
 		node -> str = 0;
@@ -47,22 +47,22 @@ int	add_buf(t_list **lst, int fd, char *read_buf)
 	return (1);
 }
 
-int	set_node_str(t_list *node, int len)
+int	set_node_str(t_gnl_list *node, int len)
 {
-	if (ft_strlen(node -> str) == len)
+	if (gnl_strlen(node -> str) == len)
 		node -> str = 0;
 	else
 	{
-		node -> str = ft_substr(node -> str, len, ft_strlen(node -> str));
+		node -> str = gnl_substr(node -> str, len, gnl_strlen(node -> str));
 		if (!(node -> str))
 			return (0);
 	}
 	return (1);
 }
 
-char	*get_line(t_list **lst, int fd)
+char	*get_line(t_gnl_list **lst, int fd)
 {
-	t_list	*node;
+	t_gnl_list	*node;
 	int		len;
 	char	*str;
 	char	*tmp;
@@ -74,7 +74,7 @@ char	*get_line(t_list **lst, int fd)
 	while ((node -> str)[len])
 		if ((node -> str)[len++] == '\n')
 			break ;
-	str = ft_substr(node -> str, 0, len);
+	str = gnl_substr(node -> str, 0, len);
 	if (!str)
 		return (error_handle(lst, fd, str));
 	tmp = node -> str;
@@ -87,10 +87,10 @@ char	*get_line(t_list **lst, int fd)
 	return (str);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *is_eof)
 {
 	char			*read_buf;
-	static t_list	*lst;
+	static t_gnl_list	*lst;
 	int				bytes;
 
 	read_buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -102,7 +102,10 @@ char	*get_next_line(int fd)
 		if (bytes < 0)
 			return (error_handle(&lst, fd, read_buf));
 		if (bytes == 0)
-			break ;
+		{
+			*is_eof = 1;
+			break ;	
+		}
 		read_buf[bytes] = 0;
 		if (add_buf(&lst, fd, read_buf) == 0)
 			return (error_handle(&lst, fd, read_buf));
