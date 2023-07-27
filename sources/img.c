@@ -3,21 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/26 13:31:33 by inskim           ###   ########.fr       */
-=======
-/*   Updated: 2023/07/25 16:27:26 by inskim           ###   ########.fr       */
-=======
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/24 19:08:03 by insub            ###   ########.fr       */
->>>>>>> 9e8e07d (fix : Added wall collision)
->>>>>>> 7b72aa0 (fix : Added wall collision)
+/*   Updated: 2023/07/27 22:52:18 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +14,9 @@
 #include "../headers/my_types.h"
 #include "../library/libft/libft.h"
 
+
 void    draw_map(t_player player, t_img img, t_map map);//test
-void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);
+void	__test_player_print(t_game *game_info);//test
 
 /* make_img
  * : mlx 이미지 초기화, 플레이어 이동시 변경 전, 변경 후 img 둘 을 가지게 됨. 
@@ -90,6 +80,8 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
     }
 }
 
+void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);
+
 /* get_real_pixel_to_draw
  * : 어안효과(같은 거리에 있는 일직선의 벽이 광선의 방향으로 인해 둥글게 그려지는 현상, 볼록렌즈)를 
  *   없애기 위해 실제로 화면에 그려지는 벽의 높이를 구함
@@ -122,20 +114,40 @@ void	get_real_pixel_to_draw(int *start, int *end, int screen_height, double dist
 void    draw_wall(t_game *game_info)
 {
 	double arr[WIN_WIDTH] = {0,};
-	int	draw_start;
-	int	draw_end;
-	
 	for (int i = 0; i < WIN_WIDTH; i++)
 		arr[i] = 0;
 	double *dist_of_rays = arr;
 	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
+
+	int	draw_start;
+	int	draw_end;
+    
 	// Calculate height of line to draw on screenW=
 	for (int i = 0; i < WIN_WIDTH; i++)
 	{
         get_real_pixel_to_draw(&draw_start, &draw_end, WIN_HEIGHT, dist_of_rays[i]);
         for (int j = draw_start; j <= draw_end; j++)
-            my_mlx_pixel_put(&(game_info->img), i, j, 0x00008000);
+            my_mlx_pixel_put(&game_info->img, i, j, 0x00008000);
     }
+}
+
+void	draw_mouse(t_game *game_info)
+{
+	int	x;
+	int	y;
+	int	i;
+
+	mlx_mouse_get_pos(game_info->win, &x, &y);
+	i = 0;
+	while (i < 20)
+	{
+		if (x - 10 + i >= 0 && x - 10 + i < WIN_WIDTH && y >= 0)
+			my_mlx_pixel_put(&game_info->img, x - 10 + i, y, 0x00FFFFFF);
+		if (y - 10 + i >= 0 && y - 10 + i < WIN_HEIGHT && x >= 0)
+			my_mlx_pixel_put(&game_info->img, x, y - 10 + i, 0x00FFFFFF);
+		i++;
+	}
+
 }
 
 /* print_img
@@ -145,15 +157,14 @@ void    draw_wall(t_game *game_info)
  */
 void    print_img(t_game *game_info)
 {
-	printf("%lf\t%lf\t\n", game_info->player.loc.x, game_info->player.loc.y);
-	printf("%lf\t%lf\t\n", game_info->player.dir.x, game_info->player.dir.y);
-	printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
-	
-	
+	// printf("%lf\t%lf\t\n", game_info->player.loc.x, game_info->player.loc.y);
+	// printf("%lf\t%lf\t\n", game_info->player.dir.x, game_info->player.dir.y);
+	// printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
 	make_img(game_info);
 	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
-    draw_wall(game_info);
+    draw_wall(game_info);//do_raycasting
 	draw_map(game_info->player, game_info->img, game_info->map);
+	draw_mouse(game_info);
 	mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->img.img, 0, 0);
 	if (game_info->img_copy)
 		mlx_destroy_image(game_info->mlx, game_info->img_copy);

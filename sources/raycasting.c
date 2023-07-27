@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/21 19:13:07 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/27 22:51:29 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double r
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
-		// ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
 		ray->delta_dist = fabs(1 / ray_dir);
 		
 	if (ray_dir < 0)
@@ -59,9 +58,6 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 
 	ray->loc.x = (int)(player.loc.x);
 	ray->loc.y = (int)(player.loc.y);
-
-	//init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.dir.x);
-	//init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.dir.y);
 
 	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.loc.x, ray_dir_vec.y);
 	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.loc.y, ray_dir_vec.x);
@@ -127,4 +123,33 @@ void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, cha
 		else
 			(*dist_of_rays)[x] = (ray.y.side_dist - ray.y.delta_dist);
 	}
+}
+
+/* get_real_pixel_to_draw
+ * : 어안효과(같은 거리에 있는 일직선의 벽이 광선의 방향으로 인해 둥글게 그려지는 현상, 볼록렌즈)를 
+ *   없애기 위해 실제로 화면에 그려지는 벽의 높이를 구함
+ * 
+ * parameters - screen_height: 시야에 잡히는 화면의 높이
+ *            - dist_of_ray: 광선의 거리
+ * return: none
+ */
+void	get_real_pixel_to_draw2(int *start, int *end, double dist_of_ray)
+{
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+
+	//Calculate height of line to draw on screen
+	line_height = (int)(WIN_HEIGHT / dist_of_ray);
+
+	//calculate lowest and highest pixel to fill in current stripe
+	draw_start = (-line_height / 2) + (WIN_HEIGHT / 2);
+	if(draw_start < 0)
+		draw_start = 0;
+	draw_end = (line_height / 2) + (WIN_HEIGHT / 2);
+	if(draw_end >= WIN_HEIGHT)
+		draw_end = WIN_HEIGHT - 1;
+
+    *start = draw_start;
+    *end = draw_end;
 }
