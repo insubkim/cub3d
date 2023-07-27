@@ -3,10 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/26 13:31:33 by inskim           ###   ########.fr       */
+=======
+/*   Updated: 2023/07/25 16:27:26 by inskim           ###   ########.fr       */
+=======
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
+/*   Updated: 2023/07/24 19:08:03 by insub            ###   ########.fr       */
+>>>>>>> 9e8e07d (fix : Added wall collision)
+>>>>>>> 7b72aa0 (fix : Added wall collision)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +145,11 @@ void    draw_wall(t_game *game_info)
  */
 void    print_img(t_game *game_info)
 {
+	printf("%lf\t%lf\t\n", game_info->player.loc.x, game_info->player.loc.y);
+	printf("%lf\t%lf\t\n", game_info->player.dir.x, game_info->player.dir.y);
+	printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
+	
+	
 	make_img(game_info);
 	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
     draw_wall(game_info);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/26 19:00:03 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/27 12:08:43 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,21 @@ void	move_dir(enum e_direction dir, t_player *player){
 	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
-bool	is_wall(char **board, double x, double y)
+bool	is_not_wall(char **board, double x, double y)
 {
-	if (board[(int)y][(int)x] == WALL || \
-		board[(int)y][(int)(x + 0.2)] == WALL || \
-		board[(int)y][(int)(x - 0.2)] == WALL || \
-		board[(int)(y + 0.2)][(int)x] == WALL || \
-		board[(int)(y + 0.2)][(int)(x + 0.2)] == WALL || \
-		board[(int)(y + 0.2)][(int)(x - 0.2)] == WALL || \
-		board[(int)(y - 0.2)][(int)x] == WALL || \
-		board[(int)(y - 0.2)][(int)(x + 0.2)] == WALL || \
-		board[(int)(y - 0.2)][(int)(x - 0.2)] == WALL)
-			return true;
+	double	padding;
+
+	padding = (double)1 / TILESIZE;
+	if (board[(int)y][(int)x] != WALL && \
+	board[(int)y ][(int)(x + padding)] != WALL && \
+	board[(int)y][(int)(x - padding)] != WALL && \
+	board[(int)(y - padding)][(int)x] != WALL && \
+	board[(int)(y - padding)][(int)(x + padding)] != WALL && \
+	board[(int)(y - padding)][(int)(x - padding)] != WALL && \
+	board[(int)(y + padding)][(int)x] != WALL && \
+	board[(int)(y + padding)][(int)(x + padding)] != WALL && \
+	board[(int)(y + padding)][(int)(x - padding)] != WALL)
+		return true;
 	return false;
 }
 
@@ -114,7 +117,7 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	x += game_info->player.loc.x;
 	y += game_info->player.loc.y;
 
-	if (!is_wall(game_info->map.board, x, y))
+	if (is_not_wall(game_info->map.board, x, y))
 	{
 		game_info->player.loc.x = x;
 		game_info->player.loc.y = y;
