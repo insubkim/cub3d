@@ -6,13 +6,19 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/27 12:08:43 by insub            ###   ########.fr       */
+=======
+/*   Updated: 2023/07/27 12:01:40 by insub            ###   ########.fr       */
+>>>>>>> c8eefdc (docs : 함수 주석 추가)
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
 #include "../headers/raycasting.h"
+#include "../library/libft/libft.h"
+
 
 //test 용
 void    make_img(t_game *game_info);
@@ -69,6 +75,14 @@ void	move_dir(enum e_direction dir, t_player *player){
 	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
+/* is_not_wall
+ * : x, y 좌표가 벽인지 확인. wall collision 을 막기위해 타일 크기 만큼 패딩을 줌.
+ *
+ * parameter - board: 맵
+ *           - x: x 좌표
+ *           - y: y 좌표
+ *  return: 벽이면 true, 아니면 false
+ */
 bool	is_not_wall(char **board, double x, double y)
 {
 	double	padding;
@@ -153,6 +167,7 @@ int	handle_key(int keycode, t_game *game_info){
 	return (0);
 }
 
+<<<<<<< HEAD
 int	init(char *file_name, t_game *game_info);
 
 #include <stdio.h>
@@ -163,10 +178,38 @@ int	main(int argc, char **argv){
 	// game_info.mlx = mlx_init();
 	// game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	// game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
-	
-	// __test_init(&game_info);//test용 초기화
-	// //parse + set t_game
+=======
 
+/* print_error
+ * : 에러 문구 출력 
+ *
+ * parameter - none
+ * 
+ * return: ERROR_INT 리턴
+ */
+int	print_error(void)
+{
+	ft_putstr_fd("Error\n", -1);
+	return (ERROR_INT);
+}
+
+/* main
+ * : 파일 정보 유효성 확인 후, 레이케스팅, 키보드 입력 시 handler 함수 등록
+ * 
+ * parameter - argc: 프로그램 인자 수
+ *           - argv: 프로그램 인자 string 값
+ * return: 성공시 0, 실패시 ERROR_INT
+ */
+int	main(int argc, char **argv){
+	t_game	game_info;
+
+	if (argc != 2)
+		return (print_error());
+	//parsing
+	if (init(argv[1], &game_info))
+		return (print_error());
+>>>>>>> c8eefdc (docs : 함수 주석 추가)
+	
 	// //화면 표시
 	// print_img(&game_info);
 	// //hook
