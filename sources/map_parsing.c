@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 17:19:46 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:44:36 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,28 @@ static void	init_player(t_player *player, t_vector loc, char dir)
 	}
 }
 
-// int	map_parsing(t_list *target, t_game *game_data)
-// {
-// 	t_vector	player_loc;
-// 	char		player_dir;
+int	map_parsing(t_list *target, t_game *game_data)
+{
+	t_vector	player_loc;
+	char		player_dir;
 	
-// 	// init map board
-// 	if (init_map_board(target, &(game_data->map)) == ERROR_INT)
-// 		return (ERROR_INT);
+	// init map board
+	if (init_map_board(target, &(game_data->map)) == ERROR_INT)
+		return (ERROR_INT);
 
-// 	// is valid map
-// 	player_dir = 0;
-// 	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
-// 	{
-// 		// Error: Invalid Map
-// 		return (free_map(game_data->map.board, game_data->map.height));
-// 	}
+	// is valid map
+	player_dir = 0;
+	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
+	{
+		// Error: Invalid Map
+		return (free_map(game_data->map.board, game_data->map.height));
+	}
 
-// 	// init player info
-// 	init_player(&(game_data->player), player_loc, player_dir);
+	// init player info
+	init_player(&(game_data->player), player_loc, player_dir);
 	
-// 	return (SUCCESS);
-// }
+	return (SUCCESS);
+}
 
 // #define test_height 14
 // #include <stdio.h>

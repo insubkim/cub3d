@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/28 16:52:41 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 19:06:53 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,16 @@ void	move_dir(enum e_direction dir, t_player *player){
 	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
-bool	is_not_wall(char **board, double x, double y)
+/* is_not_wall
+ * : 플레이어가 이동하려는 위치가 벽이 아닌지 확인함.
+ *	플레이어가 이동하려는 위치의 8방향이 모두 벽이 아니면 이동 가능.
+ *
+ * parameter - board: 맵 정보
+ * 			 - x: 플레이어가 이동하려는 x좌표
+ * 			 - y: 플레이어가 이동하려는 y좌표
+ * return: int
+ */
+int	is_not_wall(char **board, double x, double y)
 {
 	double	padding;
 
@@ -169,23 +178,23 @@ int	handle_mouse(t_game *game_info)
 		print_img(game_info);
 	return (0);
 }
+
 int	init(char *file_name, t_game *game_info);
+int	print_error(int error);
 
 int	main(int argc, char **argv){
 	t_game	game_info;
 
 
 	if (argc != 2)
-		return (0);
+		return (print_error(ERROR_ARG_NUM));
 	if (init(argv[1], &game_info) == ERROR_INT)
 		return (0);
-	//__test_init(&game_info);//test용 초기화
-
 	//화면 표시
 	print_img(&game_info);
 	//hook
-	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
-	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
+	mlx_hook(game_info.win, ON_KEYDOWN, 0, handle_key, &game_info);
+	mlx_hook(game_info.win, ON_DESTROY, 0, handle_close, &game_info);
 	//loop hook
 	mlx_mouse_hide();
 	mlx_loop_hook(game_info.mlx, handle_mouse, &game_info);
