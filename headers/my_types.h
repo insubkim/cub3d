@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/25 18:48:25 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 17:19:05 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <stdbool.h>
 # include <stdlib.h>
-#include <math.h>
+# include <math.h>
+# include <fcntl.h> 
 
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
@@ -26,12 +27,12 @@
 # define FALSE 0
 
 # define PI 3.1415926535
-# define ROTATE_DEGREE 10
+# define ROTATE_DEGREE 1
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 800
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
-# define TILESIZE 5
+# define TILESIZE 10
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
@@ -72,19 +73,27 @@ typedef struct s_player {
 	t_vector	plane;
 }	t_player;
 
-typedef struct s_map {
-	char	**board;
-	int		width;
-	int		height;
-}		t_map;
-
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_img;
+
+typedef struct s_map {
+	char	**board;
+	int		width;
+	int		height;
+	int		ceil_color;
+	int		floor_color;
+	t_img	north_texture;
+	t_img	south_texture;
+	t_img	west_texture;
+	t_img	east_texture;
+}		t_map;
 
 typedef struct s_game {
 	void		*mlx;

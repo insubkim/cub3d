@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/26 19:18:50 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 17:56:16 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	init_map_board(t_list *list_p, t_map *map)
 	int		w;
 	char	*p;
 
-	map->board = (char **)malloc(map->height);
+	map->board = (char **)malloc(sizeof(char *) * map->height);
 	if (!map->board)
 		return (free_map(map->board, 0));
 	h = -1;
@@ -57,21 +57,27 @@ static void	init_player(t_player *player, t_vector loc, char dir)
 	player->loc = loc;
 	player->dir.x = 0;
 	player->dir.y = 0;
+	player->plane.x = 0;
+	player->plane.y = 0;
 	if (dir == 'N')
 	{
 		player->dir.y = 1;
+		player->plane.x = 0.66;
 	}
 	else if (dir == 'S')
 	{
 		player->dir.y = -1;
+		player->plane.x = -0.66;
 	}
 	else if (dir == 'E')
 	{
 		player->dir.x = 1;
+		player->plane.y = -0.66;
 	}
 	else if (dir == 'W')
 	{
 		player->dir.x = -1;
+		player->plane.y = 0.66;
 	}
 }
 
@@ -98,37 +104,38 @@ int	map_parsing(t_list *target, t_game *game_data)
 	return (SUCCESS);
 }
 
-// #define test_height 14
-// #include <stdio.h>
+#define test_height 14
+#include <stdio.h>
 
-// int main() {
+int main() {
 
-// 	t_list *head = NULL;
-// 	t_game game_data;
+	t_list *head = NULL;
+	t_game game_data;
 	
-// 	char* arrs[test_height] = {	"         111111111111111111111111",
-// 								"        1000000000110000000000001",
-// 								"   111  1011000001110000000000001",
-// 								"        1001000000000000000000001",
-// 								"111111111011000001110000000000001",
-// 								"100000000011000001110111110011111",
-// 								"11110111111111011100000010001    ",
-// 								"11110111111111000001010010001    ",
-// 								"11000000110101011100000000001    ",
-// 								"10000000000000001100000010001    ",
-// 								"1000000000000000110101001000111  ",
-// 								"11000001110101011111011010001    ",
-// 								"11110111 1110101 100011000001    ",
-// 								"11111111 1111111 111111111111    "	};
+	char* arrs[test_height] = {	"        1111111111111111111111111",
+								"        1000000000110000000000001",
+								"   111  1011000001110000000000001",
+								"        1001000000000000000000001",
+								"111111111011000001110000000000001",
+								"100000000011000001110111110011111",
+								"11110111111111011100000010001",
+								"11110111111111000001010010001",
+								"11000000110101011100000000001    ",
+								"10000000000000001100000010001    ",
+								"1000000000000000110101001000111  ",
+								"11000001110101011111011010001    ",
+								"11110111 1110101 100011000S01    ",
+								"11111111 1111111 111111111111    "	};
 
-// 	for (int i=0; i<test_height; i++) {
-// 		char *content = ft_strdup(arrs[i]);
-// 		t_list *new_node = ft_lstnew(content);
-// 		ft_lstadd_back(&head, new_node);
-// 	}
-// 	game_data.map.height = test_height;
-// 	game_data.map.width = 33;
+	for (int i=0; i<test_height; i++) {
+		char *content = ft_strdup(arrs[i]);
+		t_list *new_node = ft_lstnew(content);
+		ft_lstadd_back(&head, new_node);
+	}
+	game_data.map.height = test_height;
+	game_data.map.width = 33;
 	
-// 	int ret = map_parsing(head, &game_data);
-// 	printf("%s", ret == SUCCESS ? "SUCCESS" : "ERROR");
-// }
+	int ret = map_parsing(head, &game_data);
+	printf("%s", ret == SUCCESS ? "SUCCESS" : "ERROR");
+	printf("(%lf, %lf), (%lf, %lf), (%lf, %lf)\n", game_data.player.loc.x, game_data.player.loc.y, game_data.player.dir.x, game_data.player.dir.y, game_data.player.plane.x, game_data.player.plane.y);
+}
