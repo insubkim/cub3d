@@ -4,6 +4,7 @@
 		"stdlib.h": "c",
 		"raycasting.h": "c",
 		"get_next_line_bonus.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"libft.h": "c"
 	}
 }

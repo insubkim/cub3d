@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 17:13:27 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:19:46 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,28 @@ static void	init_player(t_player *player, t_vector loc, char dir)
 	}
 }
 
-int	map_parsing(t_list *target, t_game *game_data)
-{
-	t_vector	player_loc;
-	char		player_dir;
+// int	map_parsing(t_list *target, t_game *game_data)
+// {
+// 	t_vector	player_loc;
+// 	char		player_dir;
 	
-	// init map board
-	if (init_map_board(target, &(game_data->map)) == ERROR_INT)
-		return (ERROR_INT);
+// 	// init map board
+// 	if (init_map_board(target, &(game_data->map)) == ERROR_INT)
+// 		return (ERROR_INT);
 
-	// is valid map
-	player_dir = 0;
-	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
-	{
-		// Error: Invalid Map
-		return (free_map(game_data->map.board, game_data->map.height));
-	}
+// 	// is valid map
+// 	player_dir = 0;
+// 	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
+// 	{
+// 		// Error: Invalid Map
+// 		return (free_map(game_data->map.board, game_data->map.height));
+// 	}
 
-	// init player info
-	init_player(&(game_data->player), player_loc, player_dir);
+// 	// init player info
+// 	init_player(&(game_data->player), player_loc, player_dir);
 	
-	return (SUCCESS);
-}
+// 	return (SUCCESS);
+// }
 
 // #define test_height 14
 // #include <stdio.h>
@@ -112,19 +112,19 @@ int	map_parsing(t_list *target, t_game *game_data)
 // 	t_list *head = NULL;
 // 	t_game game_data;
 	
-// 	char* arrs[test_height] = {	"         111111111111111111111111",
+// 	char* arrs[test_height] = {	"        1111111111111111111111111",
 // 								"        1000000000110000000000001",
 // 								"   111  1011000001110000000000001",
 // 								"        1001000000000000000000001",
 // 								"111111111011000001110000000000001",
 // 								"100000000011000001110111110011111",
-// 								"11110111111111011100000010001    ",
-// 								"11110111111111000001010010001    ",
+// 								"11110111111111011100000010001",
+// 								"11110111111111000001010010001",
 // 								"11000000110101011100000000001    ",
 // 								"10000000000000001100000010001    ",
 // 								"1000000000000000110101001000111  ",
 // 								"11000001110101011111011010001    ",
-// 								"11110111 1110101 100011000001    ",
+// 								"11110111 1110101 100011000N01    ",
 // 								"11111111 1111111 111111111111    "	};
 
 // 	for (int i=0; i<test_height; i++) {
@@ -137,4 +137,5 @@ int	map_parsing(t_list *target, t_game *game_data)
 	
 // 	int ret = map_parsing(head, &game_data);
 // 	printf("%s", ret == SUCCESS ? "SUCCESS" : "ERROR");
+// 	printf("(%lf, %lf), (%lf, %lf), (%lf, %lf)\n", game_data.player.loc.x, game_data.player.loc.y, game_data.player.dir.x, game_data.player.dir.y, game_data.player.plane.x, game_data.player.plane.y);
 // }
