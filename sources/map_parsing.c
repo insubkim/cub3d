@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/26 19:18:50 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 16:57:32 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	init_map_board(t_list *list_p, t_map *map)
 	int		w;
 	char	*p;
 
-	map->board = (char **)malloc(map->height);
+	map->board = (char **)malloc(sizeof(char *) * map->height);
 	if (!map->board)
 		return (free_map(map->board, 0));
 	h = -1;
