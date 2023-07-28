@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 16:57:32 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:13:27 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,27 @@ static void	init_player(t_player *player, t_vector loc, char dir)
 	player->loc = loc;
 	player->dir.x = 0;
 	player->dir.y = 0;
+	player->plane.x = 0;
+	player->plane.y = 0;
 	if (dir == 'N')
 	{
 		player->dir.y = 1;
+		player->plane.x = 0.66;
 	}
 	else if (dir == 'S')
 	{
 		player->dir.y = -1;
+		player->plane.x = -0.66;
 	}
 	else if (dir == 'E')
 	{
 		player->dir.x = 1;
+		player->plane.y = -0.66;
 	}
 	else if (dir == 'W')
 	{
 		player->dir.x = -1;
+		player->plane.y = 0.66;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/28 16:50:17 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 17:12:41 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int	set_width_height(t_list *list, t_map *map)
 		s = list->content;
 		len = ft_strlen(s);
 		if (s[len - 1] == '\n')
-			s[len--] = 0;
+			s[--len] = 0;
 		if (len == 0)
 			return (ERROR_INT);
 		if (map->width < len)
