@@ -35,7 +35,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 
 all:
 	make -C $(MLX_DIR)
-	make -C $(LIBFT_DIR)
+	make bonus -C $(LIBFT_DIR)
 	make $(NAME)
 
 $(NAME): $(OBJS)

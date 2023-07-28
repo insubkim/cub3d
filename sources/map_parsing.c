@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 16:56:52 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 17:56:16 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	init_map_board(t_list *list_p, t_map *map)
 	int		w;
 	char	*p;
 
-	map->board = (char **)ft_calloc(map->height, sizeof(char *));
+	map->board = (char **)malloc(sizeof(char *) * map->height);
 	if (!map->board)
 		return (free_map(map->board, 0));
 	h = -1;

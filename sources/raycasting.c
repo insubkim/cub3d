@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/21 19:13:07 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 16:11:03 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double r
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
-		// ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
 		ray->delta_dist = fabs(1 / ray_dir);
 		
 	if (ray_dir < 0)
@@ -59,9 +58,6 @@ static void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double ca
 
 	ray->loc.x = (int)(player.loc.x);
 	ray->loc.y = (int)(player.loc.y);
-
-	//init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.dir.x);
-	//init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.dir.y);
 
 	init_side_data_of_ray(&(ray->x), ray->loc.x, ray_dir_vec.x, player.loc.x, ray_dir_vec.y);
 	init_side_data_of_ray(&(ray->y), ray->loc.y, ray_dir_vec.y, player.loc.y, ray_dir_vec.x);
@@ -126,5 +122,110 @@ void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, cha
 			(*dist_of_rays)[x] = (ray.x.side_dist - ray.x.delta_dist);
 		else
 			(*dist_of_rays)[x] = (ray.y.side_dist - ray.y.delta_dist);
+	}
+}
+
+void	get_real_pixel_to_draw2(int *start, int *end, double dist_of_ray)
+{
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+
+	line_height = (int)(WIN_HEIGHT / dist_of_ray);
+	draw_start = (-line_height / 2) + (WIN_HEIGHT / 2);
+	
+	if(draw_start < 0)
+		draw_start = 0;
+	draw_end = (line_height / 2) + (WIN_HEIGHT / 2);
+	if(draw_end >= WIN_HEIGHT)
+		draw_end = WIN_HEIGHT - 1;
+    *start = draw_start;
+    *end = draw_end;
+}
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+unsigned int	get_color(t_img img, int x, int y)
+{
+	char *dst;
+
+	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
+	return *(unsigned int*)dst;
+}
+
+int get_texX(t_vector player_loc, t_ray_data ray, t_vector ray_dir, double dist, int texture_width)
+{
+	//calculate value of wallX
+    double wallX; //where exactly the wall was hit
+    if (ray.side == NS) wallX = player_loc.y + dist * ray_dir.y;
+    else           wallX = player_loc.x + dist * ray_dir.x;
+    wallX -= floor((wallX));
+	//x coordinate on the texture
+	int	texWidth = texture_width;
+    int texX = wallX * texWidth;
+    if(ray.side == NS && ray_dir.x < 0) texX = texWidth - texX - 1;//??
+    if(ray.side == WE && ray_dir.y > 0) texX = texWidth - texX - 1;//??
+	return texX;
+}
+
+void	draw_line(t_game *game_info, t_ray_data ray, t_vector ray_dir, double dist, int x)
+{
+	int	draw_start;
+	int	draw_end;
+	int texX;
+
+	get_real_pixel_to_draw2(&draw_start, &draw_end, dist);
+	texX = get_texX(game_info->player.loc, ray, ray_dir, dist, game_info->map.east_texture.width);
+	int	texHeight = game_info->map.east_texture.height;
+	int line_height = (int)(WIN_HEIGHT / dist);
+	double step = 1.0 * texHeight / line_height;
+    // Starting texture coordinate
+    double texPos = (draw_start - WIN_HEIGHT / 2 + line_height / 2) * step;
+    for(int y = draw_start; y<draw_end; y++)
+    {
+        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+        int texY = (int)texPos;
+        texPos += step;
+        unsigned int	color = get_color(game_info->map.east_texture, texX, texY);
+		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+        my_mlx_pixel_put(&game_info->img, x, y, color);
+    }
+}
+
+t_vector	get_ray_dir(t_player player, double camera_x)
+{
+	t_vector	ray_dir;
+		
+	ray_dir.x = player.dir.x + (player.plane.x * camera_x);
+	ray_dir.y = -(player.dir.y + (player.plane.y * camera_x));
+	return (ray_dir);
+}
+
+void	do_raycasting2(t_player player, char **map_board, t_game *game_info)
+{	
+	int			x;
+	t_ray_data	ray;
+	double		dist;
+	t_vector	ray_dir;
+
+
+	x = -1;
+	while(++x < WIN_WIDTH)
+	{
+		init_vars_for_raycasting(&ray, player, 2 * x / (double)WIN_WIDTH - 1);
+		while (!ray.is_hit)
+		{
+			if(ray.x.side_dist < ray.y.side_dist)
+				jump_to_next_side(NS, &(ray.x), &(ray.loc.x), &(ray.side));
+			else
+				jump_to_next_side(WE, &(ray.y), &(ray.loc.y), &(ray.side)); 
+			if(map_board[ray.loc.y][ray.loc.x] == WALL) ray.is_hit = 1;
+		}
+		if(ray.side == NS) 
+			dist = (ray.x.side_dist - ray.x.delta_dist);
+		else
+			dist = (ray.y.side_dist - ray.y.delta_dist);
+		ray_dir = get_ray_dir(player, 2 * x / (double)WIN_WIDTH - 1);
+		draw_line(game_info, ray, ray_dir, dist, x);
 	}
 }

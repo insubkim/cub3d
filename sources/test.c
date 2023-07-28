@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:37:39 by insub             #+#    #+#             */
-/*   Updated: 2023/07/25 16:17:50 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 15:27:32 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	__test_init(t_game *game_info){
 	// 	{1,1,1,1,1,1,1,1,' ',1,1,1,1,1,1,1,' ',1,1,1,1,1,1,1,1,1,1,1,1}
 	// };
 
-	static char arrs[14][33] ={"        1111111111111111111111111",
-							   "        1000000000110000000000001",
-							   "        1011000001110000000000001",
-							   "        1001000000000000000000001",
-							   "111111111011000001110000000000001",
+	static char arrs[14][33] ={"111111111111111111111111111111111",
+							   "100000000000000000110000000000001",
+							   "100000000000000001110000000000001",
+							   "100000000000000000000000000000001",
+							   "111111111111110001110000000000001",
 							   "100000000011000001110111110011111",
 							   "11110111111111011100000010001    ",
 							   "11110111111111000001010010001    ",
@@ -90,7 +90,7 @@ void	__test_init(t_game *game_info){
 							   "11000001110101011111011010001    ",
 							   "11110111 1110101 100011000001    ",
 							   "11111111 1111111 111111111111    "};
-
+	//static char arrs[3][3] = {"111","101", "111"}; 
 	char **board = malloc(sizeof(char *) * height);
 	for (int i = 0; i < height; i++){
 		board[i] = ft_strdup(arrs[i]);
@@ -99,12 +99,12 @@ void	__test_init(t_game *game_info){
 	game_info->map.height = height;
 	game_info->map.width = width;
 	//init player
-	game_info->player.loc.x = 26.2;
-	game_info->player.loc.y = 11.2;
-	game_info->player.dir.x = -1;
-	game_info->player.dir.y = 0;
-	game_info->player.plane.x = 0;
-	game_info->player.plane.y = 0.66;
+	game_info->player.loc.x = 7;// + (double)1 / TILESIZE;
+	game_info->player.loc.y = 2;// + (double)1 / TILESIZE;
+	game_info->player.dir.x = 0;
+	game_info->player.dir.y = 1;
+	game_info->player.plane.x = 0.66;
+	game_info->player.plane.y = 0;
 }
 
 /* __test_raycasting

@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/26 17:33:35 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/28 17:55:44 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,21 @@ void	move_dir(enum e_direction dir, t_player *player){
 	player->plane.y = oldPlaneX * sin(rot_rate) + player->plane.y * cos(rot_rate);
 }
 
-bool	is_wall(char **board, double x, double y)
+bool	is_not_wall(char **board, double x, double y)
 {
-	if (board[(int)y][(int)x] == WALL || \
-		board[(int)y][(int)(x + 0.2)] == WALL || \
-		board[(int)y][(int)(x - 0.2)] == WALL || \
-		board[(int)(y + 0.2)][(int)x] == WALL || \
-		board[(int)(y + 0.2)][(int)(x + 0.2)] == WALL || \
-		board[(int)(y + 0.2)][(int)(x - 0.2)] == WALL || \
-		board[(int)(y - 0.2)][(int)x] == WALL || \
-		board[(int)(y - 0.2)][(int)(x + 0.2)] == WALL || \
-		board[(int)(y - 0.2)][(int)(x - 0.2)] == WALL)
-			return true;
+	double	padding;
+
+	padding = (double)1 / TILESIZE;
+	if (board[(int)y][(int)x] != WALL && \
+	board[(int)y ][(int)(x + padding)] != WALL && \
+	board[(int)y][(int)(x - padding)] != WALL && \
+	board[(int)(y - padding)][(int)x] != WALL && \
+	board[(int)(y - padding)][(int)(x + padding)] != WALL && \
+	board[(int)(y - padding)][(int)(x - padding)] != WALL && \
+	board[(int)(y + padding)][(int)x] != WALL && \
+	board[(int)(y + padding)][(int)(x + padding)] != WALL && \
+	board[(int)(y + padding)][(int)(x - padding)] != WALL)
+		return true;
 	return false;
 }
 
@@ -114,7 +117,7 @@ void	move_player(enum e_direction dir, t_game *game_info){
 	x += game_info->player.loc.x;
 	y += game_info->player.loc.y;
 
-	if (!is_wall(game_info->map.board, x, y))
+	if (is_not_wall(game_info->map.board, x, y))
 	{
 		game_info->player.loc.x = x;
 		game_info->player.loc.y = y;
@@ -150,22 +153,44 @@ int	handle_key(int keycode, t_game *game_info){
 	return (0);
 }
 
-// int	main(void){
-// 	t_game	game_info;
-// 	game_info.mlx = mlx_init();
-// 	game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
-// 	game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
+int	handle_mouse(t_game *game_info)
+{
+	int	x;
+	int	y;
 	
-// 	__test_init(&game_info);//test용 초기화
-// 	//parse + set t_game
+	mlx_mouse_get_pos(game_info->win, &x, &y);
+	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
+		return (0);
+	if (x < WIN_WIDTH / 2 - (WIN_WIDTH / 5))
+		handle_key(KEY_LEFT, game_info);
+	else if (x > WIN_WIDTH / 2 + (WIN_WIDTH / 5))
+		handle_key(KEY_RIGHT, game_info);
+	else
+		print_img(game_info);
+	return (0);
+}
+int	init(char *file_name, t_game *game_info);
 
-// 	//화면 표시
-// 	print_img(&game_info);
-// 	//hook
-// 	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
-// 	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
-// 	mlx_loop(game_info.mlx);
-// 	//리소스 해제
-// 	destroy_game(&game_info);
-// 	return (0);
-// }
+int	main(int argc, char **argv){
+	t_game	game_info;
+
+
+	if (argc != 2)
+		return (0);
+	if (init(argv[1], &game_info) == ERROR_INT)
+		return (0);
+	//__test_init(&game_info);//test용 초기화
+
+	//화면 표시
+	print_img(&game_info);
+	//hook
+	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
+	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
+	//loop hook
+	mlx_mouse_hide();
+	mlx_loop_hook(game_info.mlx, handle_mouse, &game_info);
+	mlx_loop(game_info.mlx);
+	//리소스 해제
+	destroy_game(&game_info);
+	return (0);
+}
