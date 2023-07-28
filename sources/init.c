@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/27 15:35:53 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 16:50:17 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,9 @@ int	set_width_height(t_list *list, t_map *map)
 		return (ERROR_INT);
 	return (true);
 }
+int	map_parsing(t_list *target, t_game *game_data);
 
-int	set_map_info(t_list *list, t_map *map, void *mlx)
+int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 {
 	char	*s;
 	
@@ -183,23 +184,22 @@ int	set_map_info(t_list *list, t_map *map, void *mlx)
 		s = list->content;
 		while (*s && *s == ' ')
 			s++;
+		if (*s == '1')
+			break ;
 		list = list->next;
 		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') && \
 		set_texture(s, mlx, map) != ERROR_INT)
 			continue ;
 		else if ((*s == 'F' || *s == 'C') && set_color(s, map) != ERROR_INT)
 			continue ;
-		else if (*s == '1')
-			break ;
 		else if (*s != '\n')
 			return (ERROR_INT);
 	}
 	map->width = 0;
 	map->height = 0;
 	if (is_texture_set(map) == ERROR_INT || \
-			set_width_height(list, map) == ERROR_INT)
+			set_width_height(list, map) == ERROR_INT || map_parsing(list, game_info) == ERROR_INT)
 		return (ERROR_INT);
-	//set map
 	return (true);
 }
 
@@ -222,7 +222,7 @@ int	init(char *file_name, t_game *game_info)
 	list = read_file(fd, &(game_info->map));
 	if (!list)
 		return (ERROR_INT);
-	if (set_map_info(list, &game_info->map, game_info->mlx) == ERROR_INT)
+	if (set_map_info(list, &game_info->map, game_info->mlx, game_info) == ERROR_INT)
 	{
 		ft_lstclear(&list, free);
 		return (ERROR_INT);

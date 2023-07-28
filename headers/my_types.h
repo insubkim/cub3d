@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/27 14:06:15 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 16:40:02 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # include <math.h>
 # include <fcntl.h> 
 
-# define ERROR_BOOL 0
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
+
+# define SUCCESS 1
+
+# define TRUE 1
+# define FALSE 0
 
 # define PI 3.1415926535
 # define ROTATE_DEGREE 1
@@ -46,6 +50,7 @@ enum e_keycode {
 enum e_tile_type {
 	EMPTY = '0',
 	WALL = '1',
+	SPACE = ' ',
 	PLAYER = 'P'
 };
 

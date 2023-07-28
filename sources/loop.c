@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/28 15:17:15 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 16:52:41 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,9 +173,13 @@ int	init(char *file_name, t_game *game_info);
 
 int	main(int argc, char **argv){
 	t_game	game_info;
-	init(argv[1], &game_info);
 
-	__test_init(&game_info);//test용 초기화
+
+	if (argc != 2)
+		return (0);
+	if (init(argv[1], &game_info) == ERROR_INT)
+		return (0);
+	//__test_init(&game_info);//test용 초기화
 
 	//화면 표시
 	print_img(&game_info);
