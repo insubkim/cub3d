@@ -1,7 +1,7 @@
-NO./image.xpm
-SO image.xpm
-WE /Users/insub/inskim/cub/image.xpm
-EA  image.xpm
+NO north.xpm
+SO south.xpm
+WE west.xpm
+EA east.xpm
 F 220,1,2
 C 0,1,0
 

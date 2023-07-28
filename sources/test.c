@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:37:39 by insub             #+#    #+#             */
-/*   Updated: 2023/07/27 22:26:52 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 15:27:32 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	__test_init(t_game *game_info){
 	// };
 
 	static char arrs[14][33] ={"111111111111111111111111111111111",
-							   "100000001000000000110000000000001",
-							   "100000000011000001110000000000001",
-							   "100000000001000000000000000000001",
-							   "111111111011000001110000000000001",
+							   "100000000000000000110000000000001",
+							   "100000000000000001110000000000001",
+							   "100000000000000000000000000000001",
+							   "111111111111110001110000000000001",
 							   "100000000011000001110111110011111",
 							   "11110111111111011100000010001    ",
 							   "11110111111111000001010010001    ",
@@ -99,8 +99,8 @@ void	__test_init(t_game *game_info){
 	game_info->map.height = height;
 	game_info->map.width = width;
 	//init player
-	game_info->player.loc.x = 4 + (double)1 / TILESIZE;
-	game_info->player.loc.y = 4 + (double)1 / TILESIZE;
+	game_info->player.loc.x = 7;// + (double)1 / TILESIZE;
+	game_info->player.loc.y = 2;// + (double)1 / TILESIZE;
 	game_info->player.dir.x = 0;
 	game_info->player.dir.y = 1;
 	game_info->player.plane.x = 0.66;

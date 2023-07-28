@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/27 22:07:50 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 15:17:15 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ int	handle_mouse(t_game *game_info)
 	int	y;
 	
 	mlx_mouse_get_pos(game_info->win, &x, &y);
+	if (x < 0 || x > WIN_WIDTH || y < 0 || y > WIN_HEIGHT)
+		return (0);
 	if (x < WIN_WIDTH / 2 - (WIN_WIDTH / 5))
 		handle_key(KEY_LEFT, game_info);
 	else if (x > WIN_WIDTH / 2 + (WIN_WIDTH / 5))
@@ -173,11 +175,7 @@ int	main(int argc, char **argv){
 	t_game	game_info;
 	init(argv[1], &game_info);
 
-	game_info.mlx = mlx_init();
-	game_info.win = mlx_new_window(game_info.mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3d");
-	game_info.img.img = 0;//이미지 교체 할 떄 마다 img_copy를 destory 하기 위해. 복사본 없을때 구분을 위해 0 초기화.
 	__test_init(&game_info);//test용 초기화
-	//parse + set t_game
 
 	//화면 표시
 	print_img(&game_info);
@@ -185,9 +183,8 @@ int	main(int argc, char **argv){
 	mlx_hook(game_info.win, 2, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, 17, 0, handle_close, &game_info);
 	//loop hook
-	// mlx_mouse_hide();
-	// mlx_loop_hook(game_info.mlx, handle_mouse, &game_info);
-
+	mlx_mouse_hide();
+	mlx_loop_hook(game_info.mlx, handle_mouse, &game_info);
 	mlx_loop(game_info.mlx);
 	//리소스 해제
 	destroy_game(&game_info);
