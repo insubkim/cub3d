@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/28 14:07:09 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 21:25:14 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
+#include "../headers/drawing_3d.h"
 #include "../library/libft/libft.h"
 
 
@@ -83,53 +84,22 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
     }
 }
 
-/* get_real_pixel_to_draw
- * : 어안효과(같은 거리에 있는 일직선의 벽이 광선의 방향으로 인해 둥글게 그려지는 현상, 볼록렌즈)를 
- *   없애기 위해 실제로 화면에 그려지는 벽의 높이를 구함
- * 
- * parameters - screen_height: 시야에 잡히는 화면의 높이
- *            - dist_of_ray: 광선의 거리
- * return: none
- */
-void	get_real_pixel_to_draw(int *start, int *end, int screen_height, double dist_of_ray)
-{
-	int	line_height;
-	int	draw_start;
-	int	draw_end;
+void	draw_wall(t_game *game_info)
+{	
+	int			x;
+	double		dist;
+	t_ray_data	ray;
+	t_drawing_line_data drawing_data;
 
-	//Calculate height of line to draw on screen
-	line_height = (int)(screen_height / dist_of_ray);
-
-	//calculate lowest and highest pixel to fill in current stripe
-	draw_start = (-line_height / 2) + (screen_height / 2);
-	if(draw_start < 0)
-		draw_start = 0;
-	draw_end = (line_height / 2) + (screen_height / 2);
-	if(draw_end >= screen_height)
-		draw_end = screen_height - 1;
-
-    *start = draw_start;
-    *end = draw_end;
-}
-
-void    draw_wall(t_game *game_info)
-{
-	double arr[WIN_WIDTH] = {0,};
-	for (int i = 0; i < WIN_WIDTH; i++)
-		arr[i] = 0;
-	double *dist_of_rays = arr;
-	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);
-
-	int	draw_start;
-	int	draw_end;
-    
-	// Calculate height of line to draw on screenW=
-	for (int i = 0; i < WIN_WIDTH; i++)
+	x = -1;
+	while(++x < WIN_WIDTH)
 	{
-        get_real_pixel_to_draw(&draw_start, &draw_end, WIN_HEIGHT, dist_of_rays[i]);
-        for (int j = draw_start; j <= draw_end; j++)
-            my_mlx_pixel_put(&game_info->img, i, j, 0x00008000);
-    }
+		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
+		dist = get_dist_of_ray(x, &ray, game_info->player, game_info->map.board);
+		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
+		init_vars_for_drawing_line(&drawing_data, dist, x);
+		draw_line(drawing_data, &(game_info->img));
+	}
 }
 
 void	draw_mouse(t_game *game_info)
@@ -163,8 +133,8 @@ void    print_img(t_game *game_info)
 	// printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
 	make_img(game_info);
 	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
-    //draw_wall(game_info);//do_raycasting
-	do_raycasting2(game_info->player, game_info->map.board, game_info);
+    draw_wall(game_info);//do_raycasting
+	// do_raycasting2(game_info->player, game_info->map.board, game_info);
 	
 	draw_map(game_info->player, game_info->img, game_info->map);
 	draw_mouse(game_info);

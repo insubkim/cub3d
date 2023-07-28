@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/27 15:37:16 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:24:00 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
-#include "../headers/raycasting.h"
+#include "../headers/drawing_3d.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);//test
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:37:39 by insub             #+#    #+#             */
-/*   Updated: 2023/07/28 15:27:32 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/28 21:24:38 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../library/libft/libft.h"
 #include "../headers/my_types.h"
-#include "../headers/raycasting.h"
+#include "../headers/drawing_3d.h"
 #include <stdio.h>
 
 void    make_img(t_game *game_info);
@@ -113,10 +113,10 @@ void	__test_init(t_game *game_info){
  * parameter - game_info: 게임 정보 
  * return: none
  */
-void	__test_raycasting(t_game *game_info){
-	double arr[WIN_WIDTH] = {0,};
-	for (int i = 0; i < WIN_WIDTH; i++)
-		arr[i] = 0;
-	double *dist_of_rays = arr;
-	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);	
-}
+// void	__test_raycasting(t_game *game_info){
+// 	double arr[WIN_WIDTH] = {0,};
+// 	for (int i = 0; i < WIN_WIDTH; i++)
+// 		arr[i] = 0;
+// 	double *dist_of_rays = arr;
+// 	do_raycasting(&dist_of_rays, game_info->player, WIN_WIDTH, game_info->map.board);	
+// }

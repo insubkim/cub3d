@@ -5,6 +5,7 @@
 		"raycasting.h": "c",
 		"get_next_line_bonus.h": "c",
 		"get_next_line.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"drawing_3d.h": "c"
 	}
 }
