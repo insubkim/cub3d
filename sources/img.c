@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/28 21:25:14 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/29 22:24:12 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	draw_wall(t_game *game_info)
 	{
 		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
 		dist = get_dist_of_ray(x, &ray, game_info->player, game_info->map.board);
-		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);
+		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
 		draw_line(drawing_data, &(game_info->img));
 	}
 }
@@ -128,9 +128,6 @@ void	draw_mouse(t_game *game_info)
  */
 void    print_img(t_game *game_info)
 {
-	// printf("%lf\t%lf\t\n", game_info->player.loc.x, game_info->player.loc.y);
-	// printf("%lf\t%lf\t\n", game_info->player.dir.x, game_info->player.dir.y);
-	// printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
 	make_img(game_info);
 	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
     draw_wall(game_info);//do_raycasting

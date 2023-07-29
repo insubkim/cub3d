@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 19:16:30 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/29 21:52:19 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@
 
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
+
+#define ERROR_MAP_NAME 0
+#define ERROR_MALLOC 1
+#define ERROR_OPEN 2
+#define ERROR_MLX_XPM_FILE_TO_IMAGE 3
+#define ERROR_INVALID_TEXTURE 4
+#define ERROR_INVALID_COLOR 5
+#define ERROR_INVALID_MAP 6
+#define ERROR_INVALID_MAP_CHAR 7
+#define ERROR_TEXTURE_NOT_SET 8
+#define ERROR_COLOR_NOT_SET 9
+#define ERROR_ARG_NUM 10
+#define ERROR_IMPOSSIBLE_CHAR 11
+#define ERROR_INVALID_TILE 12
 
 # define SUCCESS 1
 
