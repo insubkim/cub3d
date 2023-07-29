@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/28 19:04:00 by inskim           ###   ########.fr       */
+=======
+/*   Updated: 2023/07/29 22:24:12 by insub            ###   ########.fr       */
+>>>>>>> 9f88722
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
+#include "../headers/drawing_3d.h"
 #include "../library/libft/libft.h"
 
 
@@ -83,6 +88,7 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
     }
 }
 
+<<<<<<< HEAD
 /* draw_map
  * : 맵을 img에 표시함.
  * parameter - player: 플레이어 정보
@@ -90,6 +96,26 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
  *           - map: 맵 정보
  * return: none
  */
+=======
+void	draw_wall(t_game *game_info)
+{	
+	int			x;
+	double		dist;
+	t_ray_data	ray;
+	t_drawing_line_data drawing_data;
+
+	x = -1;
+	while(++x < WIN_WIDTH)
+	{
+		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
+		dist = get_dist_of_ray(x, &ray, game_info->player, game_info->map.board);
+		init_vars_for_drawing_line(&drawing_data, dist, x);
+		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
+		draw_line(drawing_data, &(game_info->img));
+	}
+}
+
+>>>>>>> 9f88722
 void	draw_mouse(t_game *game_info)
 {
 	int	x;
@@ -117,8 +143,14 @@ void	draw_mouse(t_game *game_info)
 void    print_img(t_game *game_info)
 {
 	make_img(game_info);
+<<<<<<< HEAD
 	draw_floor_ceil(game_info, game_info->map.floor_color, game_info->map.ceil_color);
 	do_raycasting2(game_info->player, game_info->map.board, game_info);
+=======
+	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
+    draw_wall(game_info);//do_raycasting
+	// do_raycasting2(game_info->player, game_info->map.board, game_info);
+>>>>>>> 9f88722
 	
 	draw_map(game_info->player, game_info->img, game_info->map);
 	draw_mouse(game_info);

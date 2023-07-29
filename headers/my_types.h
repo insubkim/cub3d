@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 19:08:36 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/29 22:32:03 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_map {
 	int		height;
 	int		ceil_color;
 	int		floor_color;
+	t_img	*texture_imgs;
 	t_img	north_texture;
 	t_img	south_texture;
 	t_img	west_texture;

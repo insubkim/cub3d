@@ -6,13 +6,17 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/28 19:03:34 by inskim           ###   ########.fr       */
+=======
+/*   Updated: 2023/07/29 21:52:30 by insub            ###   ########.fr       */
+>>>>>>> 9f88722
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
-#include "../headers/raycasting.h"
+#include "../headers/drawing_3d.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);//test
 
