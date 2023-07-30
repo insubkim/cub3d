@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/26 19:16:49 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/30 16:27:28 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,11 @@ int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir)
 				*player_dir = map->board[h][w];
 			}
 		}
+	}
+	if (*player_dir == FALSE)
+	{
+		printf("Error: player location not set\n");
+        return (FALSE);
 	}
 	return (TRUE);
 }

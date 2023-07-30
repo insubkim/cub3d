@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/28 19:03:34 by inskim           ###   ########.fr       */
-=======
-/*   Updated: 2023/07/29 21:52:30 by insub            ###   ########.fr       */
->>>>>>> 9f88722
+/*   Updated: 2023/07/30 16:09:48 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +14,9 @@
 #include "../headers/my_types.h"
 #include "../headers/drawing_3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);//test
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
+
 
 /* draw_square
  * : point 부터 size 크기의 정사각형을 color 값으로 img에 넣음 
@@ -60,23 +58,94 @@ void	set_map_white(t_img img)
 	draw_square(img, p, 220, 0x00FFFFFF);
 }
 
-/* draw_dir
- * : 플레이어 방향 벡터를 img에 표시함.
- * parameter - player: 플레이어 정보
- *           - img: mlx 이미지
- * return: none
- */
-void	draw_dir(t_player player, t_img img)
+// /* draw_dir
+//  * : 플레이어 방향 벡터를 img에 표시함.
+//  * parameter - player: 플레이어 정보
+//  *           - img: mlx 이미지
+//  * return: none
+//  */
+// void	draw_dir(t_player player, t_img img)
+// {
+//     int i;
+//     double radian;
+
+//     i = 0;
+//     radian = atan2(-player.dir.y, player.dir.x);
+//     while (i < 30)
+//     {
+//         my_mlx_pixel_put(&img, cos(radian) * i + 100 , sin(radian) * i + 100 + (WIN_HEIGHT - 220), 0x00FF0000);		
+//         i++;
+//     }
+// }
+
+
+void	draw_map_ray(t_vector dir, t_img img, double dist)
 {
-    int i;
-    double radian;
+    int		i;
+	double	x;
+	double	y;
+    double	radian;
 
     i = 0;
-    radian = atan2(-player.dir.y, player.dir.x);
-    while (i < 30)
+    radian = atan2(dir.y, dir.x);
+	dist *= 20;
+	x = 100;
+	y = 100 + (WIN_HEIGHT - 220);
+    while (i < dist)
     {
-        my_mlx_pixel_put(&img, cos(radian) * i + 100 , sin(radian) * i + 100 + (WIN_HEIGHT - 220), 0x00FF0000);		
+		x += cos(radian);
+		y += sin(radian);
+		if (x > 0 && x < 220 && y > 0 && y >= WIN_HEIGHT - 220)
+        	my_mlx_pixel_put(&img, x, y, 0x00FF0000);
         i++;
+    }
+}
+
+
+static void	init_side_data_of_ray2(t_side_data_of_ray *ray, int ray_loc, double ray_dir, double player_loc, double rayDirAnother)
+{
+	ray->delta_dist = 1e30;
+	if (ray_dir)
+		ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
+	if (ray_dir < 0)
+	{
+		ray->step_size = -1;
+		ray->side_dist = (player_loc - ray_loc) * ray->delta_dist;
+	}
+	else
+	{
+		ray->step_size = 1;
+		ray->side_dist = (ray_loc + 1.0 - player_loc) * ray->delta_dist;
+	}
+}
+
+void	init_vars_for_raycasting2(t_ray_data *ray, t_player player, double camera_x)
+{
+	ray->dir.x = player.dir.x + (player.plane.x * camera_x);
+	ray->dir.y = -(player.dir.y + (player.plane.y * camera_x));
+
+	ray->loc.x = (int)(player.loc.x);
+	ray->loc.y = (int)(player.loc.y);
+
+	init_side_data_of_ray2(&(ray->x), ray->loc.x, ray->dir.x, player.loc.x, ray->dir.y);
+	init_side_data_of_ray2(&(ray->y), ray->loc.y, ray->dir.y, player.loc.y, ray->dir.x);
+
+	ray->is_hit = 0;
+}
+
+
+void    raycast(t_player player, t_img img, t_map map)
+{	
+	int			x;
+	double		dist;
+	t_ray_data	ray;
+
+	x = -1;
+	while(++x < WIN_WIDTH)
+	{
+		init_vars_for_raycasting2(&ray, player, 2 * x / (double)WIN_WIDTH - 1);
+		dist = get_dist_of_ray(x, &ray, player, map.board);
+        draw_map_ray(ray.dir, img, dist);
     }
 }
 
@@ -110,8 +179,8 @@ void    draw_map(t_player player, t_img img, t_map map)
             if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL)
                 my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00808080);
             else if ((i - 100) * (i - 100) + (j - 100) * (j - 100) < 30)// 가운데는 플레이어 위치 표시
-                my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00FF0000);
+                my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00006400);
         }
     }
-    draw_dir(player, img);
+    raycast(player, img, map);
 }

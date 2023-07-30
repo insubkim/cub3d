@@ -6,11 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/28 19:07:05 by inskim           ###   ########.fr       */
-=======
-/*   Updated: 2023/07/29 21:52:28 by insub            ###   ########.fr       */
->>>>>>> 9f88722
+/*   Updated: 2023/07/30 16:03:08 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +28,8 @@ static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc, double r
 	ray->delta_dist = 1e30;
 	if (ray_dir)
 		ray->delta_dist = fabs(1 / ray_dir);
+
+		//ray->delta_dist = sqrt(1 + (rayDirAnother * rayDirAnother) / (ray_dir * ray_dir));
 	if (ray_dir < 0)
 	{
 		ray->step_size = -1;
