@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 13:39:18 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 14:30:18 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,9 +129,6 @@ void	draw_mouse(t_game *game_info)
  */
 void    print_img(t_game *game_info)
 {
-	// printf("%lf\t%lf\t\n", game_info->player.loc.x, game_info->player.loc.y);
-	// printf("%lf\t%lf\t\n", game_info->player.dir.x, game_info->player.dir.y);
-	// printf("%lf\t%lf\t\n", game_info->player.plane.x, game_info->player.plane.y);
 	make_img(game_info);
 	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
     draw_wall(game_info);//do_raycasting
