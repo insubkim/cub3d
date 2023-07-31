@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_3d.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 13:36:45 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:21:33 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct	s_drawing_line_data
 
 // raycasting
 double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
+void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
+									double ray_dir, double player_loc);
 
 // wall_drawing
 void	init_vars_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, int x);
