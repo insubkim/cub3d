@@ -6,17 +6,13 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/07/28 19:06:53 by inskim           ###   ########.fr       */
-=======
-/*   Updated: 2023/07/28 17:55:44 by heson            ###   ########.fr       */
->>>>>>> ef62453549329b06a33a7aa1efaef34909b2c8ba
+/*   Updated: 2023/07/31 14:30:35 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
 #include "../headers/my_types.h"
-#include "../headers/raycasting.h"
+#include "../headers/drawing_3d.h"
 
 //test 용
 void    make_img(t_game *game_info);

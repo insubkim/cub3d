@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.h                                       :+:      :+:    :+:   */
+/*   drawing_3d.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/17 20:33:25 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/31 13:36:45 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCASTING_H
-# define RAYCASTING_H
+#ifndef DRAWING_3D_H
+# define DRAWING_3D_H
+
+# include "my_types.h"
 
 enum side {
 	NS = 0,	// 세로선, x
@@ -36,13 +38,36 @@ typedef struct	s_side_data_of_ray
 // 광선이 벽에 다을 때까지의 거리를 측정하기 위해 필요한 정보
 typedef struct	s_ray_data
 {
-	t_point	loc;
-	t_side_data_of_ray x;
-	t_side_data_of_ray y;
-	int	is_hit;
-	int side;
+	t_point				loc;
+	t_vector			dir;
+	t_side_data_of_ray	x;
+	t_side_data_of_ray	y;
+	int					is_hit;
+	int					side;
 }	t_ray_data;
 
-void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);
+typedef struct	s_drawing_line_data
+{
+	int		line_x;
+	int		line_height;
+	int		draw_start; // start point of line in window
+	int		draw_end;	// end point of line in window
+	int		tex_x;
+	t_img	tex_img;	// textrue image 
+	double	tex_step;	// How much to increase the texture coordinate per screen pixel
+}	t_drawing_line_data;
+
+// raycasting
+double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
+
+// wall_drawing
+void	init_vars_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, int x);
+void	init_texture_data_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, t_ray_data ray, t_game game_info);
+void	draw_line(t_drawing_line_data data, t_img *window_img);
+
+// drawing_uils
+int				get_texture_x(t_vector player_loc, t_ray_data ray, double dist, int texture_width);
+t_img			get_texture_img(int hit_side, t_point hitpoint, t_map map, t_vector player_loc);
+unsigned int	get_color(t_img img, int x, int y);
 
 #endif
