@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_types.h                                         :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:39:55 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:12:39 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define ERROR_COLOR_NOT_SET 9
 # define ERROR_ARG_NUM 10
 # define ERROR_IMPOSSIBLE_CHAR 11
-# define ERROR_NO_PLAYER 12
+# define ERROR_INVALID_TILE 12
 
 # define SUCCESS 1
 
@@ -118,7 +118,5 @@ typedef struct s_game {
 	t_map		map;
 	t_player	player;
 }	t_game;
-#include "../library/libft/libft.h"
-int	map_parsing(t_list *target, t_game *game_data);
-void	print_img(t_game *game_info);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:54:32 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:04:16 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,23 @@
 
 # include "my_types.h"
 
-enum side {
-	NS = 0,	// 세로선, x
-	WE = 1	// 가로선, y
+enum e_side {
+	NS = 0,
+	WE = 1
 };
 
-// 맵 좌표, 2차원 map board의 한 칸의 위치
-typedef	struct s_point
-{
+typedef struct s_point {
 	int	x;
 	int	y;
 }	t_point;
 
-// 광선이 세로선(x) 또는 가로선(y)에 닿았을 때의 거리를 계산하기 위해 필요한 정보
-typedef struct	s_side_data_of_ray
-{
-	double	side_dist;	// 광선의 현재 위치에서 가장 가까운 선, 현재 광선 위치 포함
-	double	delta_dist;	// 광선의 현재 위치에서 광선 방향으로 뻗었을 때 두 번째로 닿는 선
-	int		step_size;	// 광선이 뻗아나가는 방향 (가로선: E - 1, W - -1, 세로선: N - 1, S - -1)
+typedef struct s_side_data_of_ray {
+	double	side_dist;
+	double	delta_dist;
+	int		step_size;
 }	t_side_data_of_ray;
 
-// 광선이 벽에 다을 때까지의 거리를 측정하기 위해 필요한 정보
-typedef struct	s_ray_data
-{
+typedef struct s_ray_data {
 	t_point				loc;
 	t_vector			dir;
 	t_side_data_of_ray	x;
@@ -46,27 +40,29 @@ typedef struct	s_ray_data
 	int					side;
 }	t_ray_data;
 
-typedef struct	s_drawing_line_data
-{
+typedef struct s_drawing_line_data {
 	int		line_x;
 	int		line_height;
-	int		draw_start; // start point of line in window
-	int		draw_end;	// end point of line in window
+	int		draw_start;
+	int		draw_end;
 	int		tex_x;
-	t_img	tex_img;	// textrue image 
-	double	tex_step;	// How much to increase the texture coordinate per screen pixel
+	t_img	tex_img;
+	double	tex_step;
 }	t_drawing_line_data;
 
 // raycasting
-double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
 void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
-									double ray_dir, double player_loc);
+			double ray_dir, double player_loc);
 void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
-		double camera_x);
+			double camera_x);
+double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
+			char **map_board);
 
 // wall_drawing
-void	init_vars_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, int x);
-void	init_texture_data_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, t_ray_data ray, t_game game_info);
+void	init_vars_for_drawing_line(t_drawing_line_data *data,
+			double dist_of_ray, int x);
+void	init_texture_data_for_drawing_line(t_drawing_line_data *data,
+			double dist_of_ray, t_ray_data ray, t_game game_info);
 void	draw_line(t_drawing_line_data data, t_img *window_img);
 void    draw_map(t_player player, t_img img, t_map map);
 

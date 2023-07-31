@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 15:53:35 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:45:03 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,13 @@
 #include "../headers/get_next_line.h"
 #include "../library/libft/libft.h"
 
-int	print_error(int error)
-{
-	if (error == ERROR_MAP_NAME)
-		ft_putstr_fd("Error\nInvalid map name\n", 2);
-	else if (error == ERROR_MALLOC)
-		ft_putstr_fd("Error\nMalloc failed\n", 2);
-	else if (error == ERROR_OPEN)
-		ft_putstr_fd("Error\nOpen failed\n", 2);
-	else if (error == ERROR_MLX_XPM_FILE_TO_IMAGE)
-		ft_putstr_fd("Error\nmlx_xpm_file_to_image failed\n", 2);
-	else if (error == ERROR_INVALID_TEXTURE)
-		ft_putstr_fd("Error\nInvalid texture\n", 2);
-	else if (error == ERROR_INVALID_COLOR)
-		ft_putstr_fd("Error\nInvalid color\n", 2);
-	else if (error == ERROR_INVALID_MAP)
-		ft_putstr_fd("Error\nInvalid map\n", 2);
-	else if (error == ERROR_TEXTURE_NOT_SET)
-		ft_putstr_fd("Error\nTexture not set\n", 2);
-	else if (error == ERROR_COLOR_NOT_SET)
-		ft_putstr_fd("Error\nColor not set\n", 2);
-	else if (error == ERROR_ARG_NUM)
-		ft_putstr_fd("Error\nInvalid argument number\n", 2);
-	else if (error == ERROR_IMPOSSIBLE_CHAR)
-		ft_putstr_fd("Error\nImpossible char\n", 2);
-	else if (error == ERROR_INVALID_TILE)
-		ft_putstr_fd("Error\nInvalid tile\n", 2);
-	return (ERROR_INT);
-}
-
 int	check_file_name(char *file_name)
 {
 	char	*format;
 
 	format = ft_strrchr(file_name, '.');
 	if (!format || ft_strncmp(format, ".cub", 4) || ft_strlen(format) != 4)
-		return (print_error(ERROR_MAP_NAME));
+		return (print_error(ERROR_MAP_NAME, ERROR_INT));
 	return (true);
 }
 
@@ -76,7 +47,7 @@ t_list	*read_file(int fd, t_map *map)
 	if (!is_eof || !tmp)
 	{
 		ft_lstclear(&list, free);
-		print_error(ERROR_MALLOC);
+		print_error(ERROR_MALLOC, ERROR_INT);
 		return (ERROR_POINTER);
 	}
 	return (list);
@@ -87,7 +58,7 @@ int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 	img->img = mlx_xpm_file_to_image(mlx, file_name, \
 			&img->width, &img->height);
 	if (!img->img)
-		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE));
+		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE, ERROR_INT));
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
 	return (true);
@@ -99,7 +70,7 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	t_img	img;
 
 	if (ft_strlen(s) < 4)
-		return (print_error(ERROR_INVALID_TEXTURE));
+		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	i = 2;
 	while (s[i] && s[i] == ' ')
 		i++;
@@ -116,7 +87,7 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	else if (!ft_strncmp(s, "EA", 2) && !map->east_texture.img)
 		ft_memcpy(&map->east_texture, &img, sizeof(t_img));
 	else
-		return (print_error(ERROR_INVALID_TEXTURE));
+		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	return (true);
 }
 
@@ -129,19 +100,19 @@ int	convert_rgb(char *s)
 	while (*s && ft_isdigit(*s) && rgb < 256)
 		rgb = rgb * 10 + *s++ - '0';
 	if (rgb > 255 || *s++ != ',')
-		return (print_error(ERROR_INVALID_COLOR));
+		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	color = rgb;
 	rgb = 0;
 	while (*s && ft_isdigit(*s) && rgb < 256)
 		rgb = rgb * 10 + *s++ - '0';
 	if (rgb > 255 || *s++ != ',')
-		return (print_error(ERROR_INVALID_COLOR));
+		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	color = (color << 8) + rgb;
 	rgb = 0;
 	while (*s && ft_isdigit(*s) && rgb < 256)
 		rgb = rgb * 10 + *s++ - '0';
 	if (rgb > 255 || (*s && *s != '\n') || *(s - 1) == ',')
-		return (print_error(ERROR_INVALID_COLOR));
+		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	color = (color << 8) + rgb;
 	return (color);
 }
@@ -165,19 +136,19 @@ int	set_color(char *s, t_map *map)
 	else if (*s == 'C' && map->ceil_color == ERROR_INT)
 		map->ceil_color = color;
 	else
-		return (print_error(ERROR_INVALID_COLOR));
+		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	return (true);
 }
 
 int	is_texture_set(t_map *map)
 {
 	if (map->ceil_color == ERROR_INT || map->floor_color == ERROR_INT)
-		return (print_error(ERROR_COLOR_NOT_SET));
+		return (print_error(ERROR_COLOR_NOT_SET, ERROR_INT));
 	if (map->north_texture.img == ERROR_POINTER || \
 			map->south_texture.img == ERROR_POINTER || \
 			map->west_texture.img == ERROR_POINTER || \
 			map->east_texture.img == ERROR_POINTER)
-		return (print_error(ERROR_TEXTURE_NOT_SET));
+		return (print_error(ERROR_TEXTURE_NOT_SET, ERROR_INT));
 	return (true);
 }
 
@@ -193,15 +164,23 @@ int	set_width_height(t_list *list, t_map *map)
 		if (s[len - 1] == '\n')
 			s[--len] = 0;
 		if (len == 0)
-			return (print_error(ERROR_INVALID_MAP));
+			return (print_error(ERROR_INVALID_MAP, ERROR_INT));
 		if (map->width < len)
 			map->width = len;
 		map->height++;
 		list = list->next;
 	}
 	if (map->height == 0 || map->width == 0)
-		return (print_error(ERROR_INVALID_MAP));
+		return (print_error(ERROR_INVALID_MAP, ERROR_INT));
 	return (true);
+}
+
+int	is_valid_char(char c)
+{
+	if (c == '\n' || c == 'F' || c == 'C' || \
+			c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (true);
+	return (false);
 }
 
 int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
@@ -216,13 +195,12 @@ int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 		if (*s == '1')
 			break ;
 		list = list->next;
-		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') && \
-				set_texture(s, mlx, map) != ERROR_INT)
-			continue ;
-		else if ((*s == 'F' || *s == 'C') && set_color(s, map) != ERROR_INT)
-			continue ;
-		else if (*s != '\n')
-			return (print_error(ERROR_IMPOSSIBLE_CHAR));
+		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') && set_texture(s, mlx, map) == ERROR_INT)
+			return (ERROR_INT); 
+		else if ((*s == 'F' || *s == 'C') && set_color(s, map) == ERROR_INT)
+			return (ERROR_INT);
+		else if (*s && !is_valid_char(*s))
+			return (print_error(ERROR_IMPOSSIBLE_CHAR, ERROR_INT));
 	}
 	map->width = 0;
 	map->height = 0;
@@ -248,7 +226,7 @@ int	init(char *file_name, t_game *game_info)
 			WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	fd = open(file_name, O_RDONLY, 644);
 	if (fd == -1)
-		return (print_error(ERROR_OPEN));
+		return (print_error(ERROR_OPEN, ERROR_INT));
 	list = read_file(fd, &(game_info->map));
 	if (list == ERROR_POINTER)
 		return (ERROR_INT);
