@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 14:31:13 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:05:07 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir);
 int	free_map(char **map, int h);
+int	perror_n_return_false(char *error_message);
 
 static int	init_map_board(t_list *list_p, t_map *map)
 {
@@ -84,6 +85,11 @@ int	map_parsing(t_list *target, t_game *game_data)
 	player_dir = 0;
 	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
 		return (free_map(game_data->map.board, game_data->map.height));
+	if (!player_dir)
+	{
+		perror_n_return_false("no player in map");
+		return (ERROR_INT);
+	}
 	init_player(&(game_data->player), player_loc, player_dir);
 	return (SUCCESS);
 }
