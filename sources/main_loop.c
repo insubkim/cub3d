@@ -6,12 +6,12 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 15:45:55 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:55:23 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
-#include "../headers/drawing_3d.h"
+// #include "../headers/drawing_3d.h"
 #include "../library/mlx/mlx.h"
 
 //test 용
