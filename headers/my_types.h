@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:39:55 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 16:57:58 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,5 @@ typedef struct s_game {
 	t_map		map;
 	t_player	player;
 }	t_game;
-#include "../library/libft/libft.h"
-int	map_parsing(t_list *target, t_game *game_data);
-void	print_img(t_game *game_info);
+
 #endif

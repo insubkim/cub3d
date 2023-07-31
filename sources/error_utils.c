@@ -6,11 +6,12 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:47:16 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:10:59 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
+#include "../library/libft/libft.h"
 
 int	free_map(char **map, int h)
 {

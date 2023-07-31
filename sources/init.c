@@ -6,14 +6,13 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 16:45:03 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:11:44 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
-#include "../headers/my_types.h"
 #include "../headers/get_next_line.h"
-#include "../library/libft/libft.h"
+#include "../headers/cub3d.h"
 
 int	check_file_name(char *file_name)
 {
@@ -195,8 +194,9 @@ int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 		if (*s == '1')
 			break ;
 		list = list->next;
-		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') && set_texture(s, mlx, map) == ERROR_INT)
-			return (ERROR_INT); 
+		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') \
+				&& set_texture(s, mlx, map) == ERROR_INT)
+			return (ERROR_INT);
 		else if ((*s == 'F' || *s == 'C') && set_color(s, map) == ERROR_INT)
 			return (ERROR_INT);
 		else if (*s && !is_valid_char(*s))
