@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/27 15:37:16 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:03:34 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,26 @@ void	set_map_white(t_img img)
 	draw_square(img, p, 220, 0x00FFFFFF);
 }
 
+/* draw_dir
+ * : 플레이어 방향 벡터를 img에 표시함.
+ * parameter - player: 플레이어 정보
+ *           - img: mlx 이미지
+ * return: none
+ */
+void	draw_dir(t_player player, t_img img)
+{
+    int i;
+    double radian;
+
+    i = 0;
+    radian = atan2(-player.dir.y, player.dir.x);
+    while (i < 30)
+    {
+        my_mlx_pixel_put(&img, cos(radian) * i + 100 , sin(radian) * i + 100 + (WIN_HEIGHT - 220), 0x00FF0000);		
+        i++;
+    }
+}
+
 /* draw_map
  * : 플레이어 위치에 따른 맵 생성. 맵 정중앙은 플레이어 위치이고 각 방향 5칸 까지의 구조물을 표현함. 
  *   한 칸당 20 * 20 픽셀로 나타냄. 맵은 220 * 220 펙셀임. 화면 왼쪽 하단에 표시
@@ -89,4 +109,5 @@ void    draw_map(t_player player, t_img img, t_map map)
                 my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00FF0000);
         }
     }
+    draw_dir(player, img);
 }

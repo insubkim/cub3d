@@ -6,22 +6,15 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 17:56:16 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 14:18:08 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
 #include "../library/libft/libft.h"
 
-extern int is_valid_map(t_map *, t_vector *, char *);
-
-static int	free_map(char **map, int h)
-{
-	while(h-- > 0)
-		free(map[h]);
-	free(map);
-	return (ERROR_INT);
-}
+int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir);
+int	free_map(char **map, int h);
 
 static int	init_map_board(t_list *list_p, t_map *map)
 {
@@ -61,13 +54,13 @@ static void	init_player(t_player *player, t_vector loc, char dir)
 	player->plane.y = 0;
 	if (dir == 'N')
 	{
-		player->dir.y = 1;
 		player->plane.x = 0.66;
+		player->dir.y = 1;
 	}
 	else if (dir == 'S')
 	{
-		player->dir.y = -1;
 		player->plane.x = -0.66;
+		player->dir.y = -1;
 	}
 	else if (dir == 'E')
 	{
@@ -85,25 +78,17 @@ int	map_parsing(t_list *target, t_game *game_data)
 {
 	t_vector	player_loc;
 	char		player_dir;
-	
-	// init map board
+
 	if (init_map_board(target, &(game_data->map)) == ERROR_INT)
 		return (ERROR_INT);
-
-	// is valid map
 	player_dir = 0;
 	if (!is_valid_map(&(game_data->map), &player_loc, &player_dir))
-	{
-		// Error: Invalid Map
 		return (free_map(game_data->map.board, game_data->map.height));
-	}
-
-	// init player info
 	init_player(&(game_data->player), player_loc, player_dir);
-	
 	return (SUCCESS);
 }
 
+/*
 #define test_height 14
 #include <stdio.h>
 
@@ -139,3 +124,4 @@ int main() {
 	printf("%s", ret == SUCCESS ? "SUCCESS" : "ERROR");
 	printf("(%lf, %lf), (%lf, %lf), (%lf, %lf)\n", game_data.player.loc.x, game_data.player.loc.y, game_data.player.dir.x, game_data.player.dir.y, game_data.player.plane.x, game_data.player.plane.y);
 }
+*/
