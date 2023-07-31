@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 14:30:18 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:24:56 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 
 
 void    draw_map(t_player player, t_img img, t_map map);//test
-void	__test_player_print(t_game *game_info);//test
-void	do_raycasting(double **dist_of_rays, t_player player, int screen_width, char **map_board);//test
-void	do_raycasting2(t_player player, char **map_board, t_game *game_info);
 
 
 /* make_img
@@ -94,6 +91,7 @@ void	draw_wall(t_game *game_info)
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{
+		init_vars_for_raycasting(ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
 		dist = get_dist_of_ray(x, &ray, game_info->player,
 				game_info->map.board);
 		init_texture_data_for_drawing_line(&drawing_data, dist,
@@ -114,9 +112,9 @@ void	draw_mouse(t_game *game_info)
 	while (i < 20)
 	{
 		if (x - 10 + i >= 0 && x - 10 + i < WIN_WIDTH && y >= 0)
-			my_mlx_pixel_put(&game_info->img, x - 10 + i, y, 0x00FFFFFF);
+			my_mlx_pixel_put(&game_info->img, x - 10 + i, y, 0X00800080);
 		if (y - 10 + i >= 0 && y - 10 + i < WIN_HEIGHT && x >= 0)
-			my_mlx_pixel_put(&game_info->img, x, y - 10 + i, 0x00FFFFFF);
+			my_mlx_pixel_put(&game_info->img, x, y - 10 + i, 0X00800080);
 		i++;
 	}
 
@@ -130,11 +128,9 @@ void	draw_mouse(t_game *game_info)
 void    print_img(t_game *game_info)
 {
 	make_img(game_info);
-	draw_floor_ceil(game_info, 0x00000000, 0x00FF0000);
-    draw_wall(game_info);//do_raycasting
-	// do_raycasting2(game_info->player, game_info->map.board, game_info);
-	
-	draw_map(game_info->player, game_info->img, game_info->map);
+	draw_floor_ceil(game_info, game_info->map.floor_color, game_info->map.ceil_color);
+	draw_wall(game_info);
+    draw_map(game_info->player, game_info->img, game_info->map);
 	draw_mouse(game_info);
 	mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->img.img, 0, 0);
 	if (game_info->img_copy)

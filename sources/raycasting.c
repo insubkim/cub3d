@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 14:31:25 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:24:11 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../headers/drawing_3d.h"
 #include "../library/libft/libft.h"
 
-static void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
+void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 									double ray_dir, double player_loc)
 {
 	ray->delta_dist = 1e30;
@@ -59,7 +59,6 @@ double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
 	int			is_hit;
 
 	is_hit = FALSE;
-	init_vars_for_raycasting(ray, player, 2 * x / (double)WIN_WIDTH - 1);
 	while (!is_hit)
 	{
 		if (ray->x.side_dist < ray->y.side_dist)
