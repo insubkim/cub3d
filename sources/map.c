@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 15:57:07 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:25 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
 void	draw_square(t_img img, t_point point, int size, int color)

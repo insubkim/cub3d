@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:39:55 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:26:53 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MY_TYPES_H
 # define MY_TYPES_H
 
-# include <stdbool.h>
 # include <stdlib.h>
-# include <math.h>
-# include <fcntl.h> 
+# include <fcntl.h>
 
 # define ERROR_INT -1
 # define ERROR_POINTER NULL
@@ -103,7 +101,6 @@ typedef struct s_map {
 	int		height;
 	int		ceil_color;
 	int		floor_color;
-	t_img	*texture_imgs;
 	t_img	north_texture;
 	t_img	south_texture;
 	t_img	west_texture;
@@ -118,7 +115,5 @@ typedef struct s_game {
 	t_map		map;
 	t_player	player;
 }	t_game;
-#include "../library/libft/libft.h"
-int	map_parsing(t_list *target, t_game *game_data);
-void	print_img(t_game *game_info);
+
 #endif

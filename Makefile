@@ -23,7 +23,7 @@ OBJS += $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 
 CC		= cc
 CFLAGS	= -g
-#  -Wall -Werror -Wextra 
+# -Wall -Werror -Wextra
 RM		= rm -rf
 MD		= mkdir -p 
 
@@ -38,7 +38,7 @@ all:
 	make bonus -C $(LIBFT_DIR)
 	make $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HDRS_DIR)
 	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -g -o $(NAME)
 # cc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -o $(NAME)
 

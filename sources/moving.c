@@ -6,11 +6,11 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:03 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:46:14 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:32:40 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 
 void	move_dir(enum e_direction dir, t_player *player)
 {

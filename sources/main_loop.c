@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 16:06:40 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:23:51 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
-// #include "../headers/drawing_3d.h"
+#include "../headers/cub3d.h"
 #include "../library/mlx/mlx.h"
 
 //test 용
@@ -21,14 +20,10 @@
 // void    print_img(t_game *game_info);
 // void	__test_init(t_game *game_info);
 
-int		init(char *file_name, t_game *game_info);
-int		print_error(int error);
-void	move_player(enum e_direction dir, t_game *game_info);
-void	move_dir(enum e_direction dir, t_player *player);
-
-void	destroy_game(t_game *game_info)
+void	destroy_game(t_game *game)
 {
-	game_info++;
+	mlx_destroy_window(game->mlx, game->win);
+	free_map(&(game->map.board), game->map.height);
 }
 
 int	handle_close(t_game *game_info)
@@ -81,7 +76,7 @@ int	main(int argc, char **argv)
 	t_game	game_info;
 
 	if (argc != 2)
-		return (print_error(ERROR_ARG_NUM));
+		return (print_error(ERROR_ARG_NUM, ERROR_INT));
 	if (init(argv[1], &game_info) == ERROR_INT)
 		return (1);
 	print_img(&game_info);

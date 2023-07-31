@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:47:16 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:30:30 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
+#include "../library/libft/libft.h"
 
-int	free_map(char **map, int h)
+int	free_map(char ***map, int h)
 {
-	while (h-- > 0)
-		free(map[h]);
-	free(map);
+	while (h-- > 0 && (*map)[h])
+		free((*map)[h]);
+	if (*map)
+		free(*map);
+	*map = NULL;
 	return (ERROR_INT);
 }
 

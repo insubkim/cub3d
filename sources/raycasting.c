@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:36:05 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:32:57 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
-#include "../library/libft/libft.h"
 
 void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 									double ray_dir, double player_loc)

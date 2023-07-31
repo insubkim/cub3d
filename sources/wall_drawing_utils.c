@@ -6,11 +6,11 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:05:21 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:54:03 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:33:06 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
 int	get_texture_x(t_vector player_loc, t_ray_data ray,

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:43:14 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:32:30 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 
 static int	is_possible_char(char ch, int is_player_found)
 {

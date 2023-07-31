@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 16:45:03 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:31:06 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/get_next_line.h"
 #include "../library/libft/libft.h"
 
@@ -22,7 +22,7 @@ int	check_file_name(char *file_name)
 	format = ft_strrchr(file_name, '.');
 	if (!format || ft_strncmp(format, ".cub", 4) || ft_strlen(format) != 4)
 		return (print_error(ERROR_MAP_NAME, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 t_list	*read_file(int fd, t_map *map)
@@ -61,7 +61,7 @@ int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE, ERROR_INT));
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
-	return (true);
+	return (TRUE);
 }
 
 int	set_texture(char *s, void *mlx, t_map *map)
@@ -88,7 +88,7 @@ int	set_texture(char *s, void *mlx, t_map *map)
 		ft_memcpy(&map->east_texture, &img, sizeof(t_img));
 	else
 		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 int	convert_rgb(char *s)
@@ -137,7 +137,7 @@ int	set_color(char *s, t_map *map)
 		map->ceil_color = color;
 	else
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 int	is_texture_set(t_map *map)
@@ -149,7 +149,7 @@ int	is_texture_set(t_map *map)
 			map->west_texture.img == ERROR_POINTER || \
 			map->east_texture.img == ERROR_POINTER)
 		return (print_error(ERROR_TEXTURE_NOT_SET, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 int	set_width_height(t_list *list, t_map *map)
@@ -172,15 +172,15 @@ int	set_width_height(t_list *list, t_map *map)
 	}
 	if (map->height == 0 || map->width == 0)
 		return (print_error(ERROR_INVALID_MAP, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 int	is_valid_char(char c)
 {
 	if (c == '\n' || c == 'F' || c == 'C' || \
 			c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
@@ -208,7 +208,7 @@ int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 			set_width_height(list, map) == ERROR_INT || \
 			map_parsing(list, game_info) == ERROR_INT)
 		return (ERROR_INT);
-	return (true);
+	return (TRUE);
 }
 
 int	init(char *file_name, t_game *game_info)
@@ -237,5 +237,5 @@ int	init(char *file_name, t_game *game_info)
 		return (ERROR_INT);
 	}
 	ft_lstclear(&list, free);
-	return (true);
+	return (TRUE);
 }

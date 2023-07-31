@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 15:44:52 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:36:26 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../library/mlx/mlx.h"
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
-#include "../library/libft/libft.h"
 
 void	make_img(t_game *game_info)
 {
@@ -32,7 +31,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
+static void	draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
 {
 	int	i;
 	int	j;
@@ -54,7 +53,7 @@ void	draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
 	}
 }
 
-void	draw_wall(t_game *game_info)
+static void	draw_wall(t_game *game_info)
 {	
 	int					x;
 	double				dist;
@@ -75,7 +74,7 @@ void	draw_wall(t_game *game_info)
 	}
 }
 
-void	draw_mouse(t_game *game_info)
+static void	draw_mouse(t_game *game_info)
 {
 	int	x;
 	int	y;
