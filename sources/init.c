@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 18:09:24 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 22:45:43 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ static t_list	*read_file(int fd)
 
 	is_eof = 0;
 	list = 0;
-	while (1)
+	line = get_next_line(fd, &is_eof);
+	while (line != ERROR_POINTER)
 	{
-		line = get_next_line(fd, &is_eof);
-		if (line == ERROR_POINTER)
-			break ;
 		tmp = ft_lstnew(line);
-		if (!tmp)
+		if (tmp == ERROR_POINTER)
 			break ;
 		ft_lstadd_back(&list, tmp);
+		line = get_next_line(fd, &is_eof);
 	}
 	if (!is_eof || !tmp)
 	{
@@ -47,6 +46,8 @@ static t_list	*read_file(int fd)
 		print_error(ERROR_MALLOC, ERROR_INT);
 		return (ERROR_POINTER);
 	}
+	if (!list)
+		print_error(ERROR_INVALID_MAP, ERROR_INT);
 	return (list);
 }
 
@@ -96,7 +97,7 @@ int	init(char *file_name, t_game *game_info)
 	int		fd;
 	t_list	*list;
 
-	if (!ft_strrchr(file_name, '.') || \
+	if (!ft_strrchr(file_name, '.') || ft_strlen(file_name) < 5 || \
 			ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
 		return (print_error(ERROR_MAP_NAME, ERROR_INT));
 	ft_memset(game_info, 0, sizeof(t_game));

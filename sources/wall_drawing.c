@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 18:12:42 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 22:27:16 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	draw_line(t_drawing_line_data data, t_img *window_img)
 	while (line_y < data.draw_end)
 	{
 		tex_y = (int)tex_pos;
+		if (tex_y > data.tex_img.height)
+			tex_y = data.tex_img.height - 1;
 		my_mlx_pixel_put(window_img, data.line_x, line_y,
 			get_color(data.tex_img, data.tex_x, tex_y));
 		line_y++;
