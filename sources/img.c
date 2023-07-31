@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/28 21:25:14 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 13:39:18 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,18 @@ void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
 
 void	draw_wall(t_game *game_info)
 {	
-	int			x;
-	double		dist;
-	t_ray_data	ray;
-	t_drawing_line_data drawing_data;
+	int					x;
+	double				dist;
+	t_ray_data			ray;
+	t_drawing_line_data	drawing_data;
 
 	x = -1;
-	while(++x < WIN_WIDTH)
+	while (++x < WIN_WIDTH)
 	{
-		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
-		dist = get_dist_of_ray(x, &ray, game_info->player, game_info->map.board);
-		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
+		dist = get_dist_of_ray(x, &ray, game_info->player,
+				game_info->map.board);
+		init_texture_data_for_drawing_line(&drawing_data, dist,
+			ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);
 		draw_line(drawing_data, &(game_info->img));
 	}

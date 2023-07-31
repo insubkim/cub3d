@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/28 21:23:11 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 13:36:45 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct	s_drawing_line_data
 }	t_drawing_line_data;
 
 // raycasting
-void	init_vars_for_raycasting(t_ray_data *ray, t_player player, double camera_x);
 double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
 
 // wall_drawing
