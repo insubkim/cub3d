@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:56:00 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:17:34 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 			double ray_dir, double player_loc);
 void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
 			double camera_x);
-double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
-			char **map_board);
+double	get_dist_of_ray(t_ray_data *ray, char **map_board);
 
 // wall_drawing
 void	init_vars_for_drawing_line(t_drawing_line_data *data,

@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:57:27 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:13:57 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 int		init(char *file_name, t_game *game_info);
 int		map_parsing(t_list *target, t_game *game_data);
 int		is_valid_map(t_map *map, t_vector *player_loc, char *player_dir);
+int		set_color(char *s, t_map *map);
+int		set_texture(char *s, void *mlx, t_map *map);
+int		set_width_height(t_list *list, t_map *map);
 
 // error utils
 int		free_map(char ***map, int h);

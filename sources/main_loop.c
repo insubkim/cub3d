@@ -6,33 +6,27 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:23:51 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:13:09 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
 #include "../library/mlx/mlx.h"
 
-//test 용
-// void    make_img(t_game *game_info);
-// void    draw_map(t_player player, t_img img, t_map map);
-// void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color);
-// void    print_img(t_game *game_info);
-// void	__test_init(t_game *game_info);
-
-void	destroy_game(t_game *game)
+static void	destroy_game(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_image(game->mlx, game->img.img);
 	free_map(&(game->map.board), game->map.height);
 }
 
-int	handle_close(t_game *game_info)
+static int	handle_close(t_game *game_info)
 {
 	destroy_game(game_info);
 	exit(0);
 }
 
-int	handle_key(int keycode, t_game *game_info)
+static int	handle_key(int keycode, t_game *game_info)
 {
 	if (keycode == KEY_LEFT)
 		move_dir(LEFT, &game_info->player);
@@ -54,7 +48,7 @@ int	handle_key(int keycode, t_game *game_info)
 	return (0);
 }
 
-int	handle_mouse(t_game *game_info)
+static int	handle_mouse(t_game *game_info)
 {
 	int	x;
 	int	y;

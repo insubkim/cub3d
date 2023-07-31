@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:57:19 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:21:57 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_game {
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_img		*img_copy;
+	void		*img_copy;
 	t_map		map;
 	t_player	player;
 }	t_game;

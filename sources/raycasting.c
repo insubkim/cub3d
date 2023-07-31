@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:32:57 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:03:16 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ static void	jump_to_next_side(int side, t_side_data_of_ray *side_data,
 	*ray_side = side;
 }
 
-double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
-							char **map_board)
+double	get_dist_of_ray(t_ray_data *ray, char **map_board)
 {
 	double		dist;
 	int			is_hit;

@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 17:57:53 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:08:30 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
-void	make_img(t_game *game_info)
+static void	make_img(t_game *game_info)
 {
 	game_info->img_copy = game_info->img.img;
 	game_info->img.img = mlx_new_image(game_info->mlx, WIN_WIDTH, WIN_HEIGHT);
@@ -57,8 +57,7 @@ static void	draw_wall(t_game *game_info)
 	{
 		init_vars_for_raycasting(&ray, game_info->player, \
 						2 * x / (double)WIN_WIDTH - 1);
-		dist = get_dist_of_ray(x, &ray, game_info->player,
-				game_info->map.board);
+		dist = get_dist_of_ray(&ray, game_info->map.board);
 		init_texture_data_for_drawing_line(&drawing_data, dist, \
 						ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);

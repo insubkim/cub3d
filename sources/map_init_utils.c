@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:54:16 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 18:10:32 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
 #include "../library/mlx/mlx.h"
 
-int	set_xpm_info(void *mlx, t_img *img, char *file_name)
+static int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 {
 	img->img = mlx_xpm_file_to_image(mlx, file_name, \
 			&img->width, &img->height);
@@ -21,7 +21,7 @@ int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE, ERROR_INT));
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
 			&img->line_length, &img->endian);
-	return (true);
+	return (TRUE);
 }
 
 int	set_texture(char *s, void *mlx, t_map *map)
@@ -48,10 +48,10 @@ int	set_texture(char *s, void *mlx, t_map *map)
 		ft_memcpy(&map->east_texture, &img, sizeof(t_img));
 	else
 		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
-int	convert_rgb(char *s)
+static int	convert_rgb(char *s)
 {
 	int	color;
 	int	rgb;
@@ -96,7 +96,7 @@ int	set_color(char *s, t_map *map)
 		map->ceil_color = color;
 	else
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
-	return (true);
+	return (TRUE);
 }
 
 int	set_width_height(t_list *list, t_map *map)
@@ -119,5 +119,5 @@ int	set_width_height(t_list *list, t_map *map)
 	}
 	if (map->height == 0 || map->width == 0)
 		return (print_error(ERROR_INVALID_MAP, ERROR_INT));
-	return (true);
+	return (TRUE);
 }

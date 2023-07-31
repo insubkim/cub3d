@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:03 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:11:53 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
-void	set_map_white(t_img img)
+static void	set_map_white(t_img img)
 {
 	int	i;
 	int	j;
@@ -32,7 +32,7 @@ void	set_map_white(t_img img)
 	}
 }
 
-void	draw_map_ray(t_vector dir, t_img img, double dist)
+static void	draw_map_ray(t_vector dir, t_img img, double dist)
 {
 	int		i;
 	double	x;
@@ -87,7 +87,7 @@ void	raycast(t_player player, t_img img, t_map map)
 								ray.dir.x, ray.dir.y, player.loc.x);
 		init_side_data_of_ray_for_map(&(ray.y), \
 								ray.dir.y, ray.dir.x, player.loc.y);
-		dist = get_dist_of_ray(x, &ray, player, map.board);
+		dist = get_dist_of_ray(&ray, map.board);
 		draw_map_ray(ray.dir, img, dist);
 	}
 }

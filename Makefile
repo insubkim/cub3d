@@ -22,14 +22,13 @@ OBJS += $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 # -------------------------------- COMPILATE --------------------------------- #
 
 CC		= cc
-CFLAGS	= -g
-# -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -rf
 MD		= mkdir -p 
 
 # --------------------------------- RULES ------------------------------------ #
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c 
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS_DIR)*.h
 	$(MD) $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
 
@@ -38,7 +37,7 @@ all:
 	make bonus -C $(LIBFT_DIR)
 	make $(NAME)
 
-$(NAME): $(OBJS) $(HDRS_DIR)
+$(NAME): $(HDRS_DIR)*.h $(OBJS)
 	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -g -o $(NAME)
 # cc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -o $(NAME)
 

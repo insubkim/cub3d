@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 16:59:11 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 18:12:42 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
 #include "../headers/drawing_3d.h"
-
-void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int				get_texture_x(t_vector player_loc, t_ray_data ray,
-					double dist, int texture_width);
-t_img			get_texture_img(int hit_side, t_point hitpoint,
-					t_map map, t_vector player_loc);
-unsigned int	get_color(t_img img, int x, int y);
 
 void	init_vars_for_drawing_line(t_drawing_line_data *data,
 									double dist_of_ray, int x)

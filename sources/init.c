@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:58:34 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:09:24 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 #include "../headers/cub3d.h"
 #include "../headers/get_next_line.h"
 
-int	set_color(char *s, t_map *map);
-int	set_texture(char *s, void *mlx, t_map *map);
-int	set_width_height(t_list *list, t_map *map);
-
-int	is_valid_char(char c)
+static int	is_valid_char(char c)
 {
 	if (c == '\n' || c == 'F' || c == 'C' || \
 			c == 'N' || c == 'S' || c == 'W' || c == 'E')
@@ -26,7 +22,7 @@ int	is_valid_char(char c)
 	return (FALSE);
 }
 
-t_list	*read_file(int fd)
+static t_list	*read_file(int fd)
 {
 	char	*line;
 	t_list	*list;
@@ -54,7 +50,7 @@ t_list	*read_file(int fd)
 	return (list);
 }
 
-int	is_texture_set(t_map *map)
+static int	is_texture_set(t_map *map)
 {
 	if (map->ceil_color == FALSE || map->floor_color == FALSE)
 		return (print_error(ERROR_COLOR_NOT_SET, ERROR_INT));
@@ -66,7 +62,7 @@ int	is_texture_set(t_map *map)
 	return (TRUE);
 }
 
-int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
+static int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 {
 	char	*s;
 
