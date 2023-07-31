@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/07/30 15:19:24 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:15:31 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,45 @@
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
-void	init_vars_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, int x)
+void	init_vars_for_drawing_line(t_drawing_line_data *data,
+									double dist_of_ray, int x)
 {
 	data->line_height = (int)(WIN_HEIGHT / dist_of_ray);
-
 	data->draw_start = (-data->line_height / 2) + (WIN_HEIGHT / 2);
-	if(data->draw_start < 0)
+	if (data->draw_start < 0)
 		data->draw_start = 0;
-
 	data->draw_end = (data->line_height / 2) + (WIN_HEIGHT / 2);
-	if(data->draw_end >= WIN_HEIGHT)
+	if (data->draw_end >= WIN_HEIGHT)
 		data->draw_end = WIN_HEIGHT - 1;
-
 	data->line_x = x;
 }
 
-void	init_texture_data_for_drawing_line(t_drawing_line_data *data, double dist_of_ray, t_ray_data ray, t_game game_info)
+void	init_texture_data_for_drawing_line(t_drawing_line_data *data,
+											double dist_of_ray, t_ray_data ray,
+											t_game game_info)
 {
-	data->tex_img = get_texture_img(ray.side, ray.loc, game_info.map, game_info.player.loc);
+	data->tex_img = get_texture_img(ray.side, ray.loc, game_info.map,
+			game_info.player.loc);
 	data->tex_step = 1.0 * data->tex_img.height / data->line_height;
-	data->tex_x = get_texture_x(game_info.player.loc, ray, dist_of_ray, data->tex_img.width);
+	data->tex_x = get_texture_x(game_info.player.loc, ray,
+			dist_of_ray, data->tex_img.width);
 }
 
 void	draw_line(t_drawing_line_data data, t_img *window_img)
 {
-	int	line_y;
-	int tex_y;
-	double tex_pos;
-	
-	tex_pos = (data.draw_start - WIN_HEIGHT / 2 + data.line_height / 2) * data.tex_step;
+	int		line_y;
+	int		tex_y;
+	double	tex_pos;
+
+	tex_pos = (data.draw_start - WIN_HEIGHT / 2 + data.line_height / 2) \
+				* data.tex_step;
 	line_y = data.draw_start;
-	while(line_y < data.draw_end)
+	while (line_y < data.draw_end)
 	{
 		tex_y = (int)tex_pos;
-        my_mlx_pixel_put(window_img, data.line_x, line_y, get_color(data.tex_img, data.tex_x, tex_y));
+		my_mlx_pixel_put(window_img, data.line_x, line_y,
+			get_color(data.tex_img, data.tex_x, tex_y));
 		line_y++;
 		tex_pos += data.tex_step;
 	}
 }
-
-// img.c에 동일한 코드 있음
-/*void	draw_wall(t_game *game_info)
-{	
-	int			x;
-	double		dist;
-	t_ray_data	ray;
-	t_drawing_line_data drawing_data;
-
-	x = -1;
-	while(++x < WIN_WIDTH)
-	{
-		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
-		dist = get_dist_of_ray(x, &ray, game_info->player, game_info->map.board);
-		init_texture_data_for_drawing_line(&drawing_data, dist, ray, *game_info);
-		init_vars_for_drawing_line(&drawing_data, dist, x);
-		draw_line(drawing_data, &(game_info->img));
-	}
-}
-*/

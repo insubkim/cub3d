@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/30 16:09:48 by insub            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:24:02 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,21 +119,6 @@ static void	init_side_data_of_ray2(t_side_data_of_ray *ray, int ray_loc, double 
 	}
 }
 
-void	init_vars_for_raycasting2(t_ray_data *ray, t_player player, double camera_x)
-{
-	ray->dir.x = player.dir.x + (player.plane.x * camera_x);
-	ray->dir.y = -(player.dir.y + (player.plane.y * camera_x));
-
-	ray->loc.x = (int)(player.loc.x);
-	ray->loc.y = (int)(player.loc.y);
-
-	init_side_data_of_ray2(&(ray->x), ray->loc.x, ray->dir.x, player.loc.x, ray->dir.y);
-	init_side_data_of_ray2(&(ray->y), ray->loc.y, ray->dir.y, player.loc.y, ray->dir.x);
-
-	ray->is_hit = 0;
-}
-
-
 void    raycast(t_player player, t_img img, t_map map)
 {	
 	int			x;
@@ -143,7 +128,8 @@ void    raycast(t_player player, t_img img, t_map map)
 	x = -1;
 	while(++x < WIN_WIDTH)
 	{
-		init_vars_for_raycasting2(&ray, player, 2 * x / (double)WIN_WIDTH - 1);
+		init_vars_for_raycasting(&ray, player, 2 * x / (double)WIN_WIDTH - 1);
+		
 		dist = get_dist_of_ray(x, &ray, player, map.board);
         draw_map_ray(ray.dir, img, dist);
     }
