@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:56 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 15:29:29 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 
 void    draw_map(t_player player, t_img img, t_map map);//test
-
+static void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
+									double camera_x);
 
 /* make_img
  * : mlx 이미지 초기화, 플레이어 이동시 변경 전, 변경 후 img 둘 을 가지게 됨. 
@@ -91,7 +92,7 @@ void	draw_wall(t_game *game_info)
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{
-		init_vars_for_raycasting(ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
+		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
 		dist = get_dist_of_ray(x, &ray, game_info->player,
 				game_info->map.board);
 		init_texture_data_for_drawing_line(&drawing_data, dist,

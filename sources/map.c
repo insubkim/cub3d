@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:02 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 15:32:49 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 double	get_dist_of_ray(int x, t_ray_data *ray, t_player player, char **map_board);
-
+void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
+									double camera_x);
 
 /* draw_square
  * : point 부터 size 크기의 정사각형을 color 값으로 img에 넣음 
@@ -102,7 +103,7 @@ void	draw_map_ray(t_vector dir, t_img img, double dist)
 }
 
 
-static void	init_side_data_of_ray2(t_side_data_of_ray *ray, int ray_loc, double ray_dir, double player_loc, double rayDirAnother)
+static void	init_side_data_of_ray_for_map(t_side_data_of_ray *ray, double ray_dir, double rayDirAnother, double player_loc)
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
@@ -110,12 +111,12 @@ static void	init_side_data_of_ray2(t_side_data_of_ray *ray, int ray_loc, double 
 	if (ray_dir < 0)
 	{
 		ray->step_size = -1;
-		ray->side_dist = (player_loc - ray_loc) * ray->delta_dist;
+		ray->side_dist = (player_loc - (int)player_loc) * ray->delta_dist;
 	}
 	else
 	{
 		ray->step_size = 1;
-		ray->side_dist = (ray_loc + 1.0 - player_loc) * ray->delta_dist;
+		ray->side_dist = ((int)player_loc + 1.0 - player_loc) * ray->delta_dist;
 	}
 }
 
@@ -129,7 +130,8 @@ void    raycast(t_player player, t_img img, t_map map)
 	while(++x < WIN_WIDTH)
 	{
 		init_vars_for_raycasting(&ray, player, 2 * x / (double)WIN_WIDTH - 1);
-		
+		init_side_data_of_ray_for_map(&(ray.x), ray.dir.x, ray.dir.y, player.loc.x);
+		init_side_data_of_ray_for_map(&(ray.y), ray.dir.y, ray.dir.x, player.loc.y);
 		dist = get_dist_of_ray(x, &ray, player, map.board);
         draw_map_ray(ray.dir, img, dist);
     }

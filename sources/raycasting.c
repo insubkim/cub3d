@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:11 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 15:33:18 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 	}
 }
 
-static void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
+void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
 									double camera_x)
 {
 	ray->dir.x = player.dir.x + (player.plane.x * camera_x);
