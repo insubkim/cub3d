@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 14:14:08 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:57:58 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,4 @@ int	perror_n_return_false(char *error_message)
 	printf("%s\n", error_message);
 	return (FALSE);
 }
+

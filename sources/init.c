@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/28 19:20:44 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 15:53:35 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 #include "../headers/get_next_line.h"
 #include "../library/libft/libft.h"
 
-/* print_error
- * : 에러 메시지 출력
- *
- * parameter - error: 에러 번호
- * return: ERROR_INT
- */
 int	print_error(int error)
 {
 	if (error == ERROR_MAP_NAME)
@@ -47,15 +41,9 @@ int	print_error(int error)
 		ft_putstr_fd("Error\nImpossible char\n", 2);
 	else if (error == ERROR_INVALID_TILE)
 		ft_putstr_fd("Error\nInvalid tile\n", 2);
-	return ERROR_INT;
+	return (ERROR_INT);
 }
 
-/* check_file_name
- * : 파일 이름이 .cub로 끝나는지 확인
- *
- * parameter - file_name: 파일 이름
- * return: int
- */
 int	check_file_name(char *file_name)
 {
 	char	*format;
@@ -66,13 +54,6 @@ int	check_file_name(char *file_name)
 	return (true);
 }
 
-/* read_file
- * : 파일을 읽어서 리스트로 반환
- *
- * parameter - fd: 파일 디스크립터
- *           - map: 맵 정보
- * return: t_list
- */
 t_list	*read_file(int fd, t_map *map)
 {
 	char	*line;
@@ -101,38 +82,22 @@ t_list	*read_file(int fd, t_map *map)
 	return (list);
 }
 
-/* set_xpm_info
- * : xpm 파일 정보를 img에 저장
- *
- * parameter - mlx: mlx 포인터
- *           - img: 이미지 정보
- *           - file_name: 파일 이름
- * return: int
- */
 int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 {
 	img->img = mlx_xpm_file_to_image(mlx, file_name, \
-		&img->width, &img->height);
+			&img->width, &img->height);
 	if (!img->img)
 		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE));
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, \
-				&img->line_length, &img->endian);	
+			&img->line_length, &img->endian);
 	return (true);
 }
 
-/* set_texture
- * : 텍스쳐 정보를 map에 저장
- *
- * parameter - s: 텍스쳐 정보
- *           - mlx: mlx 포인터
- *           - map: 맵 정보
- * return: int
- */
 int	set_texture(char *s, void *mlx, t_map *map)
 {
 	int		i;
 	t_img	img;
-	
+
 	if (ft_strlen(s) < 4)
 		return (print_error(ERROR_INVALID_TEXTURE));
 	i = 2;
@@ -155,12 +120,6 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	return (true);
 }
 
-/* convert_rgb
- * : rgb 문자열을 int로 변환
- *
- * parameter - s: rgb 문자열
- * return: int
- */
 int	convert_rgb(char *s)
 {
 	int	color;
@@ -187,13 +146,6 @@ int	convert_rgb(char *s)
 	return (color);
 }
 
-/* set_color
- * : 색 정보를 map에 저장
- *
- * parameter - s: 색 정보
- *           - map: 맵 정보
- * return: int
- */
 int	set_color(char *s, t_map *map)
 {
 	int		i;
@@ -217,36 +169,23 @@ int	set_color(char *s, t_map *map)
 	return (true);
 }
 
-/* is_texture_set
- * : 텍스쳐와 색 정보가 모두 설정되었는지 확인
- *
- * parameter - map: 맵 정보
- * return: int
- */
 int	is_texture_set(t_map *map)
 {
-	if (map->ceil_color == ERROR_INT || map->floor_color == ERROR_INT) 
+	if (map->ceil_color == ERROR_INT || map->floor_color == ERROR_INT)
 		return (print_error(ERROR_COLOR_NOT_SET));
 	if (map->north_texture.img == ERROR_POINTER || \
-		map->south_texture.img == ERROR_POINTER || \
-		map->west_texture.img == ERROR_POINTER || \
-		map->east_texture.img == ERROR_POINTER)
+			map->south_texture.img == ERROR_POINTER || \
+			map->west_texture.img == ERROR_POINTER || \
+			map->east_texture.img == ERROR_POINTER)
 		return (print_error(ERROR_TEXTURE_NOT_SET));
 	return (true);
 }
 
-/* set_width_height
- * : 맵의 가로 세로 길이를 구함
- *
- * parameter - list: 맵 정보
- *           - map: 맵 정보
- * return: int
- */
 int	set_width_height(t_list *list, t_map *map)
 {
 	char	*s;
 	int		len;
-	
+
 	while (list)
 	{
 		s = list->content;
@@ -265,21 +204,10 @@ int	set_width_height(t_list *list, t_map *map)
 	return (true);
 }
 
-int	map_parsing(t_list *target, t_game *game_data);
-
-/* set_map_info
- * : 맵 정보를 map에 저장
- *
- * parameter - list: 맵 정보
- *           - map: 맵 정보
- *           - mlx: mlx 포인터
- *           - game_info: 게임 정보
- * return: int
- */
 int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 {
 	char	*s;
-	
+
 	while (list)
 	{
 		s = list->content;
@@ -289,7 +217,7 @@ int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 			break ;
 		list = list->next;
 		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') && \
-		set_texture(s, mlx, map) != ERROR_INT)
+				set_texture(s, mlx, map) != ERROR_INT)
 			continue ;
 		else if ((*s == 'F' || *s == 'C') && set_color(s, map) != ERROR_INT)
 			continue ;
@@ -299,23 +227,17 @@ int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 	map->width = 0;
 	map->height = 0;
 	if (is_texture_set(map) == ERROR_INT || \
-			set_width_height(list, map) == ERROR_INT || map_parsing(list, game_info) == ERROR_INT)
+			set_width_height(list, map) == ERROR_INT || \
+			map_parsing(list, game_info) == ERROR_INT)
 		return (ERROR_INT);
 	return (true);
 }
 
-/* init
- * : 게임 정보 초기화
- *
- * parameter - file_name: 파일 이름
- *           - game_info: 게임 정보
- * return: int
- */
 int	init(char *file_name, t_game *game_info)
 {
 	int		fd;
 	t_list	*list;
-	
+
 	if (check_file_name(file_name) == ERROR_INT)
 		return (ERROR_INT);
 	ft_memset(game_info, 0, sizeof(t_game));
@@ -323,14 +245,15 @@ int	init(char *file_name, t_game *game_info)
 	game_info->map.floor_color = ERROR_INT;
 	game_info->mlx = mlx_init();
 	game_info->win = mlx_new_window(game_info->mlx, \
-						WIN_WIDTH, WIN_HEIGHT, "Cub3d");
+			WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	fd = open(file_name, O_RDONLY, 644);
 	if (fd == -1)
 		return (print_error(ERROR_OPEN));
 	list = read_file(fd, &(game_info->map));
 	if (list == ERROR_POINTER)
 		return (ERROR_INT);
-	if (set_map_info(list, &game_info->map, game_info->mlx, game_info) == ERROR_INT)
+	if (set_map_info(list, &game_info->map, \
+				game_info->mlx, game_info) == ERROR_INT)
 	{
 		ft_lstclear(&list, free);
 		return (ERROR_INT);

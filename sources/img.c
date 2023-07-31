@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 15:29:29 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 15:44:52 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,71 +15,43 @@
 #include "../headers/drawing_3d.h"
 #include "../library/libft/libft.h"
 
-
-void    draw_map(t_player player, t_img img, t_map map);//test
-static void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
-									double camera_x);
-
-/* make_img
- * : mlx 이미지 초기화, 플레이어 이동시 변경 전, 변경 후 img 둘 을 가지게 됨. 
- *   변경 후 img를 화면에 표시하고 나서 변경 전 img를 파괴시키기 때문에,
- *   변경 전 img 사본을 img_copy에 저장시킴.
- * parameters - game_info: 게임 정보
- * return: none
- */
-void    make_img(t_game *game_info)
+void	make_img(t_game *game_info)
 {
-    game_info->img_copy = game_info->img.img;
-    game_info->img.img = mlx_new_image(game_info->mlx, WIN_WIDTH, WIN_HEIGHT);   
-    game_info->img.addr = mlx_get_data_addr(game_info->img.img, \
-                &(game_info->img.bits_per_pixel), &(game_info->img.line_length), \
-                &(game_info->img.endian));
+	game_info->img_copy = game_info->img.img;
+	game_info->img.img = mlx_new_image(game_info->mlx, WIN_WIDTH, WIN_HEIGHT);
+	game_info->img.addr = mlx_get_data_addr(game_info->img.img, \
+			&(game_info->img.bits_per_pixel), &(game_info->img.line_length), \
+			&(game_info->img.endian));
 }
 
-/* my_mlx_pixel_put
- * : img (x, y) 좌표에 color 픽셀 값을 넣음.
- *
- * parameter - img: 픽셀 넣을 이미지
- *           - x: x좌표
- *           - y: y좌표
- *           - color: 픽셀 색
- * return: none
- */
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
-/* draw_floor_ceil
- * : 바닥과 천장을 img에 표시함.
- * parameters - game_info: 게임 정보
- *            - floor_color: 바닥 색
- *            - ceil_color: 천장 색
- * return: none
- */
-void    draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
+void	draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)
 {
-    int i;
-    int j;
-    int color;
+	int	i;
+	int	j;
+	int	color;
 
-    color = ceil_color;
-    i = 0;
-    while (i < WIN_HEIGHT)
-    {
-        if (i == WIN_HEIGHT / 2)
-            color = floor_color;
-        j = 0;
-        while (j < WIN_WIDTH)
-        {
-            my_mlx_pixel_put(&(game_info->img), j, i, color);
-            j++;
-        }
-        i++;
-    }
+	color = ceil_color;
+	i = 0;
+	while (i < WIN_HEIGHT)
+	{
+		if (i == WIN_HEIGHT / 2)
+			color = floor_color;
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			my_mlx_pixel_put(&(game_info->img), j, i, color);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	draw_wall(t_game *game_info)
@@ -92,11 +64,12 @@ void	draw_wall(t_game *game_info)
 	x = -1;
 	while (++x < WIN_WIDTH)
 	{
-		init_vars_for_raycasting(&ray, game_info->player, 2 * x / (double)WIN_WIDTH - 1);
+		init_vars_for_raycasting(&ray, game_info->player, \
+						2 * x / (double)WIN_WIDTH - 1);
 		dist = get_dist_of_ray(x, &ray, game_info->player,
 				game_info->map.board);
-		init_texture_data_for_drawing_line(&drawing_data, dist,
-			ray, *game_info);
+		init_texture_data_for_drawing_line(&drawing_data, dist, \
+						ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);
 		draw_line(drawing_data, &(game_info->img));
 	}
@@ -118,22 +91,18 @@ void	draw_mouse(t_game *game_info)
 			my_mlx_pixel_put(&game_info->img, x, y - 10 + i, 0X00800080);
 		i++;
 	}
-
 }
 
-/* print_img
- * : mlx 이미지 생성 -> 천장 바닥 -> 벽 -> 맵 순으로 이미지 초기화 후, 화면에 표시
- * parameter - game_info: 게임정보
- * return: none
- */
-void    print_img(t_game *game_info)
+void	print_img(t_game *game_info)
 {
 	make_img(game_info);
-	draw_floor_ceil(game_info, game_info->map.floor_color, game_info->map.ceil_color);
+	draw_floor_ceil(game_info, game_info->map.floor_color, \
+				game_info->map.ceil_color);
 	draw_wall(game_info);
-    draw_map(game_info->player, game_info->img, game_info->map);
+	draw_map(game_info->player, game_info->img, game_info->map);
 	draw_mouse(game_info);
-	mlx_put_image_to_window(game_info->mlx, game_info->win, game_info->img.img, 0, 0);
+	mlx_put_image_to_window(game_info->mlx, game_info->win, \
+				game_info->img.img, 0, 0);
 	if (game_info->img_copy)
 		mlx_destroy_image(game_info->mlx, game_info->img_copy);
 }
