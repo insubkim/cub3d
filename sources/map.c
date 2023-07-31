@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:31:25 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:59:03 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,22 @@
 #include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
-void	draw_square(t_img img, t_point point, int size, int color)
+void	set_map_white(t_img img)
 {
 	int	i;
 	int	j;
 
-	i = point.y;
-	while (i < point.y + size)
+	i = WIN_HEIGHT - 220;
+	while (i < WIN_HEIGHT)
 	{
-		j = point.x;
-		while (j < point.x + size)
+		j = 0;
+		while (j < 220)
 		{
-			my_mlx_pixel_put(&img, j, i, color);
+			my_mlx_pixel_put(&img, j, i, 0x00FFFFFF);
 			j++;
 		}		
 		i++;
 	}
-}
-
-void	set_map_white(t_img img)
-{
-	t_point	p;
-
-	p.x = 0;
-	p.y = WIN_HEIGHT - 220;
-	draw_square(img, p, 220, 0x00FFFFFF);
 }
 
 void	draw_map_ray(t_vector dir, t_img img, double dist)

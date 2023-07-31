@@ -6,12 +6,11 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 18:03:37 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:31:37 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:58:54 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
-#include "../library/libft/libft.h"
 
 static int	init_map_board(t_list *list_p, t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 17:36:26 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:57:53 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,6 @@ void	make_img(t_game *game_info)
 	game_info->img.addr = mlx_get_data_addr(game_info->img.img, \
 			&(game_info->img.bits_per_pixel), &(game_info->img.line_length), \
 			&(game_info->img.endian));
-}
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 static void	draw_floor_ceil(t_game *game_info, int floor_color, int ceil_color)

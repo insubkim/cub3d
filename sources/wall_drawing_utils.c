@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:05:21 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:33:06 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:59:07 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,12 @@ unsigned int	get_color(t_img img, int x, int y)
 
 	dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
+}
+
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }
