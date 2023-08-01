@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/01 14:32:36 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/01 15:10:16 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,32 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	return (TRUE);
 }
 
-static int	convert_rgb(char *s)
+static int	convert_rgb2(char *s, int i, int cnt)
 {
-	int	color;
 	int	rgb;
+	int	rtn;
 
 	rgb = 0;
-	while (*s && ft_isdigit(*s) && rgb < 256)
-		rgb = rgb * 10 + *s++ - '0';
-	if (rgb > 255 || *s++ != ',')
+	while (s[i] && ft_isdigit(s[i]) && rgb < 256)
+		rgb = rgb * 10 + s[i++] - '0';
+	if (ft_isdigit(s[i - 1]) == FALSE)
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
-	color = rgb;
-	rgb = 0;
-	while (*s && ft_isdigit(*s) && rgb < 256)
-		rgb = rgb * 10 + *s++ - '0';
-	if (rgb > 255 || *s++ != ',')
+	while (s[i] && s[i] == ' ')
+		i++;
+	if (rgb > 255 || \
+		(cnt != 2 && s[i] != ',') || (cnt == 2 && s[i] != '\n'))
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
-	color = (color << 8) + rgb;
-	rgb = 0;
-	while (*s && ft_isdigit(*s) && rgb < 256)
-		rgb = rgb * 10 + *s++ - '0';
-	if (rgb > 255 || (*s && *s != '\n') || *(s - 1) == ',')
-		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
-	color = (color << 8) + rgb;
-	return (color);
+	i++;
+	while (s[i] && s[i] == ' ')
+		i++;
+	rtn = 0;
+	if (cnt != 2)
+		rtn = convert_rgb2(s, i, cnt + 1);
+	if (rtn == ERROR_INT)
+		return (ERROR_INT);
+	while (cnt++ < 2)
+		rgb = rgb << 8;
+	return (rgb + rtn);
 }
 
 int	set_color(char *s, t_map *map)
@@ -87,7 +89,7 @@ int	set_color(char *s, t_map *map)
 	i = 1;
 	while (s[i] && s[i] == ' ')
 		i++;
-	color = convert_rgb(&s[i]);
+	color = convert_rgb2(&s[i], 0, 0);
 	if (color == ERROR_INT)
 		return (ERROR_INT);
 	if (*s == 'F' && map->floor_color == ERROR_INT)

@@ -2,8 +2,13 @@ NO ./imgs/north.xpm
 SO ./imgs/south.xpm
 WE   ./imgs/west.xpm
 EA ./imgs/east.xpm
-F 0,0,0
-C 255,0,0
+
+
+         F0         ,          0          ,         0                  
+
+
+
+C 255,,0
 
 1111111111111111111111111
 1000000000110000000000001
