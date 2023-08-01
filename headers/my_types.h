@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 18:21:57 by heson            ###   ########.fr       */
+/*   Updated: 2023/07/31 22:54:25 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # define PI 3.1415926535
 # define ROTATE_DEGREE 1
 
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 800
 
 # define TILESIZE 10
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 18:10:32 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/01 14:32:36 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int	set_color(char *s, t_map *map)
 	color = convert_rgb(&s[i]);
 	if (color == ERROR_INT)
 		return (ERROR_INT);
-	if (*s == 'F' && map->floor_color == FALSE)
+	if (*s == 'F' && map->floor_color == ERROR_INT)
 		map->floor_color = color;
-	else if (*s == 'C' && map->ceil_color == FALSE)
+	else if (*s == 'C' && map->ceil_color == ERROR_INT)
 		map->ceil_color = color;
 	else
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));

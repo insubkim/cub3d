@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 22:45:43 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/01 14:31:29 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_list	*read_file(int fd)
 
 static int	is_texture_set(t_map *map)
 {
-	if (map->ceil_color == FALSE || map->floor_color == FALSE)
+	if (map->ceil_color == ERROR_INT || map->floor_color == ERROR_INT)
 		return (print_error(ERROR_COLOR_NOT_SET, ERROR_INT));
 	if (map->north_texture.img == ERROR_POINTER || \
 			map->south_texture.img == ERROR_POINTER || \
@@ -67,6 +67,8 @@ static int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 {
 	char	*s;
 
+	map->ceil_color = ERROR_INT;
+	map->floor_color = ERROR_INT;
 	while (list)
 	{
 		s = list->content;
@@ -83,8 +85,6 @@ static int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 		else if (*s && !is_valid_char(*s))
 			return (print_error(ERROR_IMPOSSIBLE_CHAR, ERROR_INT));
 	}
-	map->width = 0;
-	map->height = 0;
 	if (is_texture_set(map) == ERROR_INT || \
 			set_width_height(list, map) == ERROR_INT || \
 			map_parsing(list, game_info) == ERROR_INT)
