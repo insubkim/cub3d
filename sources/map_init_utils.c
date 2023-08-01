@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/01 15:10:16 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/01 16:40:43 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	if (ft_strlen(s) < 4)
 		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	i = 2;
+	if (s[i++] != ' ')
+		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	while (s[i] && s[i] == ' ')
 		i++;
 	if ((&s[i])[ft_strlen(&s[i]) - 1] == '\n')
@@ -51,7 +53,7 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	return (TRUE);
 }
 
-static int	convert_rgb2(char *s, int i, int cnt)
+static int	convert_rgb(char *s, int i, int cnt)
 {
 	int	rgb;
 	int	rtn;
@@ -71,7 +73,7 @@ static int	convert_rgb2(char *s, int i, int cnt)
 		i++;
 	rtn = 0;
 	if (cnt != 2)
-		rtn = convert_rgb2(s, i, cnt + 1);
+		rtn = convert_rgb(s, i, cnt + 1);
 	if (rtn == ERROR_INT)
 		return (ERROR_INT);
 	while (cnt++ < 2)
@@ -87,9 +89,11 @@ int	set_color(char *s, t_map *map)
 	if (ft_strlen(s) < 3)
 		return (ERROR_INT);
 	i = 1;
+	if (s[i++] != ' ')
+		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	while (s[i] && s[i] == ' ')
 		i++;
-	color = convert_rgb2(&s[i], 0, 0);
+	color = convert_rgb(&s[i], 0, 0);
 	if (color == ERROR_INT)
 		return (ERROR_INT);
 	if (*s == 'F' && map->floor_color == ERROR_INT)
