@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 22:54:25 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:42:13 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@
 # define PI 3.1415926535
 # define ROTATE_DEGREE 1
 
-# define WIN_WIDTH 800
+# define WIN_WIDTH 1000
 # define WIN_HEIGHT 800
 
-# define TILESIZE 10
+# define TILESIZE 5
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
+
+#define SPRITE_NUM 5
 
 enum e_keycode {
 	KEY_LEFT = 123,
@@ -82,6 +84,8 @@ typedef struct s_vector {
 typedef struct s_player {
 	t_vector	dir;
 	t_vector	loc;
+	t_vector	old_loc;
+	t_vector	move_offset;
 	t_vector	plane;
 }	t_player;
 
@@ -114,6 +118,7 @@ typedef struct s_game {
 	void		*img_copy;
 	t_map		map;
 	t_player	player;
+	int			sprite;
 }	t_game;
 
 #endif

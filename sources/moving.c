@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moving.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:03 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:32:40 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:42:31 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	move_player(enum e_direction dir, t_game *game_info)
 		x *= -1;
 		y *= -1;
 	}
-	x += game_info->player.loc.x;
-	y += game_info->player.loc.y;
-	if (is_not_wall(game_info->map.board, x, y))
-	{
-		game_info->player.loc.x = x;
-		game_info->player.loc.y = y;
+	if (is_not_wall(game_info->map.board, \
+		x + game_info->player.loc.x, y + game_info->player.loc.y))
+	 {
+	 	game_info->player.move_offset.x = x / SPRITE_NUM;
+	 	game_info->player.move_offset.y = y / SPRITE_NUM;
+		game_info->sprite = 0;
 	}
 }
