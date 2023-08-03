@@ -1,29 +1,10 @@
 NO ./imgs/north.xpm
-
 WE   ./imgs/west.xpm
-
-
 SO ./imgs/south.xpm
+EA ./imgs/east.xpm
 
 
-
-
-
-EA                ./imgs/east.xpm
-
-
-
-
-
-
-F                    220,100,0
-
-
-
-
-      
-        
-
+F 220,100,0
 C 225,30,1
 
 1111111111111111111111111
