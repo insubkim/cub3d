@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 18:13:09 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/03 12:36:32 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	main(int argc, char **argv)
 		return (print_error(ERROR_ARG_NUM, ERROR_INT));
 	if (init(argv[1], &game_info) == ERROR_INT)
 		return (1);
+	game_info.img.height = WIN_HEIGHT;
+	game_info.img.width = WIN_WIDTH;
 	print_img(&game_info);
 	mlx_hook(game_info.win, ON_KEYDOWN, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, ON_DESTROY, 0, handle_close, &game_info);

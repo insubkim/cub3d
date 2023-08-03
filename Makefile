@@ -22,7 +22,7 @@ OBJS += $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 # -------------------------------- COMPILATE --------------------------------- #
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
 RM		= rm -rf
 MD		= mkdir -p 
 
@@ -38,7 +38,7 @@ all:
 	make $(NAME)
 
 $(NAME): $(HDRS_DIR)*.h $(OBJS)
-	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -g -o $(NAME)
+	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) $(CFLAGS) -o $(NAME)
 # cc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -o $(NAME)
 
 
