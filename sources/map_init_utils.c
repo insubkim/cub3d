@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 17:58:55 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/03 18:49:37 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	set_texture(char *s, void *mlx, t_map *map)
 	int		i;
 	t_img	img;
 
-	if (ft_strlen(s) < 4)
-		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	i = 2;
-	if (s[i++] != ' ')
+	if (ft_strlen(s) < 4 || s[i++] != ' ')
 		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	while (s[i] && s[i] == ' ')
 		i++;

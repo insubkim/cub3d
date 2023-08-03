@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 18:23:44 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/03 18:47:17 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void	draw_map(t_player player, t_img img, t_map map)
 		{
 			if (p.x + j - 100 < 0 || p.x + j - 100 >= map.width * 20)
 				continue ;
-			if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL || \
-			map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == DOOR)
+			if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL \
+			|| map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == DOOR)
 				my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00808080);
 			else if ((i - 100) * (i - 100) + (j - 100) * (j - 100) < 30)
 				my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00006400);
