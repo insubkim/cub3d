@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 18:03:16 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:34:38 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ double	get_dist_of_ray(t_ray_data *ray, char **map_board)
 			jump_to_next_side(NS, &(ray->x), &(ray->loc.x), &(ray->side));
 		else
 			jump_to_next_side(WE, &(ray->y), &(ray->loc.y), &(ray->side));
-		if (map_board[ray->loc.y][ray->loc.x] == WALL)
+		if (map_board[ray->loc.y][ray->loc.x] == WALL || \
+		map_board[ray->loc.y][ray->loc.x] == DOOR)
 			is_hit = TRUE;
 	}
 	if (ray->side == NS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:00 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:12:27 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_possible_char(char ch, int is_player_found)
 {
-	if (ch == '0' || ch == '1' || ch == ' ')
+	if (ch == '0' || ch == '1' || ch == ' ' || ch == '2')
 		return (TRUE);
 	if (!is_player_found
 		&& (ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W'))
@@ -115,7 +115,7 @@ int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir)
 			if (!is_valid_tile(map->board[h][w], w, h, *map))
 				return (print_error(ERROR_INVALID_MAP, FALSE));
 			if (map->board[h][w] != SPACE && map->board[h][w] != WALL
-				&& map->board[h][w] != EMPTY)
+				&& map->board[h][w] != EMPTY && map->board[h][w] != DOOR)
 			{
 				player_loc->x = w + 0.2;
 				player_loc->y = h + 0.2;

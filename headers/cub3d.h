@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 18:13:57 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:22:07 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int		print_error(int error, int return_code);
 // moving
 void	move_player(enum e_direction dir, t_game *game_info);
 void	move_dir(enum e_direction dir, t_player *player);
+
+// door
+void	handle_door(t_game *game_info);
 
 // img
 void	print_img(t_game *game_info);

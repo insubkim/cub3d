@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 12:14:51 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:58:55 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	set_texture(char *s, void *mlx, t_map *map)
 		ft_memcpy(&map->west_texture, &img, sizeof(t_img));
 	else if (!ft_strncmp(s, "EA", 2) && !map->east_texture.img)
 		ft_memcpy(&map->east_texture, &img, sizeof(t_img));
+	else if (!ft_strncmp(s, "DO", 2) && !map->door_texture.img)
+		ft_memcpy(&map->door_texture, &img, sizeof(t_img));
 	else
 		return (print_error(ERROR_INVALID_TEXTURE, ERROR_INT));
 	return (TRUE);

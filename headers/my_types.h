@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/03 17:42:13 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/03 18:21:22 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ enum e_keycode {
 	KEY_S = 1,
 	KEY_A = 0,
 	KEY_D = 2,
+	KEY_SPACE = 49,
 	KEY_ESC = 53
 };
 
 enum e_tile_type {
 	EMPTY = '0',
 	WALL = '1',
+	DOOR = '2',
+	DOOR_CLOSE = '3',
 	SPACE = ' ',
 	PLAYER = 'P'
 };
@@ -109,6 +112,7 @@ typedef struct s_map {
 	t_img	south_texture;
 	t_img	west_texture;
 	t_img	east_texture;
+	t_img	door_texture;
 }	t_map;
 
 typedef struct s_game {

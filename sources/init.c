@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/01 14:31:29 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:06:56 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	is_valid_char(char c)
 {
-	if (c == '\n' || c == 'F' || c == 'C' || \
+	if (c == '\n' || c == 'F' || c == 'C' || c == 'D' || \
 			c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		return (TRUE);
 	return (FALSE);
@@ -77,7 +77,7 @@ static int	set_map_info(t_list *list, t_map *map, void *mlx, t_game *game_info)
 		if (*s == '1')
 			break ;
 		list = list->next;
-		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E') \
+		if ((*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E' || *s == 'D') \
 				&& set_texture(s, mlx, map) == ERROR_INT)
 			return (ERROR_INT);
 		else if ((*s == 'F' || *s == 'C') && set_color(s, map) == ERROR_INT)

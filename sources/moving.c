@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:03 by heson             #+#    #+#             */
-/*   Updated: 2023/08/03 17:42:31 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/03 18:42:02 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@ void	move_dir(enum e_direction dir, t_player *player)
 			+ player->plane.y * cos(rot_rate);
 }
 
-static int	is_not_wall(char **board, double x, double y)
+static int	is_not_tile_type(char **board, double x, double y, \
+	enum e_tile_type tile_type)
 {
 	double	padding;
 
 	padding = (double)1 / TILESIZE;
-	if (board[(int)y][(int)x] != WALL
-		&& board[(int)y][(int)(x + padding)] != WALL
-		&& board[(int)y][(int)(x - padding)] != WALL
-		&& board[(int)(y - padding)][(int)x] != WALL
-		&& board[(int)(y - padding)][(int)(x + padding)] != WALL
-		&& board[(int)(y - padding)][(int)(x - padding)] != WALL
-		&& board[(int)(y + padding)][(int)x] != WALL
-		&& board[(int)(y + padding)][(int)(x + padding)] != WALL
-		&& board[(int)(y + padding)][(int)(x - padding)] != WALL)
+	if (board[(int)y][(int)x] != (char)tile_type
+		&& board[(int)y][(int)(x + padding)] != (char)tile_type
+		&& board[(int)y][(int)(x - padding)] != (char)tile_type
+		&& board[(int)(y - padding)][(int)x] != (char)tile_type
+		&& board[(int)(y - padding)][(int)(x + padding)] != (char)tile_type
+		&& board[(int)(y - padding)][(int)(x - padding)] != (char)tile_type
+		&& board[(int)(y + padding)][(int)x] != (char)tile_type
+		&& board[(int)(y + padding)][(int)(x + padding)] != (char)tile_type
+		&& board[(int)(y + padding)][(int)(x - padding)] != (char)tile_type)
 		return (TRUE);
 	return (FALSE);
 }
@@ -68,8 +69,10 @@ void	move_player(enum e_direction dir, t_game *game_info)
 		x *= -1;
 		y *= -1;
 	}
-	if (is_not_wall(game_info->map.board, \
-		x + game_info->player.loc.x, y + game_info->player.loc.y))
+	if (is_not_tile_type(game_info->map.board, x + game_info->player.loc.x, \
+		y + game_info->player.loc.y, WALL) && \
+		is_not_tile_type(game_info->map.board, x + game_info->player.loc.x, \
+		y + game_info->player.loc.y, DOOR))
 	 {
 	 	game_info->player.move_offset.x = x / SPRITE_NUM;
 	 	game_info->player.move_offset.y = y / SPRITE_NUM;

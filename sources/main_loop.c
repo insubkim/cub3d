@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 17:42:29 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/03 18:17:10 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static int	handle_key(int keycode, t_game *game_info)
 		move_player(RIGHT, game_info);
 	else if (keycode == KEY_ESC)
 		handle_close(game_info);
+	else if (keycode == KEY_SPACE)
+		handle_door(game_info);
 	return (0);
 }
 
@@ -89,13 +91,3 @@ int	main(int argc, char **argv)
 	destroy_game(&game_info);
 	return (0);
 }
-
-
-
-/*
-	mlx hook print_img 뺴기.
-
-	print_img 는 loop hook에서만.
-
-	door 를 구현하기 위해서 출력은 loop hook 에서.
-*/
