@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/08/03 18:34:38 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/04 20:03:08 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,27 @@ static void	jump_to_next_side(int side, t_side_data_of_ray *side_data,
 	*ray_side = side;
 }
 
+int	is_door_hit(t_ray_data *ray, char **map_board)
+{
+	double	dist;
+	double	wall_dist;
+
+	if (ray->side == NS)
+	{
+		wall_dist = ray->y.side_dist;
+		dist = (ray->x.side_dist - ray->x.delta_dist / 2);
+	}
+	else
+	{
+		wall_dist = ray->x.side_dist;
+		dist = (ray->y.side_dist - ray->y.delta_dist / 2);
+	}
+	if (map_board[ray->loc.y][ray->loc.x] == DOOR && \
+		dist < wall_dist)
+		return (TRUE);
+	return (FALSE);
+}
+
 double	get_dist_of_ray(t_ray_data *ray, char **map_board)
 {
 	double		dist;
@@ -64,12 +85,19 @@ double	get_dist_of_ray(t_ray_data *ray, char **map_board)
 		else
 			jump_to_next_side(WE, &(ray->y), &(ray->loc.y), &(ray->side));
 		if (map_board[ray->loc.y][ray->loc.x] == WALL || \
-		map_board[ray->loc.y][ray->loc.x] == DOOR)
+			is_door_hit(ray, map_board))
 			is_hit = TRUE;
 	}
 	if (ray->side == NS)
 		dist = (ray->x.side_dist - ray->x.delta_dist);
 	else
 		dist = (ray->y.side_dist - ray->y.delta_dist);
+	if (is_door_hit(ray, map_board))
+	{
+		if (ray->side == NS)
+			dist += ray->x.delta_dist / 2;
+		else
+			dist += ray->y.delta_dist / 2;
+	}	
 	return (dist);
 }
