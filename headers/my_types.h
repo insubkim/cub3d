@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 14:25:47 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 21:59:19 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ enum e_keycode {
 enum e_tile_type {
 	EMPTY = '0',
 	WALL = '1',
-	DOOR = '2',
-	DOOR_CLOSE = '3',
+	DOOR_CLOSED = '2',
+	DOOR_OPENING = '3',
+	DOOR_CLOSING = '4',
+	DOOR_OPENED = '5',
 	SPACE = ' ',
 	PLAYER = 'P'
 };

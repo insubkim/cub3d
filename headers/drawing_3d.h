@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 14:26:09 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 22:06:44 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void			init_vars_for_drawing_line(t_drawing_line_data *data,
 void			init_texture_data_for_drawing_line(t_drawing_line_data *data,
 					double dist_of_ray, t_ray_data ray, t_game game_info);
 void			draw_line(t_drawing_line_data data, t_img *window_img);
-void			draw_map(t_player player, t_img img, t_map map);
+void			draw_map(t_player player, t_img img, t_map map, \
+												double **door_timer);
 
 // drawing_uils
 int				get_texture_x(t_vector player_loc, t_ray_data ray,

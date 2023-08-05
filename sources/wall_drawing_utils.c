@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:05:21 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 14:26:11 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 22:29:34 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	get_texture_x(t_vector player_loc, t_ray_data ray,
 t_img	get_texture_img(int hit_side, t_vector hitpoint,
 							t_map map, t_vector player_loc)
 {
-	if (map.board[(int)hitpoint.y][(int)hitpoint.x] == DOOR)
+	if (map.board[(int)hitpoint.y][(int)hitpoint.x] == DOOR_CLOSED || \
+		map.board[(int)hitpoint.y][(int)hitpoint.x] == DOOR_CLOSING || \
+		map.board[(int)hitpoint.y][(int)hitpoint.x] == DOOR_OPENING)
 		return (map.door_texture);
 	if (hit_side == NS)
 	{

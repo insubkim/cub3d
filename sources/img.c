@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/08/05 14:26:46 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 21:57:03 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	print_img(t_game *game_info)
 	draw_floor_ceil(game_info, game_info->map.floor_color, \
 				game_info->map.ceil_color);
 	draw_wall(game_info);
-	draw_map(game_info->player, game_info->img, game_info->map);
+	draw_map(game_info->player, game_info->img, game_info->map, game_info->map.door_timer);
 	draw_mouse(game_info);
 	mlx_put_image_to_window(game_info->mlx, game_info->win, \
 				game_info->img.img, 0, 0);

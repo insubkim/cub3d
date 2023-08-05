@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moving.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:03 by heson             #+#    #+#             */
-/*   Updated: 2023/08/03 18:47:51 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/05 22:04:31 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	is_not_tile_type(char **board, double x, double y, \
 	return (FALSE);
 }
 
-void	move_player(enum e_direction dir, t_game *game_info)
+void	move_player(enum e_direction dir, t_game *game_info, char **board, t_vector loc)
 {
 	double	radian;
 	double	x;
@@ -69,10 +69,9 @@ void	move_player(enum e_direction dir, t_game *game_info)
 		x *= -1;
 		y *= -1;
 	}
-	if (is_not_tile_type(game_info->map.board, x + game_info->player.loc.x, \
-		y + game_info->player.loc.y, WALL) && \
-		is_not_tile_type(game_info->map.board, x + game_info->player.loc.x, \
-		y + game_info->player.loc.y, DOOR))
+	if (is_not_tile_type(board, x + loc.x, y + loc.y, WALL) && \
+		is_not_tile_type(board, x + loc.x, y + loc.y, DOOR_CLOSED) && \
+		is_not_tile_type(board, x + loc.x, y + loc.y, DOOR_CLOSING))
 	{
 		game_info->player.move_offset.x = x / SPRITE_NUM;
 		game_info->player.move_offset.y = y / SPRITE_NUM;

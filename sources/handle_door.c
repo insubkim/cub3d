@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/08/03 18:46:21 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/05 22:12:24 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	set_door(char **board, int x, int y)
 {
-	if (board[y][x] == DOOR)
-		board[y][x] = DOOR_CLOSE;
-	else if (board[y][x] == DOOR_CLOSE)
-		board[y][x] = DOOR;
+	if (board[y][x] == DOOR_CLOSED || board[y][x] == DOOR_CLOSING)
+		board[y][x] = DOOR_OPENING;
+	else if (board[y][x] == DOOR_OPENED || board[y][x] == DOOR_OPENING)
+		board[y][x] = DOOR_CLOSING;
 }
 
 void	handle_door(t_game *game_info)

@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/04 23:55:24 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 21:55:59 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	init_side_data_of_ray_for_map(t_side_data_of_ray *ray, \
 	}
 }
 
-void	raycast(t_player player, t_img img, t_map map)
+void	raycast(t_player player, t_img img, t_map map, double ** door_timer)
 {	
 	int			x;
 	double		dist;
@@ -87,12 +87,12 @@ void	raycast(t_player player, t_img img, t_map map)
 								ray.dir.x, ray.dir.y, player.loc.x);
 		init_side_data_of_ray_for_map(&(ray.y), \
 								ray.dir.y, ray.dir.x, player.loc.y);
-		dist = get_dist_of_ray(&ray, map.board);
+		dist = get_dist_of_ray(&ray, map.board, door_timer);
 		draw_map_ray(ray.dir, img, dist);
 	}
 }
 
-void	draw_map(t_player player, t_img img, t_map map)
+void	draw_map(t_player player, t_img img, t_map map, double **door_timer)
 {
 	int		i;
 	int		j;
@@ -111,12 +111,11 @@ void	draw_map(t_player player, t_img img, t_map map)
 		{
 			if (p.x + j - 100 < 0 || p.x + j - 100 >= map.width * 20)
 				continue ;
-			if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL \
-			|| map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == DOOR)
+			if (map.board[(p.y + i - 100) / 20][(p.x + j - 100) / 20] == WALL)
 				my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00808080);
 			else if ((i - 100) * (i - 100) + (j - 100) * (j - 100) < 30)
 				my_mlx_pixel_put(&img, j, i + (WIN_HEIGHT - 220), 0x00006400);
 		}
 	}
-	raycast(player, img, map);
+	raycast(player, img, map, door_timer);
 }
