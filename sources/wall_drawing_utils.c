@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 21:05:21 by heson             #+#    #+#             */
-/*   Updated: 2023/08/03 18:34:18 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/05 14:26:11 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	get_texture_x(t_vector player_loc, t_ray_data ray,
 	return (texture_x);
 }
 
-t_img	get_texture_img(int hit_side, t_point hitpoint,
+t_img	get_texture_img(int hit_side, t_vector hitpoint,
 							t_map map, t_vector player_loc)
 {
-	if (map.board[hitpoint.y][hitpoint.x] == DOOR)
+	if (map.board[(int)hitpoint.y][(int)hitpoint.x] == DOOR)
 		return (map.door_texture);
 	if (hit_side == NS)
 	{

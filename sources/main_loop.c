@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/04 18:57:55 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 14:21:31 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->map.west_texture.img);
 	mlx_destroy_image(game->mlx, game->map.east_texture.img);
 	free_map(&(game->map.board), game->map.height);
+	free_map(&(game->map.door_timer), game->map.height);
 }
 
 static int	handle_close(t_game *game_info)
@@ -73,6 +74,24 @@ static int	handle_frame(t_game *game_info)
 	return (0);
 }
 
+int	init_timer(t_game *game_info)
+{
+	int	i;
+	
+	game_info->map.door_timer = ft_calloc(game_info->map.height, sizeof(double *));
+	if (game_info->map.door_timer == ERROR_POINTER)
+		return (FALSE);
+	i = 0;
+	while (i < game_info->map.height)
+	{
+		game_info->map.door_timer[i] = ft_calloc(game_info->map.width, sizeof(double));
+		if (game_info->map.door_timer[i] == ERROR_POINTER)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game_info;
@@ -81,7 +100,7 @@ int	main(int argc, char **argv)
 		return (print_error(ERROR_ARG_NUM, ERROR_INT));
 	if (init(argv[1], &game_info) == ERROR_INT)
 		return (1);
-	game_info.sprite = 0;
+	
 	print_img(&game_info);
 	mlx_hook(game_info.win, ON_KEYDOWN, 0, handle_key, &game_info);
 	mlx_hook(game_info.win, ON_DESTROY, 0, handle_close, &game_info);

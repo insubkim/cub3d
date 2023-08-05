@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/04 18:49:57 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/05 14:25:47 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_map {
 	t_img	west_texture;
 	t_img	east_texture;
 	t_img	door_texture;
+	double	**door_timer;
 }	t_map;
 
 typedef struct s_game {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/07/31 18:08:30 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/05 14:26:46 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	draw_wall(t_game *game_info)
 	{
 		init_vars_for_raycasting(&ray, game_info->player, \
 						2 * x / (double)WIN_WIDTH - 1);
-		dist = get_dist_of_ray(&ray, game_info->map.board);
+		dist = get_dist_of_ray(&ray, game_info->map.board, game_info->map.door_timer);
 		init_texture_data_for_drawing_line(&drawing_data, dist, \
 						ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);

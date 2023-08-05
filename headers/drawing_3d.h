@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_3d.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 18:25:35 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/05 14:26:09 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_side_data_of_ray {
 }	t_side_data_of_ray;
 
 typedef struct s_ray_data {
-	t_point				loc;
+	t_vector			loc;
 	t_vector			dir;
 	t_side_data_of_ray	x;
 	t_side_data_of_ray	y;
@@ -55,7 +55,7 @@ void			init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 					double ray_dir, double player_loc);
 void			init_vars_for_raycasting(t_ray_data *ray, t_player player,
 					double camera_x);
-double			get_dist_of_ray(t_ray_data *ray, char **map_board);
+double			get_dist_of_ray(t_ray_data *ray, char **map_board, double **timer);
 
 // wall_drawing
 void			init_vars_for_drawing_line(t_drawing_line_data *data,
@@ -68,7 +68,7 @@ void			draw_map(t_player player, t_img img, t_map map);
 // drawing_uils
 int				get_texture_x(t_vector player_loc, t_ray_data ray,
 					double dist, int texture_width);
-t_img			get_texture_img(int hit_side, t_point hitpoint,
+t_img			get_texture_img(int hit_side, t_vector hitpoint,
 					t_map map, t_vector player_loc);
 unsigned int	get_color(t_img img, int x, int y);
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
