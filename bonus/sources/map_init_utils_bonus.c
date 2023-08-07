@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 18:44:08 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/07 18:51:39 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 {
 	int	i;
 
-    if (!file_name)
-		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE, ERROR_INT)); 
-    i = ft_strlen(file_name) - 1;
-    while (i >= 0)
-    {
-        if (file_name[i] == ' ')
-            file_name[i] = 0;
+	if (!file_name)
+		return (print_error(ERROR_MLX_XPM_FILE_TO_IMAGE, ERROR_INT));
+	i = ft_strlen(file_name) - 1;
+	while (i >= 0)
+	{
+		if (file_name[i] == ' ')
+			file_name[i] = 0;
 		else
 			break ;
-        i--;
-    }
+		i--;
+	}
 	img->img = mlx_xpm_file_to_image(mlx, file_name, \
 			&img->width, &img->height);
 	if (!img->img)
@@ -79,7 +79,7 @@ static int	convert_rgb(char *s, int i, int cnt)
 	while (s[i] && s[i] == ' ')
 		i++;
 	if (rgb > 255 || \
-		(cnt != 2 && s[i] != ',') || (cnt == 2 && s[i] != '\n'))
+			(cnt != 2 && s[i] != ',') || (cnt == 2 && s[i] != '\n'))
 		return (print_error(ERROR_INVALID_COLOR, ERROR_INT));
 	i++;
 	while (s[i] && s[i] == ' ')
