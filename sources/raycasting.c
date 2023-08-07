@@ -6,28 +6,34 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 09:25:00 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 10:32:29 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 
-void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
+void	init_side_data_of_ray(t_side_data_of_ray *ray, double ray_dir_another,
 									double ray_dir, double player_loc)
 {
 	ray->delta_dist = 1e30;
 	if (ray_dir)
+	{
 		ray->delta_dist = fabs(1 / ray_dir);
+		ray->real_delta_dist = \
+		sqrt(1 + (ray_dir_another * ray_dir_another) / (ray_dir * ray_dir));
+	}
 	if (ray_dir < 0)
 	{
 		ray->step_size = -1;
-		ray->side_dist = (player_loc - (int)ray_loc) * ray->delta_dist;
+		ray->side_dist = (player_loc - (int)player_loc) * ray->delta_dist;
+		ray->real_side_dist = (player_loc - (int)player_loc) * ray->real_delta_dist;
 	}
 	else
 	{
 		ray->step_size = 1;
-		ray->side_dist = ((int)ray_loc + 1.0 - player_loc) * ray->delta_dist;
+		ray->side_dist = ((int)player_loc + 1.0 - player_loc) * ray->delta_dist;
+		ray->real_side_dist = ((int)player_loc + 1.0 - player_loc) * ray->real_delta_dist;
 	}
 }
 
@@ -38,8 +44,8 @@ void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
 	ray->dir.y = -(player.dir.y + (player.plane.y * camera_x));
 	ray->loc.x = player.loc.x;
 	ray->loc.y = player.loc.y;
-	init_side_data_of_ray(&(ray->x), ray->loc.x, ray->dir.x, player.loc.x);
-	init_side_data_of_ray(&(ray->y), ray->loc.y, ray->dir.y, player.loc.y);
+	init_side_data_of_ray(&(ray->x), ray->dir.y, ray->dir.x, player.loc.x);
+	init_side_data_of_ray(&(ray->y), ray->dir.x, ray->dir.y, player.loc.y);
 	ray->is_hit = 0;
 }
 
@@ -47,10 +53,11 @@ static void	jump_to_next_side(int side, t_side_data_of_ray *side_data,
 								double *ray_loc, int *ray_side)
 {
 	side_data->side_dist += side_data->delta_dist;
+	side_data->real_side_dist += side_data->real_delta_dist;
 	*ray_loc += side_data->step_size;
 	*ray_side = side;
 }
-#include <stdio.h>
+
 int	is_door_hit(t_ray_data *ray, char **map_board, double **door_timer)
 {
 	double	dist;
@@ -61,13 +68,13 @@ int	is_door_hit(t_ray_data *ray, char **map_board, double **door_timer)
 	{
 		wall_dist = ray->y.side_dist;
 		dist = (ray->x.side_dist - ray->x.delta_dist / 2);
-		offset = ray->loc.y + dist *  ray->dir.y;
+		offset = ray->loc.y + (ray->x.real_side_dist - ray->x.real_delta_dist / 2) *  ray->dir.y;
 	}
 	else
 	{
 		wall_dist = ray->x.side_dist;
 		dist = (ray->y.side_dist - ray->y.delta_dist / 2);
-		offset = ray->loc.x + dist * ray->dir.x;
+		offset = ray->loc.x + (ray->y.real_side_dist - ray->y.real_delta_dist / 2) * ray->dir.x;
 	}
 	offset -= (int)offset;
 	if ((map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSED || \
