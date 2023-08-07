@@ -6,11 +6,11 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/31 17:34:13 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/07 17:16:09 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/get_next_line.h"
+#include "../headers/get_next_line.h"
 
 t_gnl_list	*get_node(t_gnl_list *lst, int fd)
 {

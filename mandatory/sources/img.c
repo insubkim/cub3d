@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/08/07 11:34:51 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 17:16:21 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../library/mlx/mlx.h"
+#include "../../library/mlx/mlx.h"
 #include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
 

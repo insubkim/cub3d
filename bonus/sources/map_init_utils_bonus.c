@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_init_utils.c                                   :+:      :+:    :+:   */
+/*   map_init_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 17:35:39 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 18:49:37 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:48:37 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/cub3d.h"
-#include "../library/mlx/mlx.h"
+#include "../headers/cub3d_bonus.h"
+#include "../../library/mlx/mlx.h"
 
 static int	set_xpm_info(void *mlx, t_img *img, char *file_name)
 {

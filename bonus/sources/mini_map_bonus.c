@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_map.c                                         :+:      :+:    :+:   */
+/*   mini_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 11:38:10 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:48:54 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../library/mlx/mlx.h"
-#include "../headers/cub3d.h"
-#include "../headers/drawing_3d.h"
+#include "../../library/mlx/mlx.h"
+#include "../headers/cub3d_bonus.h"
+#include "../headers/drawing_3d_bonus.h"
 
 static void	set_map_white(t_img img)
 {

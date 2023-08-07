@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall_drawing.c                                     :+:      :+:    :+:   */
+/*   wall_drawing_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 15:59:25 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:49:06 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
-#include "../headers/drawing_3d.h"
+#include "../headers/my_types_bonus.h"
+#include "../headers/drawing_3d_bonus.h"
 
 void	init_vars_for_drawing_line(t_drawing_line_data *data,
 									double dist_of_ray, int x)
