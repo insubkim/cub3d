@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 23:40:35 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 09:25:00 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,15 @@ int	is_door_hit(t_ray_data *ray, char **map_board, double **door_timer)
 	{
 		wall_dist = ray->y.side_dist;
 		dist = (ray->x.side_dist - ray->x.delta_dist / 2);
-			offset = ray->loc.x + dist * sin(atan2(ray->dir.y, ray->dir.x));
-		printf("%lf , %lf \t%lf NS\n", offset, ray->loc.y, dist);
+		offset = ray->loc.y + dist *  ray->dir.y;
 	}
 	else
 	{
 		wall_dist = ray->x.side_dist;
 		dist = (ray->y.side_dist - ray->y.delta_dist / 2);
-			offset = ray->loc.y + dist * sin(atan2(ray->dir.y, ray->dir.x));
-		printf("%lf , %lf \t%lf WE\n", ray->loc.x, offset, dist);
+		offset = ray->loc.x + dist * ray->dir.x;
 	}
 	offset -= (int)offset;
-	if ((map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSED || \
-		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSING || \
-		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_OPENING) && \
-		dist < wall_dist && offset <= door_timer[(int)ray->loc.y][(int)ray->loc.x])
-	{
-		//printf("offset : %lf\ttimer = : %lf\t(%lf , %lf)\n", offset, door_timer[(int)ray->loc.y][(int)ray->loc.x], ray->loc.x, ray->loc.y);
-	}
 	if ((map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSED || \
 		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSING || \
 		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_OPENING) && \

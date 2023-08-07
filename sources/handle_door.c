@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/08/05 23:51:39 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/06 13:31:05 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@ void	set_door(char **board, int x, int y)
 
 void	handle_door(t_game *game_info)
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 
 	x = game_info->player.loc.x;
 	y = game_info->player.loc.y;
-	//padding 적용 해여함.
-	set_door(game_info->map.board, x + 1, y);
-	set_door(game_info->map.board, x - 1, y);
-	set_door(game_info->map.board, x, y + 1);
-	set_door(game_info->map.board, x, y - 1);
+	if ((int)(x + 0.2) == (int)x)//검증 안함.
+		set_door(game_info->map.board, x + 1, y);
+	if ((int)(x - 0.2) == (int)x)
+		set_door(game_info->map.board, x - 1, y);
+	if ((int)(y + 0.2) == (int)y)
+		set_door(game_info->map.board, x, y + 1);
+	if ((int)(y - 0.2) == (int)y)
+		set_door(game_info->map.board, x, y - 1);
 }

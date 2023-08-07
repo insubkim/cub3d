@@ -6,7 +6,7 @@
 /*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/05 23:27:20 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 09:34:49 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->map.south_texture.img);
 	mlx_destroy_image(game->mlx, game->map.west_texture.img);
 	mlx_destroy_image(game->mlx, game->map.east_texture.img);
-	free_map(&(game->map.board), game->map.height);
-	//free_map(&(game->map.door_timer), game->map.height);
+	//free_map((void***)&(game->map.board), game->map.height);
+	//free_map((void***)&(game->map.door_timer), game->map.height);
 }
 
 static int	handle_close(t_game *game_info)
@@ -52,7 +52,6 @@ static int	handle_key(int keycode, t_game *game)
 	return (0);
 }
 
-#include <stdio.h>
 static int	handle_frame(t_game *game_info)
 {
 	int	x;
@@ -81,22 +80,15 @@ static int	handle_frame(t_game *game_info)
 		{
 			if (game_info->map.board[i][j] == DOOR_CLOSING)
 			{
-				printf("closing %lf\n", game_info->map.door_timer[i][j]);
-				if (game_info->map.door_timer[i][j] < 0.2){
-					game_info->map.door_timer[i][j] = 0;
+				game_info->map.door_timer[i][j] += 0.01;
+				if (game_info->map.door_timer[i][j] >= 1)
 					game_info->map.board[i][j] = DOOR_CLOSED;
-				}
-				else
-					game_info->map.door_timer[i][j] -= 0.01;
 			}
 			else if (game_info->map.board[i][j] == DOOR_OPENING)
 			{
-				if (game_info->map.door_timer[i][j] > 0.8){
-					game_info->map.door_timer[i][j] = 1;
+				game_info->map.door_timer[i][j] -= 0.01;
+				if (game_info->map.door_timer[i][j] <= 0)
 					game_info->map.board[i][j] = DOOR_OPENED;
-				}
-				else
-					game_info->map.door_timer[i][j] += 0.01;
 			}
 			j++;
 		}

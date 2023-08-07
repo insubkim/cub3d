@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 17:57:35 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/06 13:42:10 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 int	free_map(char ***map, int h)
 {
-	while (h-- > 0 && (*map)[h])
-		free((*map)[h]);
+	int	i;
+
+	i = 0;
+	while (i < h && (*map)[i])
+		free((*map)[i++]);
 	if (*map)
 		free(*map);
 	*map = NULL;
