@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 17:16:34 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/07 17:47:25 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	draw_map_ray(t_vector dir, t_img img, double dist)
 	{
 		x += cos(radian);
 		y += sin(radian);
-		if (x > 0 && x < 220 && y > 0 && y >= WIN_HEIGHT - 220)
+		if (x >= 0 && x < 220 && y >= WIN_HEIGHT - 220 && y < WIN_HEIGHT)
 			my_mlx_pixel_put(&img, x, y, 0x00FF0000);
 		i++;
 	}

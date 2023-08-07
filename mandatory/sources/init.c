@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 17:16:22 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/07 18:07:27 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static int	is_texture_set(t_map *map)
 	if (map->north_texture.img == ERROR_POINTER || \
 			map->south_texture.img == ERROR_POINTER || \
 			map->west_texture.img == ERROR_POINTER || \
-			map->east_texture.img == ERROR_POINTER)
+			map->east_texture.img == ERROR_POINTER || \
+			map->door_texture.img == ERROR_POINTER)
 		return (print_error(ERROR_TEXTURE_NOT_SET, ERROR_INT));
 	return (TRUE);
 }
