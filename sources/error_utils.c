@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 11:29:37 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:24:14 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,20 @@ int	print_error(int error, int return_code)
 	else if (error == ERROR_NO_PLAYER)
 		ft_putstr_fd("Error\nNo player in map\n", 2);
 	return (return_code);
+}
+
+int	check_file_name(char *file_name)
+{
+	if (!ft_strrchr(file_name, '.') ||
+			ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
+		return (ERROR_INT);
+	if (!ft_strrchr(file_name, '/'))
+	{
+		if (ft_strlen(file_name) < 5)
+			return (ERROR_INT);
+		return (SUCCESS);
+	}
+	if (ft_strlen(ft_strrchr(file_name, '/')) < 6)
+		return (ERROR_INT);
+	return (SUCCESS);
 }

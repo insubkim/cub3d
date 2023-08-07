@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/03 18:06:56 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:26:38 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ int	init(char *file_name, t_game *game_info)
 	int		fd;
 	t_list	*list;
 
-	if (!ft_strrchr(file_name, '.') || ft_strlen(file_name) < 5 || \
-			ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
+	if (check_file_name(file_name) == ERROR_INT)
 		return (print_error(ERROR_MAP_NAME, ERROR_INT));
 	ft_memset(game_info, 0, sizeof(t_game));
 	game_info->mlx = mlx_init();

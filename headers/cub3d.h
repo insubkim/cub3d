@@ -6,7 +6,7 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 12:16:54 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 16:12:33 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		set_width_height(t_list *list, t_map *map);
 int		free_map(char ***map, int h);
 int		print_error(int error, int return_code);
 int		free_timer(double ***map, int h);
+int		check_file_name(char *file_name);
 
 // moving
 void	move_player(enum e_direction dir,
