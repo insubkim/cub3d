@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/26 12:58:20 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:34:13 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/get_next_line.h"
+#include "../../headers/get_next_line.h"
 
 t_gnl_list	*get_node(t_gnl_list *lst, int fd)
 {
@@ -63,9 +63,9 @@ int	set_node_str(t_gnl_list *node, int len)
 char	*get_line(t_gnl_list **lst, int fd)
 {
 	t_gnl_list	*node;
-	int		len;
-	char	*str;
-	char	*tmp;
+	int			len;
+	char		*str;
+	char		*tmp;
 
 	node = get_node(*lst, fd);
 	if (!node || !(node -> str))
@@ -89,9 +89,9 @@ char	*get_line(t_gnl_list **lst, int fd)
 
 char	*get_next_line(int fd, int *is_eof)
 {
-	char			*read_buf;
+	char				*read_buf;
 	static t_gnl_list	*lst;
-	int				bytes;
+	int					bytes;
 
 	read_buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!read_buf || BUFFER_SIZE <= 0)
@@ -104,7 +104,7 @@ char	*get_next_line(int fd, int *is_eof)
 		if (bytes == 0)
 		{
 			*is_eof = 1;
-			break ;	
+			break ;
 		}
 		read_buf[bytes] = 0;
 		if (add_buf(&lst, fd, read_buf) == 0)

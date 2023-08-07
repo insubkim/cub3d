@@ -6,14 +6,12 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:15:31 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 15:59:25 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/my_types.h"
 #include "../headers/drawing_3d.h"
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 void	init_vars_for_drawing_line(t_drawing_line_data *data,
 									double dist_of_ray, int x)
@@ -51,6 +49,8 @@ void	draw_line(t_drawing_line_data data, t_img *window_img)
 	while (line_y < data.draw_end)
 	{
 		tex_y = (int)tex_pos;
+		if (tex_y >= data.tex_img.height)
+			tex_y = data.tex_img.height - 1;
 		my_mlx_pixel_put(window_img, data.line_x, line_y,
 			get_color(data.tex_img, data.tex_x, tex_y));
 		line_y++;

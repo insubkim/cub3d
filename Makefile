@@ -1,7 +1,7 @@
 
 # ---------------------------------- NAME ------------------------------------ #
 
-NAME = cub3d
+NAME = cub3D
 
 # ------------------------------- DIRECTORIES -------------------------------- #
 
@@ -22,24 +22,23 @@ OBJS += $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 # -------------------------------- COMPILATE --------------------------------- #
 
 CC		= cc
-CFLAGS	= -g
-#  -Wall -Werror -Wextra 
+CFLAGS	= -Wall -Werror -Wextra -g
 RM		= rm -rf
 MD		= mkdir -p 
 
 # --------------------------------- RULES ------------------------------------ #
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c 
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS_DIR)*.h
 	$(MD) $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 all:
 	make -C $(MLX_DIR)
 	make bonus -C $(LIBFT_DIR)
 	make $(NAME)
 
-$(NAME): $(OBJS)
-	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -g -o $(NAME)
+$(NAME): $(HDRS_DIR)*.h $(OBJS)
+	cc -L./$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) $(CFLAGS) -o $(NAME)
 # cc -Lmlx -lmlx -framework OpenGL -framework AppKit $(OBJS) $(LIBS) -o $(NAME)
 
 

@@ -6,15 +6,14 @@
 /*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 23:07:08 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:24:11 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 12:15:17 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
+#include "../headers/cub3d.h"
 #include "../headers/drawing_3d.h"
-#include "../library/libft/libft.h"
 
-void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
+void	init_side_data_of_ray(t_side_data_of_ray *ray,
 									double ray_dir, double player_loc)
 {
 	ray->delta_dist = 1e30;
@@ -23,39 +22,65 @@ void	init_side_data_of_ray(t_side_data_of_ray *ray, int ray_loc,
 	if (ray_dir < 0)
 	{
 		ray->step_size = -1;
-		ray->side_dist = (player_loc - ray_loc) * ray->delta_dist;
+		ray->side_dist = (player_loc - (int)player_loc) * ray->delta_dist;
 	}
 	else
 	{
 		ray->step_size = 1;
-		ray->side_dist = (ray_loc + 1.0 - player_loc) * ray->delta_dist;
+		ray->side_dist = ((int)player_loc + 1.0 - player_loc) * ray->delta_dist;
 	}
 }
 
-static void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
+void	init_vars_for_raycasting(t_ray_data *ray, t_player player,
 									double camera_x)
 {
 	ray->dir.x = player.dir.x + (player.plane.x * camera_x);
 	ray->dir.y = -(player.dir.y + (player.plane.y * camera_x));
-	ray->loc.x = (int)(player.loc.x);
-	ray->loc.y = (int)(player.loc.y);
-	init_side_data_of_ray(&(ray->x), ray->loc.x, ray->dir.x, player.loc.x);
-	init_side_data_of_ray(&(ray->y), ray->loc.y, ray->dir.y, player.loc.y);
+	ray->loc.x = player.loc.x;
+	ray->loc.y = player.loc.y;
+	init_side_data_of_ray(&(ray->x), ray->dir.x, player.loc.x);
+	init_side_data_of_ray(&(ray->y), ray->dir.y, player.loc.y);
 	ray->is_hit = 0;
 }
 
 static void	jump_to_next_side(int side, t_side_data_of_ray *side_data,
-								int *ray_loc, int *ray_side)
+								double *ray_loc, int *ray_side)
 {
 	side_data->side_dist += side_data->delta_dist;
 	*ray_loc += side_data->step_size;
 	*ray_side = side;
 }
 
-double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
-							char **map_board)
+int	is_door_hit(t_ray_data *ray, char **map_board, double **door_timer)
 {
-	double		dist;
+	double	dist;
+	double	wall_dist;
+	double	offset;
+
+	if (ray->side == NS)
+	{
+		wall_dist = ray->y.side_dist;
+		dist = (ray->x.side_dist - ray->x.delta_dist / 2);
+		offset = ray->loc.y + dist * ray->dir.y;
+	}
+	else
+	{
+		wall_dist = ray->x.side_dist;
+		dist = (ray->y.side_dist - ray->y.delta_dist / 2);
+		offset = ray->loc.x + dist * ray->dir.x;
+	}
+	offset -= (int)offset;
+	if ((map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSED || \
+		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_CLOSING || \
+		map_board[(int)ray->loc.y][(int)ray->loc.x] == DOOR_OPENING) && \
+		dist < wall_dist && \
+		offset <= door_timer[(int)ray->loc.y][(int)ray->loc.x])
+		return (TRUE);
+	return (FALSE);
+}
+
+double	get_dist_of_ray(t_ray_data *ray, char **map_board, double **door_timer)
+{
 	int			is_hit;
 
 	is_hit = FALSE;
@@ -65,12 +90,19 @@ double	get_dist_of_ray(int x, t_ray_data *ray, t_player player,
 			jump_to_next_side(NS, &(ray->x), &(ray->loc.x), &(ray->side));
 		else
 			jump_to_next_side(WE, &(ray->y), &(ray->loc.y), &(ray->side));
-		if (map_board[ray->loc.y][ray->loc.x] == WALL)
+		if (map_board[(int)ray->loc.y][(int)ray->loc.x] == WALL || \
+			is_door_hit(ray, map_board, door_timer))
 			is_hit = TRUE;
 	}
+	if (is_door_hit(ray, map_board, door_timer))
+	{
+		if (ray->side == NS)
+			return (ray->x.side_dist - ray->x.delta_dist / 2);
+		else
+			return (ray->y.side_dist - ray->y.delta_dist / 2);
+	}	
 	if (ray->side == NS)
-		dist = (ray->x.side_dist - ray->x.delta_dist);
+		return (ray->x.side_dist - ray->x.delta_dist);
 	else
-		dist = (ray->y.side_dist - ray->y.delta_dist);
-	return (dist);
+		return (ray->y.side_dist - ray->y.delta_dist);
 }

@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/07/31 15:16:04 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/05 22:19:34 by insub            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/my_types.h"
-
-int	perror_n_return_false(char *error_message);
+#include "../headers/cub3d.h"
 
 static int	is_possible_char(char ch, int is_player_found)
 {
-	if (ch == '0' || ch == '1' || ch == ' ')
+	if (ch == '0' || ch == '1' || ch == ' ' || ch == '2')
 		return (TRUE);
 	if (!is_player_found
 		&& (ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W'))
@@ -113,11 +111,11 @@ int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir)
 		while (++w < map->width)
 		{
 			if (!is_possible_char(map->board[h][w], *player_dir))
-				return (perror_n_return_false("impossible char in map"));
+				return (print_error(ERROR_IMPOSSIBLE_CHAR, FALSE));
 			if (!is_valid_tile(map->board[h][w], w, h, *map))
-				return (perror_n_return_false("invalid map"));
+				return (print_error(ERROR_INVALID_MAP, FALSE));
 			if (map->board[h][w] != SPACE && map->board[h][w] != WALL
-				&& map->board[h][w] != EMPTY)
+				&& map->board[h][w] != EMPTY && map->board[h][w] != DOOR_CLOSED)
 			{
 				player_loc->x = w + 0.2;
 				player_loc->y = h + 0.2;

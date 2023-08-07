@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 21:27:09 by inskim            #+#    #+#             */
-/*   Updated: 2023/07/26 13:17:52 by inskim           ###   ########.fr       */
+/*   Updated: 2023/07/31 17:34:10 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/get_next_line.h"
+#include "../../headers/get_next_line.h"
 
 char	*error_handle(t_gnl_list **lst, int fd, char *read_buf)
 {
