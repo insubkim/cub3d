@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/08/06 13:42:10 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 11:29:37 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #include "../library/libft/libft.h"
 
 int	free_map(char ***map, int h)
+{
+	int	i;
+
+	i = 0;
+	while (i < h && (*map)[i])
+		free((*map)[i++]);
+	if (*map)
+		free(*map);
+	*map = NULL;
+	return (ERROR_INT);
+}
+
+int	free_timer(double ***map, int h)
 {
 	int	i;
 

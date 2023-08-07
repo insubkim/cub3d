@@ -22,7 +22,7 @@ OBJS += $(addprefix $(OBJS_DIR), $(notdir $(SRCS:.c=.o)))
 # -------------------------------- COMPILATE --------------------------------- #
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -rf
 MD		= mkdir -p 
 
@@ -30,7 +30,7 @@ MD		= mkdir -p
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(HDRS_DIR)*.h
 	$(MD) $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDE) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 all:
 	make -C $(MLX_DIR)

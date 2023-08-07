@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 12:40:12 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/05 21:55:59 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 11:38:10 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	init_side_data_of_ray_for_map(t_side_data_of_ray *ray, \
 	}
 }
 
-void	raycast(t_player player, t_img img, t_map map, double ** door_timer)
+void	raycast(t_player player, t_img img, t_map map, double **door_timer)
 {	
 	int			x;
 	double		dist;

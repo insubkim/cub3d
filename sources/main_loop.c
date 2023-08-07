@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 09:36:03 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 11:35:07 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	destroy_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->map.south_texture.img);
 	mlx_destroy_image(game->mlx, game->map.west_texture.img);
 	mlx_destroy_image(game->mlx, game->map.east_texture.img);
-	//free_map((void***)&(game->map.board), game->map.height);
-	//free_map((void***)&(game->map.door_timer), game->map.height);
+	free_map(&(game->map.board), game->map.height);
+	free_timer(&(game->map.door_timer), game->map.height);
 }
 
 static int	handle_close(t_game *game_info)
@@ -70,54 +70,9 @@ static int	handle_frame(t_game *game_info)
 		game_info->player.loc.y += game_info->player.move_offset.y;
 		game_info->sprite++;
 	}
-
-	int i,j;
-	i = 0;
-	while (i < game_info->map.height)
-	{
-		j = 0;
-		while (j < game_info->map.width)
-		{
-			if (game_info->map.board[i][j] == DOOR_CLOSING)
-			{
-				game_info->map.door_timer[i][j] += 0.01;
-				if (game_info->map.door_timer[i][j] >= 1)
-					game_info->map.board[i][j] = DOOR_CLOSED;
-			}
-			else if (game_info->map.board[i][j] == DOOR_OPENING)
-			{
-				game_info->map.door_timer[i][j] -= 0.01;
-				if (game_info->map.door_timer[i][j] <= 0)
-					game_info->map.board[i][j] = DOOR_OPENED;
-			}
-			j++;
-		}
-		i++;
-	}
+	run_door_timer(game_info);
 	print_img(game_info);
 	return (0);
-}
-
-int	init_timer(t_game *game_info)
-{
-	int	i;
-	int	j;
-
-	game_info->map.door_timer = ft_calloc(game_info->map.height, sizeof(double *));
-	if (game_info->map.door_timer == ERROR_POINTER)
-		return (FALSE);
-	i = 0;
-	while (i < game_info->map.height)
-	{
-		game_info->map.door_timer[i] = ft_calloc(game_info->map.width, sizeof(double));
-		j = -1;
-		while (++j < game_info->map.width)
-			game_info->map.door_timer[i][j] = 1;
-		if (game_info->map.door_timer[i] == ERROR_POINTER)
-			return (ERROR_INT);
-		i++;
-	}
-	return (TRUE);
 }
 
 int	main(int argc, char **argv)
@@ -128,7 +83,7 @@ int	main(int argc, char **argv)
 		return (print_error(ERROR_ARG_NUM, ERROR_INT));
 	if (init(argv[1], &game_info) == ERROR_INT)
 		return (1);
-	if (init_timer(&game_info) == ERROR_INT)
+	if (init_door_timer(&game_info) == ERROR_INT)
 	{
 		destroy_game(&game_info);
 		return (print_error(ERROR_MALLOC, ERROR_INT));

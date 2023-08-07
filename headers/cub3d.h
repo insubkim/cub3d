@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/06 13:42:17 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 12:16:54 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ int		set_width_height(t_list *list, t_map *map);
 // error utils
 int		free_map(char ***map, int h);
 int		print_error(int error, int return_code);
+int		free_timer(double ***map, int h);
 
 // moving
-void	move_player(enum e_direction dir, \
-            t_game *game_info, char **board, t_vector loc);
+void	move_player(enum e_direction dir,
+			t_game *game_info, char **board, t_vector loc);
 void	move_dir(enum e_direction dir, t_player *player);
 
 // door
 void	handle_door(t_game *game_info);
+int		init_door_timer(t_game *game_info);
+void	run_door_timer(t_game *game_info);
 
 // img
 void	print_img(t_game *game_info);

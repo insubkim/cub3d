@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_types.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:32:55 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 21:59:19 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 12:22:16 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define FALSE 0
 
 # define PI 3.1415926535
-# define ROTATE_DEGREE 1
+# define ROTATE_DEGREE 2
 
 # define WIN_WIDTH 1000
 # define WIN_HEIGHT 800
@@ -50,7 +50,7 @@
 # define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
 
-#define SPRITE_NUM 5
+# define SPRITE_NUM 5
 
 enum e_keycode {
 	KEY_LEFT = 123,

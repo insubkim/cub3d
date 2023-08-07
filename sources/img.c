@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 21:25:23 by insub             #+#    #+#             */
-/*   Updated: 2023/08/06 13:38:43 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 11:34:51 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	draw_wall(t_game *game_info)
 	{
 		init_vars_for_raycasting(&ray, game_info->player, \
 						2 * x / (double)WIN_WIDTH - 1);
-		dist = get_dist_of_ray(&ray, game_info->map.board, game_info->map.door_timer);
+		dist = get_dist_of_ray(&ray, game_info->map.board, \
+						game_info->map.door_timer);
 		init_texture_data_for_drawing_line(&drawing_data, dist, \
 						ray, *game_info);
 		init_vars_for_drawing_line(&drawing_data, dist, x);
@@ -75,9 +76,11 @@ static void	draw_mouse(t_game *game_info)
 	i = 0;
 	while (i < 20)
 	{
-		if (x - 10 + i >= 0 && x - 10 + i < WIN_WIDTH && y >= 0)
+		if (x - 10 + i >= 0 && x - 10 + i < WIN_WIDTH && \
+			y >= 0 && y < WIN_HEIGHT)
 			my_mlx_pixel_put(&game_info->img, x - 10 + i, y, 0X00800080);
-		if (y - 10 + i >= 0 && y - 10 + i < WIN_HEIGHT && x >= 0)
+		if (y - 10 + i >= 0 && y - 10 + i < WIN_HEIGHT && \
+			x >= 0 && x < WIN_WIDTH)
 			my_mlx_pixel_put(&game_info->img, x, y - 10 + i, 0X00800080);
 		i++;
 	}

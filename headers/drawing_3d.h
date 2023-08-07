@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_3d.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 10:24:49 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 12:17:29 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_point {
 typedef struct s_side_data_of_ray {
 	double	side_dist;
 	double	delta_dist;
-	double	real_side_dist;
-	double	real_delta_dist;
 	int		step_size;
 }	t_side_data_of_ray;
 
@@ -53,11 +51,12 @@ typedef struct s_drawing_line_data {
 }	t_drawing_line_data;
 
 // raycasting
-void			init_side_data_of_ray(t_side_data_of_ray *ray, double ray_dir_another,
+void			init_side_data_of_ray(t_side_data_of_ray *ray,
 					double ray_dir, double player_loc);
 void			init_vars_for_raycasting(t_ray_data *ray, t_player player,
 					double camera_x);
-double			get_dist_of_ray(t_ray_data *ray, char **map_board, double **timer);
+double			get_dist_of_ray(t_ray_data *ray,
+					char **map_board, double **timer);
 
 // wall_drawing
 void			init_vars_for_drawing_line(t_drawing_line_data *data,

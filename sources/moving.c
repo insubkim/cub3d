@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moving.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: insub <insub@student.42.fr>                +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 15:44:03 by heson             #+#    #+#             */
-/*   Updated: 2023/08/05 22:04:31 by insub            ###   ########.fr       */
+/*   Updated: 2023/08/07 11:35:39 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static int	is_not_tile_type(char **board, double x, double y, \
 	return (FALSE);
 }
 
-void	move_player(enum e_direction dir, t_game *game_info, char **board, t_vector loc)
+void	move_player(enum e_direction dir, t_game *game_info, \
+				char **board, t_vector loc)
 {
 	double	radian;
 	double	x;
