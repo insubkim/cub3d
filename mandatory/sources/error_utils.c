@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 17:15:47 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/07 18:50:36 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int	print_error(int error, int return_code)
 
 int	check_file_name(char *file_name)
 {
-	if (!ft_strrchr(file_name, '.') ||
-			ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
+	if (!ft_strrchr(file_name, '.')
+		|| ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
 		return (ERROR_INT);
 	if (!ft_strrchr(file_name, '/'))
 	{
