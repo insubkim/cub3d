@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 18:10:26 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 18:21:09 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_possible_char(char ch, int is_player_found)
 {
-	if (ch == '0' || ch == '1' || ch == ' ' || ch == '2')
+	if (ch == '0' || ch == '1' || ch == ' ')
 		return (TRUE);
 	if (!is_player_found
 		&& (ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W'))

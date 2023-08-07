@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 18:07:27 by inskim           ###   ########.fr       */
+/*   Updated: 2023/08/07 18:21:40 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	is_valid_char(char c)
 {
-	if (c == '\n' || c == 'F' || c == 'C' || c == 'D' || \
+	if (c == '\n' || c == 'F' || c == 'C' || \
 			c == 'N' || c == 'S' || c == 'W' || c == 'E')
 		return (TRUE);
 	return (FALSE);
@@ -58,8 +58,7 @@ static int	is_texture_set(t_map *map)
 	if (map->north_texture.img == ERROR_POINTER || \
 			map->south_texture.img == ERROR_POINTER || \
 			map->west_texture.img == ERROR_POINTER || \
-			map->east_texture.img == ERROR_POINTER || \
-			map->door_texture.img == ERROR_POINTER)
+			map->east_texture.img == ERROR_POINTER)
 		return (print_error(ERROR_TEXTURE_NOT_SET, ERROR_INT));
 	return (TRUE);
 }
