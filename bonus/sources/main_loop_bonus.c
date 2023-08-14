@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/11 13:37:05 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/14 16:31:54 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,13 @@ int	main(int argc, char **argv)
 	if (init(argv[1], &game_info) == ERROR_INT)
 	{
 		destroy_game(&game_info);
-		return (1);
+		exit(1);
 	}
 	if (init_door_timer(&game_info) == ERROR_INT)
 	{
 		destroy_game(&game_info);
-		return (print_error(ERROR_MALLOC, ERROR_INT));
+		print_error(ERROR_MALLOC, ERROR_INT);
+		exit (1);
 	}
 	print_img(&game_info);
 	mlx_hook(game_info.win, ON_KEYDOWN, 0, handle_key, &game_info);
