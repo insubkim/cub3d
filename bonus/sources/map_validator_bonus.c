@@ -6,16 +6,18 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:56:45 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 16:48:46 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/11 13:38:51 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/cub3d_bonus.h"
 
-static int	is_possible_char(char ch, int is_player_found)
+static int	is_possible_char(char ch, int is_player_found, int has_door)
 {
-	if (ch == '0' || ch == '1' || ch == ' ' || ch == '2')
+	if (ch == '0' || ch == '1' || ch == ' ')
 		return (TRUE);
+	if (ch == '2')
+		return (has_door);
 	if (!is_player_found
 		&& (ch == 'N' || ch == 'S' || ch == 'E' || ch == 'W'))
 		return (TRUE);
@@ -110,7 +112,8 @@ int	is_valid_map(t_map *map, t_vector *player_loc, char *player_dir)
 		w = -1;
 		while (++w < map->width)
 		{
-			if (!is_possible_char(map->board[h][w], *player_dir))
+			if (!is_possible_char(map->board[h][w], *player_dir,
+				map->door_texture.img != NULL))
 				return (print_error(ERROR_IMPOSSIBLE_CHAR, FALSE));
 			if (!is_valid_tile(map->board[h][w], w, h, *map))
 				return (print_error(ERROR_INVALID_MAP, FALSE));

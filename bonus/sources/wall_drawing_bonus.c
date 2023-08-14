@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_drawing_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 20:56:58 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 16:49:06 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/14 11:12:01 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_texture_data_for_drawing_line(t_drawing_line_data *data,
 	data->tex_img = get_texture_img(ray.side, ray.loc, game_info.map,
 			game_info.player.loc);
 	data->tex_step = 1.0 * data->tex_img.height / data->line_height;
-	data->tex_x = get_texture_x(game_info.player.loc, ray,
+	data->tex_x = get_texture_x(&game_info, ray,
 			dist_of_ray, data->tex_img.width);
 }
 

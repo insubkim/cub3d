@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_3d_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 01:17:45 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 16:50:11 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/14 11:02:33 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			draw_map(t_player player, t_img img, t_map map, \
 												double **door_timer);
 
 // drawing_uils
-int				get_texture_x(t_vector player_loc, t_ray_data ray,
+int				get_texture_x(t_game *game_info, t_ray_data ray,
 					double dist, int texture_width);
 t_img			get_texture_img(int hit_side, t_vector hitpoint,
 					t_map map, t_vector player_loc);

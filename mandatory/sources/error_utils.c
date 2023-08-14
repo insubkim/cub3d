@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: inskim <inskim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 14:12:22 by heson             #+#    #+#             */
-/*   Updated: 2023/08/07 18:50:36 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/14 11:23:57 by inskim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	free_map(char ***map, int h)
 {
 	int	i;
 
+	if (*map == ERROR_POINTER)
+		return (ERROR_INT);
 	i = 0;
 	while (i < h && (*map)[i])
 		free((*map)[i++]);
@@ -30,6 +32,8 @@ int	free_timer(double ***map, int h)
 {
 	int	i;
 
+	if (*map == ERROR_POINTER)
+		return (ERROR_INT);
 	i = 0;
 	while (i < h && (*map)[i])
 		free((*map)[i++]);
@@ -68,10 +72,24 @@ int	print_error(int error, int return_code)
 	return (return_code);
 }
 
+static int	ft_strcmp(const char *str1, const char *str2)
+{
+	int	i;
+
+	if (str1 == ERROR_POINTER || str2 == ERROR_POINTER)
+		return (1);
+	i = 0;
+	while (str1[i] == str2[i] && str1[i])
+		i++;
+	if (str1[i] == str2[i])
+		return (0);
+	return (str1[i] - str2[i]);
+}
+
 int	check_file_name(char *file_name)
 {
 	if (!ft_strrchr(file_name, '.')
-		|| ft_strncmp(ft_strrchr(file_name, '.'), ".cub", 4))
+		|| ft_strcmp(ft_strrchr(file_name, '.'), ".cub"))
 		return (ERROR_INT);
 	if (!ft_strrchr(file_name, '/'))
 	{

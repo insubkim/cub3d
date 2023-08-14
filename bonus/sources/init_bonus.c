@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:48:23 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 18:16:51 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/11 13:35:04 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static int	is_texture_set(t_map *map)
 	if (map->north_texture.img == ERROR_POINTER || \
 			map->south_texture.img == ERROR_POINTER || \
 			map->west_texture.img == ERROR_POINTER || \
-			map->east_texture.img == ERROR_POINTER || \
-			map->door_texture.img == ERROR_POINTER)
+			map->east_texture.img == ERROR_POINTER)
 		return (print_error(ERROR_TEXTURE_NOT_SET, ERROR_INT));
 	return (TRUE);
 }
@@ -98,12 +97,10 @@ int	init(char *file_name, t_game *game_info)
 	int		fd;
 	t_list	*list;
 
+	ft_memset(game_info, 0, sizeof(t_game));
 	if (check_file_name(file_name) == ERROR_INT)
 		return (print_error(ERROR_MAP_NAME, ERROR_INT));
-	ft_memset(game_info, 0, sizeof(t_game));
 	game_info->mlx = mlx_init();
-	game_info->win = mlx_new_window(game_info->mlx, \
-			WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	fd = open(file_name, O_RDONLY, 644);
 	if (fd == -1)
 		return (print_error(ERROR_OPEN, ERROR_INT));
@@ -117,5 +114,7 @@ int	init(char *file_name, t_game *game_info)
 		return (ERROR_INT);
 	}
 	ft_lstclear(&list, free);
+	game_info->win = mlx_new_window(game_info->mlx, \
+			WIN_WIDTH, WIN_HEIGHT, "Cub3d");
 	return (TRUE);
 }

@@ -30,7 +30,7 @@ BONUS_OBJS += $(addprefix $(BONUS_OBJS_DIR), $(notdir $(BONUS_SRCS:.c=.o)))
 # -------------------------------- COMPILATE --------------------------------- #
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra 
+CFLAGS	= -Wall -Werror -Wextra
 # -g -fsanitize=address
 RM		= rm -rf
 MD		= mkdir -p 
