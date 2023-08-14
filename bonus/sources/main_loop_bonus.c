@@ -6,7 +6,7 @@
 /*   By: heson <heson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 19:18:56 by inskim            #+#    #+#             */
-/*   Updated: 2023/08/07 16:46:39 by heson            ###   ########.fr       */
+/*   Updated: 2023/08/11 13:37:05 by heson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 
 static void	destroy_game(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->win);
-	mlx_destroy_image(game->mlx, game->img.img);
-	mlx_destroy_image(game->mlx, game->map.north_texture.img);
-	mlx_destroy_image(game->mlx, game->map.south_texture.img);
-	mlx_destroy_image(game->mlx, game->map.west_texture.img);
-	mlx_destroy_image(game->mlx, game->map.east_texture.img);
+	if (game->mlx && game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx && game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->mlx && game->map.north_texture.img)
+		mlx_destroy_image(game->mlx, game->map.north_texture.img);
+	if (game->mlx && game->map.south_texture.img)
+		mlx_destroy_image(game->mlx, game->map.south_texture.img);
+	if (game->mlx && game->map.west_texture.img)
+		mlx_destroy_image(game->mlx, game->map.west_texture.img);
+	if (game->mlx && game->map.east_texture.img)
+		mlx_destroy_image(game->mlx, game->map.east_texture.img);
+	if (game->mlx && game->map.door_texture.img)
+		mlx_destroy_image(game->mlx, game->map.door_texture.img);
 	free_map(&(game->map.board), game->map.height);
 	free_timer(&(game->map.door_timer), game->map.height);
 }
@@ -82,7 +90,10 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (print_error(ERROR_ARG_NUM, ERROR_INT));
 	if (init(argv[1], &game_info) == ERROR_INT)
+	{
+		destroy_game(&game_info);
 		return (1);
+	}
 	if (init_door_timer(&game_info) == ERROR_INT)
 	{
 		destroy_game(&game_info);
