@@ -2,7 +2,7 @@
 
 ## 구조물 정보가 있는 2D 맵을 이용하여 3D로 구현한 프로젝트입니다.
 
-## [시연 영상 보기]([https://www.youtube.com/watch?v=영상_고유_ID](https://youtu.be/vsXJ1L_6Opo))
+## [시연 영상 보기](https://www.youtube.com/watch?v=영상_고유_ID](https://youtu.be/vsXJ1L_6Opo)
 
 ## 구현 기술
 
