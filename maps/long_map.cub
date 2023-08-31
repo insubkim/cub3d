@@ -1,9 +1,9 @@
-NO ./imgs/north.xpm
+NO ./imgs/wall.xpm
 
 SO ./imgs/south.xpm
 WE   ./imgs/west.xpm
 EA                ./imgs/east.xpm
-DO ./imgs/door.xpm
+DO ./imgs/iron_door.xpm
 
 F                    220,100,0
 C 255,225,1
