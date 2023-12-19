@@ -1,9 +1,8 @@
-# cub3D
-
-## 구조물 정보가 있는 2D 맵을 이용하여 3D로 구현한 프로젝트입니다.
-
-## [시연 영상 보기](https://youtu.be/vsXJ1L_6Opo)
-
+# 레이케스팅을 이용한 3D 미로 게임
+---
+![Dec-19-2023 16-44-48](https://github.com/insubkim/cub3d/assets/37211885/ba467eff-e017-4c84-a18f-b71c875652a4)
+## [더 많은 시연 영상 보기](https://youtu.be/vsXJ1L_6Opo)
+---
 ## 구현 기술
 
 ### 레이케스팅 엔진
